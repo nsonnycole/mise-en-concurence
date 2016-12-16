@@ -1,9 +1,0 @@
-10032b,172.17.0.1,GET,http://localhost:8280/,1481896819,,200
-a5daff,172.17.0.1,GET,http://localhost:8280/js/routing?callback=fos.Router.setData,1481896824,,200
-27ec6b,172.17.0.1,GET,http://localhost:8280/login,1481896838,,200
-02ec77,172.17.0.1,GET,http://localhost:8280/js/routing?callback=fos.Router.setData,1481896839,,200
-133999,172.17.0.1,POST,http://localhost:8280/login_check,1481896846,,302
-e47c2b,172.17.0.1,POST,http://localhost:8280/login_check,1481896917,,302
-fbb7e8,172.17.0.1,GET,http://localhost:8280/login,1481897237,,200
-281fe1,172.17.0.1,GET,http://localhost:8280/js/routing?callback=fos.Router.setData,1481897238,,200
-911610,172.17.0.1,POST,http://localhost:8280/login_check,1481897251,,302

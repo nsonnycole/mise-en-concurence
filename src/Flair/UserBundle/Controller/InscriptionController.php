@@ -47,7 +47,7 @@ class InscriptionController extends CoreController
             $em->persist($organisme);
             $em->flush();
 
-            $this->sendConfirmationEmail($organisme);
+            // $this->sendConfirmationEmail($organisme);
 
             return $this->render('FlairUserBundle:Inscription:inscriptionSuccess.html.twig');
         }

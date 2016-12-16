@@ -1,0 +1,37 @@
+{% extends '::base.html.twig' %}
+
+{% set active = constant('Flair\\OrganismeBundle\\FlairOrganismeBundle::CONSULTATIONS') %}
+{% set DRAFT = constant("Flair\\CoreBundle\\Entity\\Consultation::DRAFT") %}
+{% set PUBLISHED = constant("Flair\\CoreBundle\\Entity\\Consultation::PUBLISHED") %}
+{% set SELECTED = constant("Flair\\CoreBundle\\Entity\\Consultation::SELECTED") %}
+{% set STARTED = constant("Flair\\CoreBundle\\Entity\\Consultation::STARTED") %}
+{% set FINISHED = constant("Flair\\CoreBundle\\Entity\\Consultation::FINISHED") %}
+{% set CLOSED = constant("Flair\\CoreBundle\\Entity\\Consultation::CLOSED") %}
+{% set CANCEL = constant("Flair\\CoreBundle\\Entity\\Consultation::CANCELLED") %}
+
+{% block javascripts %}
+    {{ parent() }}
+{% endblock %}
+
+{% block inlineScript %}
+<script type="text/javascript">
+    $(function() {
+        $('.item.js_prevent').click(function() {
+            if ($(this).attr('data-url') && $(this).attr('data-url') !== window.location.href) {
+                var confirm = window.confirm('Toutes vos modifications seront annulées si vous quittez cette étape, pensez à enregistrer en brouillon.');
+                if (confirm) {
+                    window.location.href = $(this).attr('data-url');
+                } else {
+                    return false;
+                }
+            }
+        });
+        $('.item.go_url').click(function() {
+            if ($(this).attr('data-url') && $(this).attr('data-url') !== window.location.href && ($(this).attr('step') !== "1") && $(this).attr('data-url').length > 0) {
+                console.log($(this).attr('data-url'));
+                    window.location.href = $(this).attr('data-url');
+            }
+        });
+    });
+</script>
+{% endblock %}

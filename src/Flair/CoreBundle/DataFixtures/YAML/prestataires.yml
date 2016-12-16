@@ -1,0 +1,27 @@
+-
+    email: prestataire@example.com
+    nom: Widop
+    siret: 123456789
+    adresse: Rue de chanzy
+    ville: Lezennes
+    codePostal: 59700
+    dateCreation: 01/01/2014
+    perimetre: local
+    telephone: 0121444546
+    mobile: 0614545454
+    prenomContact: Damien
+    nomContact: Abgrall
+
+-
+    email: prestataire1@example.com
+    nom: Sensio labs
+    siret: 987654321
+    adresse: Rue de Symfony
+    ville: Paris
+    codePostal: 75100
+    dateCreation: 01/01/2014
+    perimetre: national
+    telephone: 0123465789
+    mobile: 0812345678
+    prenomContact: Fabien
+    nomContact: Potencier

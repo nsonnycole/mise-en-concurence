@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>Mise en concurrence</title>
+        <link rel="icon" type="image/x-icon" href="/favicon.ico?v1" />
+
+        {% stylesheets '@FlairCoreBundle/Resources/assets/less/layout.less' output = 'css/style.css' %}
+            <link rel="stylesheet" type="text/css" media="screen" href="{{ asset_url }}" />
+        {% endstylesheets %}
+        <link rel="stylesheet" type="text/css" media="screen" href="{{ asset('stylesheets/select2.min.css') }}" />
+        <link rel="stylesheet" type="text/css" media="screen" href="{{ asset('jquery-ui/jquery-ui.min.css') }}" />
+        <link rel="stylesheet" type="text/css" href="{{ asset('font-awesome-4.5.0/css/font-awesome.min.css') }}">
+        <script type="text/javascript" src="{{ asset('jquery/jquery.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('jquery/jquery.cookie.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('jquery/jquery.fancybox.js') }}"></script>
+
+    </head>
+
+    <body>
+        <div id="global-container">
+            <header class="inner">
+                <a class="logo" href="{{ url('Homepage') }}">
+                    <img src="{{ asset('images/header-logo.png') }}">
+                </a>
+
+                <div class="button_container">
+                    {% if not is_granted('ROLE_USER') %}
+                        {% if hideInscription is not defined %}
+                            <a href="{{ url('flair_user_inscription_organisme') }}" class="btn orange">S'inscrire</a>
+                        {% endif %}
+                        <a href="{{ url('login') }}" class="btn">Se connecter</a>
+                    {% else %}
+                        <span>{{ app.user.nom }}</span>
+                        <a href="{{ url('logout') }}" class="btn">Se déconnecter</a>
+                    {% endif %}
+                </div>
+
+                {% if active is not defined %}{% set active = null %}{% endif %}
+
+                {% if is_granted('ROLE_ORGANISME') %}
+                    {% include '::menu/organisme.html.twig' %}
+                {% elseif is_granted('ROLE_PRESTATAIRE') %}
+                     {% include '::menu/prestataire.html.twig' %}
+                {% endif %}
+            </header>
+
+            <div class="container">
+                {% block body %}{% endblock %}
+            </div>
+        </div>
+
+        <footer>
+            <div class="inner clearfix">
+                <ul class="copyright">
+                    <li>Mise-en-concurrence.com &copy; {{ "now" | date('Y') }}</li>
+                </ul>
+                <ul class="footer_menu">
+                    <li><a href="mailto:contact@mise-en-concurrence.fr">Nous contacter</a></li>
+                    <li><a href="{{ asset('CGU.pdf')}}">CGU</a></li>
+                    <li><a href="{{ url('FAQ') }}">FAQ</a></li>
+                    <li><a href="{{ url('Mentions_legales') }}">Mentions légales</a></li>
+                    <li><a id="js-scroll-top" href="#" class="btn orange no-radius black bold">Haut de page</a></li>
+                </ul>
+            </div>
+        </footer>
+
+
+        <script type="text/javascript" src="{{ asset('javascripts/jquery-ui-1.10.3.min.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('javascripts/jquery-ui-datepicker.fr.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('javascripts/jquery-placeholder.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('javascripts/jquery-datatables.min.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+        <script type="text/javascript" src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
+        <script type="text/javascript" src="{{ asset('javascripts/select2.min.js')}}"></script>
+
+
+
+        {% block javascripts %}
+            {% javascripts filter="coffeescript" output="javascripts/main.js"
+                '@FlairCoreBundle/Resources/assets/coffee/main.coffee'
+                '@FlairCoreBundle/Resources/assets/coffee/categories.coffee'
+            %}
+            <script type="text/javascript" src="{{ asset_url }}"></script>
+            {% endjavascripts %}
+        {% endblock %}
+        {% block inlineScript %}{% endblock %}
+    </body>
+</html>

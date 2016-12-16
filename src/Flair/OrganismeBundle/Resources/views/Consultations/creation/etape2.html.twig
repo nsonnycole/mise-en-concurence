@@ -1,0 +1,72 @@
+{% extends 'FlairOrganismeBundle::consultations.html.twig' %}
+
+{% block body %}
+    <div class="inner">
+        <div class="title title-table">
+            <h2 class="left-bar">
+                {{ consultation.titre }}
+            </h2>
+
+            <div class="btn-bar right">
+                <a href="{{ url('Organisme_consultations') }}" class="btn orange no-radius">
+                <i class="fa fa-undo"></i>
+
+                    Retour à la liste
+                </a>
+                <div class="corner"></div>
+            </div>
+        </div>
+
+        {% set vars = { 'consultation' : consultation, 'step' : 1 } %}
+
+        {% include 'FlairOrganismeBundle:Consultations:creation/menuCreation.html.twig' with vars %}
+
+        <div class="consultation-content">
+            {% if consultation is defined %}
+                {% set vars = { 'consultation' : consultation, 'step' : 2} %}
+            {% else %}
+                {% set vars = { 'step' : 2 } %}
+            {% endif %}
+
+            {% include 'FlairOrganismeBundle:Consultations:creation/subMenuCreation.html.twig' with vars %}
+
+            <form action="{{ url('Organisme_creation_consultation_etape2', {'id' : consultation.id } ) }}" method="post" class="form-horizontal">
+
+                <div class="control-group">
+                    {{ form_label(form.prixMinimum) }}
+                    <div class="controls">
+                        {% if form_errors(form.prixMinimum) | length > 0 or form_errors(form.prixMaximum) | length > 0 %}
+                            <ul class="error-list">
+                                {{ form_errors(form.prixMinimum) }}
+                                {{ form_errors(form.prixMaximum) }}
+                            </ul>
+                        {% endif %}
+                        {{ form_widget(form.prixMinimum) }}
+                        et
+                        {{ form_widget(form.prixMaximum) }}
+                        <span class="help-inline">à titre indicatif</span>
+                    </div>
+                </div>
+
+                {{ form_rest(form) }}
+
+                
+
+                <div class="actions">
+                    <input class="btn js_draft" name="brouillon" type="submit" value="Enregistrer en brouillon"/>
+                    <input class="btn orange next" name="publier" type="submit" value="Suivant" />
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    {% javascripts filter="coffeescript"
+        '@FlairCoreBundle/Resources/assets/coffee/input-toggle.coffee'
+    %}
+    <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+{% endblock %}

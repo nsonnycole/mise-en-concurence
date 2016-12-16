@@ -1,0 +1,30 @@
+{% extends '::base.html.twig' %}
+
+{% block body %}
+<div class="inner">
+
+    <div class="title title-table">
+        <h2 class="left-bar">
+		    Inviter un utilisateur
+        </h2>
+
+        <div class="btn-bar right">
+            <a onClick="window.history.go(-1);" class="btn orange no-radius">
+            <i class="fa fa-undo"></i>
+                Annuler
+            </a>
+            <div class="corner"></div>
+        </div>
+    </div>
+
+    <form action="{{ url('flair_user_invitation_send') }}" method="POST" class="form-horizontal">
+        {{ form_rest(form) }}
+
+        <div class="controls">
+            <input type="submit" value="Inviter" class="btn orange" />
+            <a onClick="window.history.go(-1);" class="btn">Annuler</a>
+        </div>
+    </form>
+
+</div>
+{% endblock %}

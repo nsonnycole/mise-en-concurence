@@ -1,0 +1,39 @@
+<?xml version="1.0" ?>
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <parameters>
+        <parameter key="flair.abstract_mailer.class">Flair\CoreBundle\Mailers\AbstractMailer</parameter>
+        <parameter key="flair.mailer.consultation.class">Flair\CoreBundle\Mailers\ConsultationMailer</parameter>
+        <parameter key="flair.mailer.question.class">Flair\CoreBundle\Mailers\QuestionMailer</parameter>
+    </parameters>
+
+    <services>
+
+        <!-- ABSTRACT MAILER -->
+        <service id="flair.abstract_mailer" class="%flair.abstract_mailer.class%" abstract="true">
+            <call method="setMailer">
+                <argument id="mailer" type="service" />
+            </call>
+
+            <call method="setTemplating">
+                <argument id="templating" type="service" />
+            </call>
+        </service>
+
+        <!-- CONSULTATION -->
+        <service id="flair.mailer.consultation" class="%flair.mailer.consultation.class%" parent="flair.abstract_mailer">
+            <tag name="kernel.event_listener" event="flair.event.consultation.diffusion" method="sendDiffusion" />
+            <tag name="kernel.event_listener" event="flair.event.consultation.annulation" method="sendAnnulation" />
+            <tag name="kernel.event_listener" event="flair.event.consultation.new_reponse" method="sendNewReponse" />
+            <tag name="kernel.event_listener" event="flair.event.consultation.reponse_selected" method="sendReponseSelected" />
+        </service>
+
+        <!-- QUESTIONS -->
+        <service id="flair.mailer.question" class="%flair.mailer.question.class%" parent="flair.abstract_mailer">
+            <tag name="kernel.event_listener" event="flair.event.question.new_question" method="sendNewQuestion" />
+            <tag name="kernel.event_listener" event="flair.event.question.new_answer" method="sendNewAnswer" />
+        </service>
+    </services>
+</container>

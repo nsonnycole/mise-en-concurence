@@ -1,0 +1,201 @@
+{% extends '::base.html.twig' %}
+{% set hideInscription = true %}
+
+{% form_theme form _self %}
+
+{% block _flair_inscription_prestataire_form_cgu_row %}
+    <div class="control-group"><label class="control-label required" for="flair_inscription_prestataire_form_cgu">
+        J'accepte les <a href="{{ asset('CGU.pdf')}}" target="_blank">CGU</a>
+        <span class="required-flag">*</span></label>
+        <div class="controls">
+            {{ form_widget(form) }}
+        </div>
+    </div>
+{% endblock %}
+
+{% block body %}
+<div class="inner">
+    <div class="prefix_1">
+        <div class="title title-table">
+            <h2 class="left-bar">
+                Devenir prestataire
+            </h2>
+            <div class="btn-bar right">
+                <div class="corner"></div>
+            </div>
+        </div>
+
+        <p style="width: 1080px; font-size: 14px;">L’application mise en concurrence vous permet de répondre simplement et rapidement en ligne, de suivre vos propositions et de développer votre clientèle. En effet, une fois référencée vous pouvez être sollicité par l’ensemble de la communauté des acheteurs.</p>
+
+        {{ form_errors(form) }}
+
+        <form method="POST" class="form-horizontal" {{ form_enctype(form) }} id="inscription">
+
+            {{ form_row(form.email) }}
+            {{ form_row(form.password) }}
+
+            <h2 class="information">Informations sur l'entreprise</h2>
+            {{ form_row(form.nom) }}
+            {{ form_row(form.dateCreation) }}
+            {{ form_row(form.siren) }}
+            {{ include("FlairUserBundle:Categories:prestataire.html.twig", { form: form, url: url('Categories_inscription_prestataire'), inscription: "inscription" }, with_context = false) }}
+            {{ form_row(form.perimetreIntervention) }}
+            {{ form_row(form.adresse) }}
+            {{ form_row(form.complementAdresse) }}
+
+            <div class="control-group toggleShow">
+                    <div class="information">Suite</div>
+                    <div class="ui-icon ui-icon-circle-arrow-s">
+                    </div>
+            </div>
+
+            <div class="moreFields hide">
+               {{ form_row(form.presentation) }}
+                {{ form_row(form.refs) }}
+                {{ form_row(form.tags, { 'attr': {'class': 'tag-select hide', 'multiple': 'multiple'}}) }}
+                <div class="controls" style="margin-bottom: 20px;">
+                    <i style="display:block; text-align:justify;width:250px;">Cette liste de mots clés servira à vous référencer sur le moteur de recherche de la plateforme, veuillez être le plus précis possible.</i>
+                </div>
+                {{ form_row(form.siret) }}
+                {{ form_row(form.ape) }}
+                {{ form_row(form.tvaIntracommunautaire) }}
+                {{ form_row(form.prenomContact) }}
+                {{ form_row(form.nomContact) }}
+                {{ form_row(form.ville) }}
+                {{ form_row(form.codePostal) }}
+                {{ form_row(form.telephone) }}
+                {{ form_row(form.mobile) }}
+
+                <div class="control-group">
+                    {{ form_label(form.urssaf) }}
+                    <div class="controls file-input">
+                        {{ form_errors(form.urssaf.document) }}
+                        {{ form_widget(form.urssaf.document) }}
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    {{ form_label(form.impots) }}
+                    <div class="controls file-input">
+                        {{ form_errors(form.impots.document) }}
+                        {{ form_widget(form.impots.document) }}
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    {{ form_label(form.kbis) }}
+                    <div class="controls file-input">
+                        {{ form_errors(form.kbis.document) }}
+                        {{ form_widget(form.kbis.document) }}
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    {{ form_label(form.presentationDoc) }}
+                    <div class="controls file-input">
+                        {{ form_errors(form.presentationDoc.document) }}
+                        {{ form_widget(form.presentationDoc.document) }}
+                    </div>
+                </div>
+            </div>
+
+            {{ form_row(form.cgu) }}
+
+            {{ form_widget(form._token) }}
+
+            <div class="controls">
+                <input type="submit" id="submitForm" value="S'inscrire" class="btn orange" />
+            </div>
+
+            <div class="control-group">
+                <div class="controls file-input">
+                    <i><span class="required-flag">*</span> Champs obligatoires</i>
+                </div>
+            </div>
+            <div class="hide tags">
+                {% for tag in tags %}
+                    <span class="tag">{{ tag }}</span>
+                {% endfor %}
+            </div>
+        </form>
+
+    </div>
+</div>
+{% endblock body %}
+
+{% block inlineScript %}
+    {{ parent() }}
+    <script type="text/javascript">
+        $(function() {
+            $('.toggleShow').mousedown(toggleShow);
+
+            function toggleShow() {
+                $('.moreFields').toggle(1000);
+                $(this).find('.ui-icon').toggleClass('ui-icon-circle-arrow-s ui-icon-circle-arrow-n');
+                $(this).find('.information').text("Suite");
+                console.log($(this).find('.ui-icon-circle-arrow-s').length)
+                if ($(this).find('.ui-icon-circle-arrow-s').length === 0) {
+                    $(this).find('.information').text("Voir moins");
+
+                    return false;
+                }
+
+            }
+            $(".tag-select").select2({
+                tags: true,
+                placeholder: "Filtrez par mot clé"
+            });
+
+            initTags();
+
+            function initTags() {
+                var tags = [];
+
+                $('.tags .tag').each(function(index, key) {
+                    tags.push($(key).text());
+                });
+
+                for (var i = 0; i < tags.length; i ++) {
+                    $('.selvect2-selection__rendered').prepend("<li class='select2-selection__choice'><span class='select2-selection__choice__remove'>x</span>"+tags[i]+"</li>")
+                }
+
+                $('.select2-selection__choice__remove').mousedown(removeTag);
+
+                function removeTag() {
+                    $(this).parent().remove();
+                }
+            }
+
+            $(".select2.select2-container").css("width", "250px");
+            $(".tag-select").removeClass("hide");
+            $("#submitForm").mousedown(function() {
+                var listTags = "";
+                $('#flair_inscription_prestataire_form_tags').attr('name', 'tags');
+                $('.select2-selection__choice span').remove();
+                $('.select2-selection__choice').each(function(index, key) {
+                    if (($('.select2-selection__choice').length -1) == index) {
+                        listTags += $(key).text();
+                    } else {
+                        listTags += $(key).text() + ",";
+                    }
+                });
+                $("#inscription").append($(document.createElement('input')).attr('name', 'tagList').addClass('hide').val(listTags));
+                var formData = new FormData(document.getElementById("inscription"));
+
+                var token = "{{ token }}";
+
+                var url = (token !== null) ?
+                        Routing.generate('flair_user_invitation_accept', {'token' : "{{ token }}" }) :
+                        Routing.generate("flair_user_inscription_prestataire");
+
+                $.ajax({
+                    url: url,
+                    type: "POST",
+                    data: formData,
+                    processData: false,
+                    cache: false
+                });
+            });
+        });
+    </script>
+{% endblock %}

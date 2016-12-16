@@ -1,0 +1,97 @@
+{% extends 'FlairOrganismeBundle::consultations.html.twig' %}
+
+{% set DECLINE = constant('Flair\\CoreBundle\\Entity\\Reponse::DECLINE') %}
+
+{% block body %}
+    <div class="inner">
+
+        <div class="title title-table">
+            <h2 class="left-bar">
+                Consultation : {{ consultation.titre }}
+            </h2>
+
+            <div class="btn-bar right">
+                <a href="{{ url('Organisme_consultations') }}" class="btn orange no-radius">
+                <i class="fa fa-undo"></i>
+                    Retour à la liste
+                </a>
+                <div class="corner"></div>
+            </div>
+        </div>
+
+        {% set vars = { 'consultation' : consultation, 'step' : 3 } %}
+
+        {% include 'FlairOrganismeBundle:Consultations:creation/menuCreation.html.twig' with vars %}
+
+        <div class="consultation-content follow">
+            <div class="menu-tab">
+                <a class="active item questions">
+                    Propositions
+                </a>
+                <a class="item answers" href="{{ url('Organisme_consultation_questions' , { 'id' : consultation.id })}}">
+                    Questions
+
+                    {% if consultation.hasUnansweredQuestions %}
+                        <img style="float:right; padding-right: 10px;" src="{{ asset('images/icon_question.png') }}" alt="" data-title="Cette consultation a des questions en attente" title="">
+                    {% endif %}
+                </a>
+
+                <span class="date">
+                    CLÔTURE : {{ consultation.dateLimite | localizeddate('full', 'none') }}, dans
+                    {{ consultation.dateLimite | date('d-M-Y') | date_diff("now" | date('d-M-Y')) }} jours
+                </span>
+            </div>
+
+            <p id="sub-title">Visualisez les propositions et sélectionner votre prestataire</p>
+
+            <table class="table consultation consultation-documents">
+                <thead>
+                    <tr>
+                        <th width="15%">Société</th>
+                        <th width="15%">Montant HT</th>
+                        <th width="25%">Date de la réponse</th>
+                        <th class="center" width="25%">Statut</th>
+                        <th class="center" width="20">Actions</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                {% for reponse in reponses %}
+                    <tr>
+                        <td>
+                            {{ reponse.prestataire.nom }}
+                        </td>
+                        <td>
+                            {% if reponse.montantHt != 0 %}
+                                {{ reponse.montantHt | euros }}
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if reponse.dateReponse is not empty %}
+                                {{ reponse.dateReponse | date('d-m-Y') }}
+                            {% endif %}
+                        </td>
+                        <td>{{ reponse | reponse_statut }}</td>
+                        <td>
+                            <a href="{{ url('Organisme_consultation_reponse', { 'id' :reponse.id } ) }}" class="btn-reflate btn answer">Voir la réponse</a>
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="5">Aucune proposition pour l'instant...</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+
+            <div class="actions">
+                <a href="{{ url('Organisme_consultation_annuler', { 'id' : consultation.id }) }}" class="btn cancel js_confirm" data-confirm="Etes-vous sûr de vouloir supprimer cette mise en concurrence?">Supprimer la consultation</a>
+                <a style="margin-left:10px;" class="btn orange next" href="{{ url('Organisme_consultation_selectionner', { 'id': consultation.id})}}">Suivant</a>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block inlineScript %}
+    {{ parent() }}
+{% endblock %}

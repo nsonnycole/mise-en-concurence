@@ -1,0 +1,60 @@
+services:
+  sonata.block.service.souscategorie:
+    class: Flair\AdminBundle\Admin\BlockAdmin
+    arguments:
+        - sonata.block.service.souscategorie
+        - @templating
+    tags:
+        - { name: sonata.block }
+
+  admin.organisme:
+    class: Flair\AdminBundle\Admin\OrganismeAdmin
+    arguments: [~, Flair\UserBundle\Entity\Organisme, ~]
+    tags:
+      - { name: sonata.admin, manager_type: orm, group: "Utilisateurs", label: Organisme }
+
+  admin.prestataire:
+    class: Flair\AdminBundle\Admin\PrestataireAdmin
+    arguments: [~, Flair\UserBundle\Entity\Prestataire, ~]
+    tags:
+      - { name: sonata.admin, manager_type: orm, group: "Utilisateurs", label: Prestataire }
+
+  admin.consultation:
+    class: Flair\AdminBundle\Admin\ConsultationAdmin
+    arguments: [~, Flair\CoreBundle\Entity\Consultation, ~]
+    tags:
+      - { name: sonata.admin, manager_type: orm, group: "Consultations",label: Consultation }
+
+  admin.proposition:
+    class: Flair\AdminBundle\Admin\PropositionAdmin
+    arguments: [~, Flair\CoreBundle\Entity\Reponse, ~]
+    tags:
+      - { name: sonata.admin, manager_type: orm, group: "Consultations", label: Proposition }
+
+  admin.souscategorie_organisme:
+    class: Flair\AdminBundle\Admin\SousCategorieOrganismeAdmin
+    arguments: [~, Flair\UserBundle\Entity\CategorieOrganisme, ~]
+    tags:
+      - { name: sonata.admin, manager_type: orm, label: Sous-Catégorie Organisme }
+
+  admin.souscategorie_prestataire:
+    class: Flair\AdminBundle\Admin\SousCategoriePrestataireAdmin
+    arguments: [~, Flair\UserBundle\Entity\CategoriePrestataire, ~]
+    tags:
+      - { name: sonata.admin, manager_type: orm, label: Sous-Catégorie Prestataire }
+
+  admin.categorie_organisme:
+    class: Flair\AdminBundle\Admin\CategorieOrganismeAdmin
+    arguments: [~, Flair\UserBundle\Entity\CategorieOrganisme, ~]
+    tags:
+      - { name: sonata.admin, manager_type: orm, group: "Catégories", label: Catégorie Organisme }
+    calls:
+      - [addChild, ['@admin.souscategorie_organisme']]
+
+  admin.categorie_prestataire:
+    class: Flair\AdminBundle\Admin\CategoriePrestataireAdmin
+    arguments: [~, Flair\UserBundle\Entity\CategoriePrestataire, ~]
+    tags:
+      - { name: sonata.admin, manager_type: orm, group: "Catégories", label: Catégorie Prestataire }
+    calls:
+      - [addChild, ['@admin.souscategorie_prestataire']]

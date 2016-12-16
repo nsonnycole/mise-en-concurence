@@ -1,0 +1,37 @@
+<div class="menu-nav">
+    {% if consultation is defined %}
+        <div class="{{ (consultation.statut == DRAFT) ? 'js_prevent' : 'go_url' }} item {{ (step == 1) ? 'active' : '' }}" data-url="{{ (consultation.statut == DRAFT) ? url('Organisme_creation_consultation_etape1_modifier', { 'id' : consultation.id }) : '' }}" step="1">
+    {% else %}
+        <div class="js_prevent item {{ (step == 1) ? 'active' : '' }}">
+    {% endif %}
+        <span class="step">1</span>
+        <span class="text">Formuler votre besoin</span>
+    </div>
+
+    {% if consultation is defined %}
+        <div class="{{ (consultation.statut == DRAFT) ? 'js_prevent' : 'go_url' }} item {{ (step == 2) ? 'active' : '' }}" data-url="{{ url('Organisme_consultation_publier', { 'id' : consultation.id })}}" step="2">
+    {% else %}
+        <div class="js_prevent item {{ (step == 2) ? 'active' : '' }}">
+    {% endif %}
+        <span class="step">2</span>
+        <span class="text">Publier votre consultation</span>
+    </div>
+
+    {% if consultation is defined and consultation.statut == PUBLISHED %}
+        <div class="{{ (consultation.statut == DRAFT) ? 'js_prevent' : 'go_url' }} item {{ (step == 3) ? 'active' : '' }}" data-url="{{ url('Organisme_consultation_reponses', { 'id' : consultation.id })}}">
+    {% else %}
+        <div class="js_prevent item {{ (step == 3) ? 'active' : '' }}" step="3">
+    {% endif %}
+        <span class="step">3</span>
+        <span class="text">Suivre les propositions</span>
+    </div>
+
+    {% if consultation is defined and consultation.statut == PUBLISHED %}
+        <div class="{{ (consultation.statut == DRAFT) ? 'js_prevent' : 'go_url' }} item {{ (step == 4) ? 'active' : '' }}" data-url="{{ url('Organisme_consultation_selectionner', { 'id': consultation.id})}}">
+    {% else %}
+        <div class="js_prevent item {{ (step == 4) ? 'active' : '' }}" step="4">
+    {% endif %}
+        <span class="step">4</span>
+        <span class="text">Sélectionner la meilleure proposition</span>
+    </div>
+</div>

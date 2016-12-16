@@ -1,0 +1,51 @@
+<!-- Si la consultation est passée ou déclinée ou que le prestataire a donné une réponse, alors on a pas accès aux autres onglets. -->
+
+{% set ANSWERED = constant('Flair\\CoreBundle\\Entity\\Reponse::ANSWERED') %}
+
+ {% if reponse.consultation.dateLimite | after_now and reponse.statut != DECLINE and reponse.statut != ANSWERED %}
+    {% set url = true %}
+{% else %}
+    {% set url = false %}
+{% endif %}
+
+<div class="menu-nav menu-step">
+    {% if url %}
+        <div data-url="{{ (step != 1) ? url('Prestataire_propositions_etape_one', { 'id': reponse.id }) : '' }}" class="item {{ (step == 1) ? 'active' : '' }}">
+    {% else %}
+        <div data-url="" class="item {{ (step == 1) ? 'active' : '' }}">
+    {% endif %}
+        <span class="step-big">1</span>
+            Réponse
+        </div>
+
+    {% if url %}
+        <div data-url="{{ (step != 1) ? url('Prestataire_propositions_etape_two_saisie', { 'id': reponse.id }) : '' }}" class="item {{ (step == 2) ? 'active' : '' }}">
+    {% else %}
+        <div data-url="" class="item {{ (step == 2) ? 'active' : '' }}">
+    {% endif %}
+            <span class="step-big">2</span>
+            Devis
+        </div>
+
+    {% if url %}
+        <div data-url="{{ (step != 1 and step != 2) ? url('Prestataire_propositions_etape_three', { 'id': reponse.id }) : '' }}" class="item {{ (step == 3) ? 'active' : '' }}">
+    {% else %}
+        <div data-url="" class="item {{ (step == 3) ? 'active' : '' }}">
+    {% endif %}
+        <span class="step-big">3</span>
+            Documents
+        </div>
+
+    {% if url %}
+        <div data-url="{{ (step != 1 and step != 2) ? url('Prestataire_propositions_etape_four', { 'id': reponse.id }) : '' }}" class="item {{ (step == 4) ? 'active' : '' }}">
+    {% else %}
+        <div data-url="" class="item {{ (step == 4) ? 'active' : '' }}">
+    {% endif %}
+        <span class="step-big">4</span>
+        {% if reponse.consultation.dateLimite | after_now and reponse.statut != DECLINE and reponse.statut != ANSWERED %}
+            Envoi
+        {% else %}
+           Résumer
+        {% endif %}
+        </div>
+</div>

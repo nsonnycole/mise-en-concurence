@@ -1,0 +1,15 @@
+<p>Bonjour,</p>
+
+<p>
+    Vous venez de recevoir une consultation intitulée « {{ consultation.titre }}».
+    Afin d'en prendre connaissance, veuillez cliquez <a href="{{ url('Prestataire_propositions_afficher', {'id' : reponse.id } ) }}">ici</a>.
+</p>
+
+<p>
+	Si vous ne pouvez pas répondre à cette consultation merci de décliner l’invitation, en cliquant <a href="{{ url('Prestataire_proposition_annuler', { 'id' : reponse.id }) }}">ici</a>.
+</p>
+
+<p>
+    Cordialement, <br/>
+    L'équipe de Mise-en-concurrence
+</p>

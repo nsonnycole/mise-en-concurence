@@ -1,0 +1,25 @@
+<div class="sub-menu">
+    {% if consultation is not defined %}
+        <a step="{{ step }}" class="js_prevent item {{ (step == 1) ? 'active' : '' }}">
+    {% else %}
+        <a step="{{ step }}" class="js_prevent item {{ (step == 1) ? 'active' : '' }}" data-url="{{ url('Organisme_creation_consultation_etape1_modifier', { 'id' : consultation.id })}}">
+    {% endif %}
+            1. Description
+        </a>
+
+    {% if consultation is not defined %}
+        <a step="{{ step }}" class="item js_prevent {{ (step == 2) ? 'active' : '' }}">
+    {% else %}
+        <a step="{{ step }}" class="item js_prevent {{ (step == 2) ? 'active' : '' }}" data-url="{{ url('Organisme_creation_consultation_etape2', { 'id' : consultation.id })}}">
+    {% endif %}
+            2. Contraintes
+        </a>
+
+    {% if consultation is not defined %}
+        <a step="{{ step }}" class="item js_prevent {{ (step == 3) ? 'active' : '' }}">
+    {% else %}
+        <a step="{{ step }}" class="item js_prevent {{ (step == 3) ? 'active' : '' }}" data-url="{{ url('Organisme_creation_consultation_etape3', { 'id' : consultation.id })}}">
+    {% endif %}
+            3. Documents
+        </a>
+</div>

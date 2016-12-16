@@ -1,0 +1,36 @@
+<?xml version="1.0" ?>
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <parameters>
+        <parameter key="flair.mailer.inscription.class">Flair\UserBundle\Mailers\InscriptionMailer</parameter>
+        <parameter key="flair.mailer.security.class">Flair\UserBundle\Mailers\SecurityMailer</parameter>
+        <parameter key="flair.mailer.invitation.class">Flair\UserBundle\Mailers\InvitationMailer</parameter>
+    </parameters>
+
+    <services>
+
+        <!-- INSCRIPTION -->
+        <service id="flair.mailer.inscription" class="%flair.mailer.inscription.class%" parent="flair.abstract_mailer">
+            <tag name="kernel.event_listener" event="flair.event.inscription.email_confirmation" method="sendConfirmation" />
+        </service>
+
+        <!-- INVITATION -->
+        <service id="flair.mailer.invitation" class="%flair.mailer.invitation.class%" parent="flair.abstract_mailer">
+            <tag name="kernel.event_listener" event="flair.event.invitations.new" method="sendInvitation" />
+            <tag name="kernel.event_listener" event="flair.event.invitations.accepted" method="sendConfirmation" />
+            <!--<tag name="kernel.event_listener" event="flair.event.invitations.accepted" method="sendBienvenue" />-->
+            <tag name="kernel.event_listener" event="flair.event.invitations.renew" method="sendRelance" />
+            <tag name="kernel.event_listener" event="flair.event.invitations.refused" method="sendRefuse" />
+        </service>
+
+        <!-- SECURITY -->
+        <service id="flair.mailer.security" class="%flair.mailer.security.class%" parent="flair.abstract_mailer">
+            <tag name="kernel.event_listener" event="flair.event.security.motdepasse_oublie" method="sendReset" />
+        </service>
+
+    </services>
+
+</container>
+

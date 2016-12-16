@@ -1,0 +1,193 @@
+{% extends 'FlairPrestataireBundle::profil.html.twig' %}
+
+{% block body %}
+<div class="inner">
+
+    <div class="title title-table">
+        <h2 class="left-bar">
+            Mon compte
+        </h2>
+
+        <div class="btn-bar right">
+            <a href="{{ url('flair_user_profil_edit') }}" class="btn orange no-radius"><i class="fa fa-pencil"></i>
+ Modifier</a>
+            <a href="{{ url('flair_user_profil_password') }}" class="btn orange no-radius"><i class="fa fa-lock"></i>
+ Changer mon mot de passe</a>
+
+            {% if is_granted("ROLE_GESTIONNAIRE") %}
+            <a href="{{ url('flair_user_invitation_list') }}" class="btn orange no-radius"><i class="fa fa-user-plus"></i>
+ Invitations</a>
+            {% endif %}
+            <div class="corner"></div>
+        </div>
+    </div>
+
+    <div class="account-infos">
+        <div class="left-infos">
+            <div class="line-show clearfix">
+                <span class="title">Adresse email</span>
+                <span>{{ utilisateur.email }}</span>
+            </div>
+
+            <div class="line-show clearfix">
+                <span class="title">Contact</span>
+                <span>{{ utilisateur.nomComplet }}</span>
+            </div>
+
+            <div class="line-show clearfix">
+                <span class="title">Nom</span>
+                <span>{{ utilisateur.nom }}</span>
+            </div>
+
+            <div class="line-show clearfix">
+                <span class="title">Catégorie</span>
+                <span>
+                    {{ utilisateur.categorie }}
+                </span>
+            </div>
+
+            <div class="line-show clearfix">
+                <span class="title">Adresse</span>
+                <span>
+                    {{ utilisateur.adresse }}<br>
+                    {{ utilisateur.complementAdresse }}<br/>
+                    {{ utilisateur.codePostal }} {{ utilisateur.ville }}
+                </span>
+            </div>
+
+            <div class="line-show clearfix">
+                <span class="title">Complément d'adrese</span>
+                <span>
+                    {{ utilisateur.complementAdresse }}<br>
+                    {{ utilisateur.codePostal }} {{ utilisateur.ville }}
+                </span>
+            </div>
+
+            <div class="line-show clearfix">
+                <span class="title">Périmètre d'intervention</span>
+                <span>{{ utilisateur.perimetreIntervention | capitalize }}</span>
+            </div>
+
+            <div class="line-show clearfix">
+                <span class="title">Date de création</span>
+                <span>{{ utilisateur.dateCreation | date('d-m-Y') }}</span>
+            </div>
+
+            <div class="line-show clearfix">
+                <span class="title">Téléphone</span>
+                <span>{{ utilisateur.telephone }}</span>
+            </div>
+
+            <div class="line-show clearfix">
+                <span class="title">Mobile</span>
+                <span>{{ utilisateur.mobile }}</span>
+            </div>
+
+            <div class="line-show clearfix">
+                <span class="title">Mots clés</span>
+                <span>
+                    {% for tag in utilisateur.tags %}
+                        {{ tag.name }}{% if not loop.last %},{% endif %}
+                    {% endfor %}
+                </span>
+            </div>
+        </div>
+
+        <div class="right-infos">
+            <div class="line-show clearfix">
+                <span class="title">SIRET</span>
+                <span>{{ utilisateur.siret }}</span>
+            </div>
+
+
+            <div class="line-show clearfix">
+                <span class="title">SIREN</span>
+                <span>{{ utilisateur.siren }}</span>
+            </div>
+
+            <div class="line-show clearfix">
+                <span class="title">APE</span>
+                <span>{{ utilisateur.ape }}</span>
+            </div>
+
+            <div class="line-show clearfix">
+                <span class="title">Références</span>
+                <span>{{ utilisateur.refs }}</span>
+            </div>
+
+            <div class="line-show clearfix">
+                <span class="title">Présentation</span>
+                <span>{{ utilisateur.presentation }}</span>
+            </div>
+
+            <div class="line-show clearfix">
+                <span class="title">Attestation URSSAF</span>
+                {% if utilisateur.urssaf is not null %}
+                    <span data-filename="{{ utilisateur.urssaf.filename }}">
+                        <a target="_blank" href="{{ vich_uploader_asset(utilisateur.urssaf, 'document') }}">Visualiser</a>
+                    </span>
+                {% else %}
+                    <span>Non renseigné</span>
+                {% endif %}
+            </div>
+
+            <div class="line-show clearfix">
+                <span class="title">Attestation impôts</span>
+                {% if utilisateur.impots is not null %}
+                    <span data-filename="{{ utilisateur.impots.filename }}">
+                        <a target="_blank" href="{{ vich_uploader_asset(utilisateur.impots, 'document') }}">Visualiser</a>
+                    </span>
+                {% else %}
+                    <span>Non renseigné</span>
+                {% endif %}
+            </div>
+
+            <div class="line-show clearfix">
+                <span class="title">Extrait KBIS</span>
+                {% if utilisateur.kbis is not null %}
+                    <span data-filename="{{ utilisateur.kbis.filename }}">
+                        <a target="_blank" href="{{ vich_uploader_asset(utilisateur.kbis, 'document') }}">Visualiser</a>
+                    </span>
+                {% else %}
+                    <span>Non renseigné</span>
+                {% endif %}
+            </div>
+
+            <div class="line-show clearfix">
+                <span class="title">Autre document</span>
+                {% if utilisateur.presentationDoc is not null %}
+                    <span data-filename="{{ utilisateur.presentationDoc.filename }}">
+                        <a target="_blank" href="{{ vich_uploader_asset(utilisateur.presentationDoc, 'document') }}">Visualiser</a>
+                    </span>
+                {% else %}
+                    <span>Non renseigné</span>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+    {% if completion != 100 and not app.request.cookies.has("noShow") %}
+        {{ include("FlairUserBundle:Profil:popup_modify.html.twig") }}
+    {% endif %}
+{% endblock %}
+{% block inlineScript %}
+    {{ parent() }}
+    <script type="text/javascript">
+        $(function() {
+            $('.popup_modify .close').mousedown(closePopup);
+            $('.progression').progressbar({ value: {{ completion }} });
+            $('.ui-progressbar-value').text({{ completion }} + "%").css({
+                "text-align"  : "center",
+                "line-height" : "24px"
+            });
+            function closePopup() {
+                $('.popup_modify').fadeOut(1000);
+            };
+
+            $("#noShow").click(function() {
+                $.cookie("noShow", true, { expires : 30 });
+                closePopup();
+            })
+        });
+    </script>
+{% endblock %}

@@ -1,0 +1,28 @@
+<?xml version="1.0" ?>
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <parameters>
+        <parameter key="flair.validator.unique_email.class">Flair\UserBundle\Validator\UniqueEmailValidator</parameter>
+        <parameter key="flair.validator.existing_email.class">Flair\UserBundle\Validator\ExistingEmailValidator</parameter>
+    </parameters>
+
+    <services>
+        <!-- valide que l'adresse email est unique -->
+        <service id="flair.validator.unique_email" class="%flair.validator.unique_email.class%">
+            <call method="setEm">
+                <argument id="doctrine.orm.entity_manager" type="service" />
+            </call>
+            <tag name="validator.constraint_validator" alias="flair.validator.unique_email" />
+        </service>
+
+        <!-- valide que l'adresse email est existante -->
+        <service id="flair.validator.existing_email" class="%flair.validator.existing_email.class%">
+            <call method="setEm">
+                <argument id="doctrine.orm.entity_manager" type="service" />
+            </call>
+            <tag name="validator.constraint_validator" alias="flair.validator.existing_email" />
+        </service>
+    </services>
+</container>

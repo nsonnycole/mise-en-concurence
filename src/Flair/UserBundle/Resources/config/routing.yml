@@ -1,0 +1,163 @@
+# Profil
+# ~~~~~~
+flair_user_profil_see:
+    path: /mon-compte
+    defaults: { _controller: FlairUserBundle:Profil:afficher }
+    methods: [GET]
+
+flair_user_profil_edit:
+    path: /mon-compte/modifier
+    defaults: { _controller: FlairUserBundle:Profil:modifier }
+    methods: [GET,POST]
+    options:
+        expose: true
+
+flair_user_profil_password:
+    path: /mon-compte/mot-de-passe
+    defaults: { _controller: FlairUserBundle:Profil:motdepasse }
+
+
+# Mot de passe
+# ~~~~~~~~~~~~
+flair_user_password_forget:
+    pattern :   /mot-de-passe-oublie
+    defaults:   { _controller: FlairUserBundle:Security:motdepasseOublie }
+    methods:    [GET,POST]
+
+flair_user_password_reset:
+    pattern :   /mot-de-passe-oublie/{token}
+    defaults:   { _controller: FlairUserBundle:Security:motdepasseReset }
+    methods:    [GET,POST]
+
+
+# Inscription
+# ~~~~~~~~~~~
+flair_user_inscription_organisme:
+    pattern:    /inscription/organisme
+    defaults:   { _controller: FlairUserBundle:Inscription:inscriptionOrganisme }
+    methods:    [GET,POST]
+
+#flair_user_inscription_prestataire:
+#    pattern:    /inscription/prestataire
+#    defaults:   { _controller: FlairUserBundle:Inscription:inscriptionPrestataire }
+#    methods:    [GET,POST]
+
+flair_user_confirmation_email:
+    pattern:    /inscription/validate/{token}
+    defaults:   { _controller: FlairUserBundle:Inscription:confirmationEmail }
+    methods:    [GET]
+
+
+# Invitation
+# ~~~~~~~~~~
+flair_user_invitation_list:
+    pattern:    /mes-invitations
+    defaults:   { _controller: FlairUserBundle:Invitation:lister }
+    methods:    [GET,POST]
+
+flair_user_invitation_send:
+    pattern:    /mes-invitations/inviter
+    defaults:   { _controller: FlairUserBundle:Invitation:send }
+    methods:    [GET,POST]
+
+flair_user_invitation_accept:
+    pattern:    /invitation/{token}
+    defaults:   { _controller: FlairUserBundle:Invitation:accept }
+    methods:    [GET,POST]
+
+flair_user_invitation_renew:
+    pattern:    /mes-invitations/renew/{token}
+    defaults:   { _controller: FlairUserBundle:Invitation:renew }
+    methods:    [GET,POST]
+    options:
+        expose: true
+
+flair_user_invitation_refuse:
+    pattern:    /invitation/refuse/{token}
+    defaults:   { _controller: FlairUserBundle:Invitation:refuse }
+    methods:    [GET,POST]
+
+flair_user_invitation_remove:
+    pattern:    /invitation/remove/{token}
+    defaults:   { _controller: FlairUserBundle:Invitation:remove }
+    methods:    [GET,POST]
+    options:
+        expose: true
+
+# SERVICES
+# ~~~~~~~~
+flair_user_service_list:
+    path: /mes-services
+    defaults: { _controller: FlairUserBundle:Services:lister}
+
+flair_user_service_see:
+    pattern: /mes-services/{id}
+    defaults: { _controller: FlairUserBundle:Services:afficher }
+    methods: [GET]
+    requirements:
+        id:  \d+
+
+flair_user_service_edit:
+    pattern: /mes-services/{id}/modifier
+    defaults: { _controller: FlairUserBundle:Services:modifier }
+    methods: [GET,POST]
+    requirements:
+        id:  \d+
+
+
+# Securité login
+# ~~~~~~~~~~~~~~
+login:
+    pattern:    /login
+    defaults:   { _controller: FlairUserBundle:Security:login }
+
+login_check:
+    pattern:    /login_check
+
+logout:
+    pattern:   /logout
+
+
+# Ajax pour les catégories.
+# ~~~~~~~~~~~~~~~~~~~~~~~~~
+Categories_inscription_organisme:
+    pattern:    /ajax/inscription/organisme/categories
+    defaults:   { _controller: FlairUserBundle:Categories:inscriptionOrganisme }
+    methods: [POST]
+    options:
+        expose: true
+
+Categories_inscription_prestataire:
+    pattern:    /ajax/inscription/prestataire/categories
+    defaults:   { _controller: FlairUserBundle:Categories:inscriptionPrestataire }
+    methods: [POST]
+    options:
+        expose: true
+
+Categories_creation_consultation:
+    pattern:    /ajax/creation-demande/categories
+    defaults:   { _controller: FlairUserBundle:Categories:creationConsultation }
+    methods: [POST]
+    options:
+        expose: true
+
+Categories_profil_organisme:
+    pattern:    /ajax/mon-profil/organisme/categories
+    defaults:   { _controller: FlairUserBundle:Categories:modificationProfilOrganisme }
+    methods: [POST]
+    options:
+        expose: true
+
+Categories_profil_prestataire:
+    pattern:    /ajax/mon-profil/prestataire/categories
+    defaults:   { _controller: FlairUserBundle:Categories:modificationProfilPrestataire }
+    methods: [POST]
+    options:
+        expose: true
+
+Categories_modification_consultation:
+    pattern:    /ajax/modification-demande/categories
+    defaults:   { _controller: FlairUserBundle:Categories:modificationConsultation }
+    methods: [POST]
+    options:
+        expose: true

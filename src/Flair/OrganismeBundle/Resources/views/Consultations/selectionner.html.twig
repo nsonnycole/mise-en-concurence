@@ -1,0 +1,117 @@
+{% extends 'FlairOrganismeBundle::consultations.html.twig' %}
+
+{% block body %}
+<div class="inner">
+
+    <div class="title title-table">
+        <h2 class="left-bar">
+            Consultation : {{ consultation.titre }}
+        </h2>
+
+        <div class="btn-bar right">
+            <a href="{{ url('Organisme_consultations') }}" class="btn orange no-radius">
+            <i class="fa fa-undo"></i>
+                Retour à la liste
+            </a>
+            <div class="corner"></div>
+        </div>
+    </div>
+
+    {% set vars = { 'consultation' : consultation, 'step' : 4 } %}
+
+    {% include 'FlairOrganismeBundle:Consultations:creation/menuCreation.html.twig' with vars %}
+
+    <div class="consultation-content">
+        <h2 class="select-presta">Sélectionner un prestataire</h2>
+
+        <p class="select-presta">
+            <i>Rappel des contraintes de votre consultation:</i>
+        </p>
+
+        <div class="show-estimate-response" style="min-height: 0 !important;">
+            <div class="line-show clearfix">
+                <span class="title">Date de clôture</span>
+                <span>{{ consultation.dateLimite | localizeddate('full', 'none')}}</span>
+            </div>
+            {%  if consultation.prixMinimum is not null %}
+                <div class="line-show clearfix">
+                    <span class="title">Fourchette de prix</span>
+                    <span> Entre {{ consultation.prixMinimum | euros }} et {{ consultation.prixMaximum | euros }}</span>
+                </div>
+            {% endif %}
+            {%  if consultation.periodeDebut is not null %}
+                <div class="line-show clearfix">
+                    <span class="title">Début</span>
+                    <span>
+                        {{ consultation.periodeDebut }}
+
+                        {% if consultation.dateDebut is not null %}
+                            {{ consultation.dateDebut | localizeddate('full', 'none')}}
+                        {% endif %}
+                    </span>
+                </div>
+            {% endif %}
+            {%  if consultation.periodeLivraison is not null %}
+                <div class="line-show clearfix">
+                    <span class="title">Livraison</span>
+                    <span>
+                        {{ consultation.periodeLivraison }}
+
+                        {% if consultation.dateLivraison is not null %}
+                            {{ consultation.dateLivraison | localizeddate('full', 'none')}}
+                        {% endif %}
+                    </span>
+                </div>
+            {% endif %}
+        </div>
+
+        <p class="select-presta">
+            <i>Les propositions sont classées automatiquement selon les critères choisis lors de la création de la consultation.</i><br/><br/>
+        </p>
+
+        <table class="table consultation-publication">
+            <thead>
+                <tr>
+                	<th>Classement</th>
+                    <th width="15%">
+                        Société
+                    </th>
+                    <th>Contact</th>
+                    <th>montant devis HT</th>
+                    <th>Montant devis TTC</th>
+                    <th width="15%">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+            	{% for reponse in reponses %}
+			    	<tr>
+			    		<td>{{ loop.index }}</td>
+			    		<td>{{ reponse.infos.prestataire.nom }}</td>
+			    		<td>
+                            TEL: {{ reponse.infos.prestataire.telephone}}<br/>
+                            MOBILE: {{ reponse.infos.prestataire.mobile }}<br/>
+                            EMAIL: {{ reponse.infos.prestataire.email}}
+			    		</td>
+			    		<td>{{ reponse.infos.montantHt | euros }}</td>
+			    		<td>{{ reponse.infos.montantTtc | euros }}</td>
+			    		<td>
+                            <a href="{{ url('Organisme_consultation_reponse', { 'id' :reponse.infos.id } ) }}" class="btn-reflate btn">Voir le devis</a>
+                            {% if reponse.infos.consultation.reponseSelectionne is null and (reponse.infos.consultation.dateLimite | after_now) and reponse.infos.statut > 1 %}
+                                <a href="{{ url('Organisme_consultation_reponse_selectionner_post', {'id' : reponse.infos.id } ) }}" data-confirm="Etes-vous sûr de vouloir sélectionner cette proposition ?" class="btn-delete btn js_confirm">Sélectionner</a>
+                            {% endif %}
+			    		</td>
+			    	</tr>
+		    	{% else %}
+		    		<tr>
+                        <td colspan="6">Vous n'avez pas encore reçu de proposition.</td>
+	    			</tr>
+		    	{% endfor %}
+	    	</tbody>
+    	</table>
+    </div>
+</div>
+{% endblock %}
+
+{% block inlineScript %}
+    {{ parent() }}
+{% endblock %}

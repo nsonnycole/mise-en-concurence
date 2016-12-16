@@ -1,0 +1,90 @@
+{% extends 'FlairOrganismeBundle::consultations.html.twig' %}
+
+{% block body %}
+    <div class="inner">
+        <div class="title title-table">
+            <h2 class="left-bar">
+                Consultation : {{ consultation.titre }}
+            </h2>
+
+            <div class="btn-bar right">
+                <a href="{{ url('Organisme_consultations') }}" class="btn orange no-radius">
+                <i class="fa fa-undo"></i>
+                    Retour à la liste
+                </a>
+                <div class="corner"></div>
+            </div>
+        </div>
+
+        {% set vars = { 'consultation' : consultation, 'step' : 3 } %}
+
+        {% include 'FlairOrganismeBundle:Consultations:creation/menuCreation.html.twig' with vars %}
+
+        <div class="consultation-content follow">
+            <div class="menu-tab">
+                <a class="item questions" href="{{ url('Organisme_consultation_reponses', { 'id' : consultation.id }) }}">
+                    Propositions
+                </a>
+                <a class="active item answers">
+                    Questions
+
+                    {% if consultation.hasUnansweredQuestions %}
+                        <img style="float:right; padding-right: 10px;" src="{{ asset('images/icon_question.png') }}" alt="" data-title="Cette consultation a des questions en attente" title="">
+                    {% endif %}
+                </a>
+
+                <span class="date">
+                    CLÔTURE : {{ consultation.dateLimite | localizeddate('full', 'none') }}, dans
+                    {{ consultation.dateLimite | date('d-M-Y') | date_diff("now" | date('d-M-Y')) }} jours
+                </span>
+            </div>
+
+            <p id="sub-title">Voir les questions sur votre consultation</p>
+
+            <table class="table consultation-documents">
+                <thead>
+                <tr>
+                    <th width="10%">Date</th>
+                    <th width="20%">Prestataire</th>
+                    <th width="25%">Question</th>
+                    <th width="25%">Réponse</th>
+                    <th width="20%">Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for question in questions %}
+                    <tr>
+                        <td>{{ question.dateQuestion | date('d-m-Y') }}</td>
+                        <td>{{ question.reponse.prestataire.nom }}</td>
+                        <td>
+                            {{ question.titre }}
+                        </td>
+                        <td>
+                            {% if question.reponseOrganisme == "" %}
+                                Vous n'avez pas répondu
+                            {% else %}
+                                Vous avez donné une réponse
+                            {% endif %}
+                        </td>
+                        <td>
+                            <a href="{{ url('Organisme_consultation_questions_afficher', {'id' : question.id } ) }}" class="btn-reflate btn">Voir la question</a>
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="5">Vous n'avez pas de question.</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+
+            <div class="actions">
+                <a href="{{ url('Organisme_consultation_annuler', { 'id' : consultation.id }) }}" class="btn cancel js_confirm" data-confirm="Etes-vous sûr de vouloir supprimer cette mise en concurrence?">Supprimer la consultation</a>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block inlineScript %}
+    {{ parent() }}
+{% endblock %}

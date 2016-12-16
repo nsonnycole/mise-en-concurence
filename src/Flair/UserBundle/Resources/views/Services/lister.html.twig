@@ -1,0 +1,90 @@
+{% extends 'FlairOrganismeBundle::services.html.twig' %}
+
+{% block body %}
+<div class="inner">
+
+    <div class="title title-table">
+        <h2 class="left-bar">
+            Mes services
+        </h2>
+
+        <div class="btn-bar right">
+            <div class="corner"></div>
+        </div>
+    </div>
+
+    <div class="listing-services">
+        <form action="" method="POST" class="services-filter">
+            <div class="filter filter-chozen">
+               {# {{ form_label(form.statut) }}
+                {{ form_widget(form.statut) }} #}
+            </div>
+        </form>
+
+        <table class="table datatable">
+            <thead>
+                <th width="30%">Nom</th>
+                <th width="40%">Contact</th>
+                {% if is_granted("ROLE_GESTIONNAIRE") %}
+                <th width="20%">Action</th>
+                {% endif %}
+            </thead>
+
+            <tbody class="large">
+                {% for service in services %}
+                    {% if service.id != app.user.id %}
+                    <tr data-url="{{ url('flair_user_service_see', {'id' : service.id } ) }}">
+                        <td>{{ service.nom }}</td>
+                        <td>
+                            TEL: {{ service.telephone}}<br/>
+                            MOBILE: {{ service.mobile }}<br/>
+                            EMAIL: {{ service.email}}
+                        </td>
+                        {% if is_granted("ROLE_GESTIONNAIRE") %}
+                        <td class="serv-list">
+                            <a href="{{ url('flair_user_service_edit', {'id' : service.id } ) }}" class="btn-delete">modifier</a>
+                        </td>
+                        {% endif %}
+                    </tr>
+                    {% endif %}
+                {% endfor %}
+                {% if services|length == 1 %}
+                    <tr>
+                        <td colspan="{{ is_granted("ROLE_GESTIONNAIRE") ? 3 : 2 }}">Aucun service</td>
+                    </tr>
+                {% endif %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}
+
+
+{% block inlineScript %}
+    <script>
+        $(function() {
+            if ($("table.datatable tbody td").length != 1) {
+                $("table.datatable").dataTable({
+                    "sDom": '<"top">t<"bottom"lp><"clear">',
+                    "bPaginate" : false,
+                    "aoColumns": [
+                        { "bSortable": true },
+                        { "bSortable": true },
+                        { "bSortable": false },
+                    ]
+                });
+            }
+
+            // Au click sur une ligne, on affiche le prestataire.
+            $('body').delegate(".datatable tbody tr[rel!=invitation]", 'click', function() {
+                if ($(this).attr('data-url')) {
+                    window.location.href = $(this).attr('data-url');
+                }
+            });
+
+            $("form.services-filter").delegate("select", "change", function() {
+                $("form.services-filter").submit();
+            });
+        });
+    </script>
+{% endblock %}

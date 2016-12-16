@@ -1,0 +1,17 @@
+{% extends '::base.html.twig' %}
+
+{% block body %}
+    <div class="inner">
+        <div class="prefix_1">
+            <h2>Mot de passe oublié</h2>
+            <form class="form-horizontal" action="{{ url('flair_user_password_forget') }}" method="post">
+
+                {{ form_rest(form) }}
+
+                <div class="controls">
+                    <input type="submit" id="_submit" class="btn orange" name="_submit" value="Envoyer">
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,8 @@
+<div class="btn-bar right">
+    {% if not consultation.dateLimite | before_now %}
+        <a href="{{ url('Organisme_consultation_publier', {'id' : consultation.id } ) }}" class="btn pink">Diffuser</a>
+    {% endif %}
+
+    <a href="{{ url('Organisme_consultation_annuler', {'id' : consultation.id } ) }}" class="btn js_confirm" data-confirm="Etes-vous sûr de vouloir annuler cette mise en concurrence?">Annuler</a>
+    <a href="{{ url('Organisme_consultations') }}" class="btn">Retour à la liste</a>
+</div>

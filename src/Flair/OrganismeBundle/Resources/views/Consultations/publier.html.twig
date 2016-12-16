@@ -1,0 +1,179 @@
+{% extends 'FlairOrganismeBundle::consultations.html.twig' %}
+
+{% block body %}
+<div class="inner">
+
+    <div class="title title-table">
+        <h2 class="left-bar">
+            Consultation : {{ consultation.titre }}
+        </h2>
+
+        <div class="btn-bar right">
+            <a href="{{ url('Organisme_consultations') }}" class="btn orange no-radius">
+            <i class="fa fa-undo"></i>
+                Retour à la liste
+            </a>
+            <div class="corner"></div>
+        </div>
+    </div>
+
+    {% set vars = { 'consultation' : consultation, 'step' : 2 } %}
+
+    {% include 'FlairOrganismeBundle:Consultations:creation/menuCreation.html.twig' with vars %}
+
+       <div class="consultation-content">
+        <div id="categories" class="hide">{{ consultation.categorie | categorie }}</div>
+        <h2 class="select-presta">Sélectionner les destinataires</h2>
+        <p class="select-presta">Sélectionnez les prestataires à consulter, et diffusez votre consultation</p>
+
+        <form action="{{ url('Organisme_consultation_publier_filtrer', {'id' : consultation.id } ) }}" method="POST" novalidate="" class="no-margin prestataires-filter" id="filterForm">
+            <div class="left-filters">
+
+                <div class="filter filter-chozen">
+                    <span class="right">
+                        {{ form_label(filtreForm.tags) }}
+                    </span>
+                    {{ form_widget(filtreForm.tags, { 'attr': {'class': 'hide tag-select', 'multiple': 'multiple'}}) }}
+                </div>
+                <div class="filter filter-chozen">
+                    <span class="right">{{ form_label(filtreForm.categorie) }}</span>
+                    {{ form_widget(filtreForm.categorie, { 'attr': {'class': 'hide categorie-select', 'multiple': 'multiple'}}) }}
+                </div>
+                <div class="filter filter-chozen">
+                    <span class="right">
+                        {{ form_label(filtreForm.perimetreIntervention) }}
+                    </span>
+                    {{ form_widget(filtreForm.perimetreIntervention, { 'attr': {'class': 'hide perimetre-select'}}) }}
+                </div>
+                <div class="filter filter-chozen">
+                    <span class="right">
+                        {{ form_label(filtreForm.ape) }}
+                    </span>
+                    {{ form_widget(filtreForm.ape, { 'attr': {'class': 'hide ape-select'}}) }}
+                </div>
+            </div>
+
+            <div class="right-filters">
+                <div class="filter my-presta">
+                    {{ form_label(filtreForm.exclusive) }}
+                    {{ form_widget(filtreForm.exclusive) }}
+                </div>
+            </div>
+        </form>
+
+        <div class="publish-form">
+            {{ include('FlairOrganismeBundle:Consultations:publier_form.html.twig', { 'form': form }) }}
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block inlineScript %}
+    {{ parent() }}
+    <script type="text/javascript">
+        $(function() {
+        if ($("table.datatable tbody td").length != 1) {
+            $("table.datatable").dataTable({
+                "sDom": '<"top">t<"bottom"lp><"clear">',
+                "bPaginate" : false,
+                "aoColumns": [
+                    { "bSortable": false },
+                    { "bSortable": true },
+                    { "bSortable": true },
+                    { "bSortable": true },
+                    { "bSortable": true },
+                    { "bSortable": true }
+                ]
+            });
+        }
+            var selector = $('#filtre_prestataire_diffusion_form_type_categorie option')[0];
+
+            $(selector).html($('#categories').text());
+            $(selector).attr('disabled', 'disabled');
+            $(selector).val(0);
+
+            $('form').delegate('input[type=checkbox]', 'change', toggleButton);
+            toggleButton();
+            initForm();
+
+            function toggleButton() {
+                $('form input[type=checkbox]').unbind("change");
+                $('form input[type=checkbox]').change(toggleButton);
+                $(".js_select_all").unbind("click");
+                $(".js_select_all").click(function(event){
+                    var table = $(event.currentTarget).closest("table")
+                    $("td input:checkbox", table).prop("checked", this.checked)
+                    toggleButton();
+                });
+                if ($('tbody input[type=checkbox]:not(.js_select_all):checked').length == 0) {
+                    $('.js_submit').addClass('disabled').attr('disabled', 'disabled')
+                } else {
+                    $('.js_submit').removeClass('disabled').removeAttr('disabled')
+                }
+            }
+
+            function initForm() {
+                $("form.prestataires-filter").delegate("select", "change", function() {
+                    filterContent();
+                });
+
+                $("form.prestataires-filter").delegate("input[type=checkbox]", "change", function() {
+                    filterContent();
+                });
+            }
+
+            function filterContent() {
+                var categories = [];
+                var tags = [];
+                var ape = [];
+                var perimetreIntervention;
+                var apeSelector = $("#filtre_prestataire_diffusion_form_type_ape :selected");
+                var perimetreInterventionSelector = $("#filtre_prestataire_diffusion_form_type_perimetreIntervention :selected");
+                var tagsSelector = $("#filtre_prestataire_diffusion_form_type_tags :selected");
+                var categorieSelector = $("#filtre_prestataire_diffusion_form_type_categorie :selected");
+                var exclusive = $("#filtre_prestataire_diffusion_form_type_exclusive").is(':checked');
+                for (var i = 0; i < categorieSelector.length; i++) {
+                    categories.push($(categorieSelector[i]).val());
+                }
+
+                for (var i = 0; i < tagsSelector.length; i++) {
+                    tags.push($(tagsSelector[i]).val());
+                }
+                for (var i = 0; i < apeSelector.length; i++) {
+                    ape.push($(apeSelector[i]).text());
+                }
+
+                perimetreIntervention = $(perimetreInterventionSelector).val();
+
+                $.ajax({
+                    url: Routing.generate('Organisme_consultation_publier_filtrer', {'id' : {{ consultation.id }} }),
+                    type: "POST",
+                    data: {
+                        tags: tags,
+                        categories: categories,
+                        ape: ape,
+                        perimetreIntervention: perimetreIntervention,
+                        exclusive: (exclusive === true) ? 1 : 0
+                    }
+                }).done(function(html) {
+                    $('.publish-form').html(html);
+                    toggleButton();
+                });
+            }
+
+            $(".tag-select").select2({
+                  placeholder: "Filtrez par mot clé"
+            });
+            $(".categorie-select").select2({
+                  placeholder: "Filtrez par secteur d'activité"
+            });
+            $(".perimetre-select").select2({
+                  placeholder: "Filtrez par périmetre d'intervention"
+            });
+            $(".ape-select").select2({
+                  placeholder: "Filtrez par numéro APE"
+            });
+            $(".tag-select").removeClass("hide");
+        });
+    </script>
+{% endblock %}

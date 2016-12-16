@@ -1,0 +1,40 @@
+/* Flashes */
+.flash {
+    padding: 8px 15px;
+    margin-bottom: 20px;
+    color: black;
+    font-size: 15px;
+    font-weight: bold;
+    text-align: center;
+
+    &.success {
+        background-color: white;
+        color: black;
+    }
+
+    &.error {
+        background-color: @colorRed;
+    }
+
+    &.warning {
+        background-color: @colorOrange;
+    }
+
+    &.notice {
+        background-color: @colorMiddleGrey;
+
+        a, a:visited {
+            color: @colorStrongGrey;
+            font-weight: 700;
+            text-decoration: none;
+        }
+    }
+}
+
+.modal {
+    display: none;
+}
+
+.no-close .ui-dialog-titlebar-close {
+    display: none;
+}

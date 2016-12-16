@@ -1,0 +1,67 @@
+Prestataire_inscription:
+    pattern:  /invitation/{token}
+    defaults: { _controller: FlairPrestataireBundle:Inscription:inscription }
+    methods: [GET,POST]
+    options:
+        expose: true
+
+Prestataire_propositions:
+    pattern: /mes-propositions
+    defaults: { _controller: FlairPrestataireBundle:Reponses:lister }
+    methods: [GET,POST]
+
+Prestataire_propositions_afficher:
+    path: /mes-propositions/{id}
+    defaults: { _controller: FlairPrestataireBundle:Reponses:afficher }
+
+Prestataire_propositions_questions_lister:
+    path:   /mes-propositions/{id}/questions/lister
+    defaults: { _controller: FlairPrestataireBundle:Questions:lister }
+
+Prestataire_propositions_questions_poser:
+    path:   /mes-propositions/{id}/questions/poser
+    defaults: { _controller: FlairPrestataireBundle:Questions:poser }
+
+Prestataire_propositions_questions_afficher:
+    path:   /mes-propositions/{id}/questions/afficher
+    defaults: { _controller: FlairPrestataireBundle:Questions:afficher}
+
+Prestataire_propositions_etape_one:
+    path: /mes-propositions/{id}/etape1
+    defaults: { _controller: FlairPrestataireBundle:Reponses:etapeOne }
+
+Prestataire_propositions_etape_two_saisie:
+    path: /mes-propositions/{id}/etape2/saisie
+    defaults: { _controller: FlairPrestataireBundle:Reponses:etapeTwoSaisie }
+
+Prestataire_propositions_etape_two_documents:
+    path: /mes-propositions/{id}/etape2/documents
+    defaults: { _controller: FlairPrestataireBundle:Reponses:etapeTwoDocuments }
+
+Prestataire_propositions_etape_three:
+    path: /mes-propositions/{id}/etape3
+    defaults: { _controller: FlairPrestataireBundle:Reponses:etapeThree }
+
+Prestataire_propositions_etape_three_supprimer_document:
+    path:   /mes-propositions/{idReponse}/etape3/supprimer-document/{idDocument}
+    defaults: { _controller: FlairPrestataireBundle:Reponses:etapeThreeSupprimer }
+
+Prestataire_propositions_etape_four:
+    path: /mes-propositions/{id}/etape4
+    defaults: { _controller: FlairPrestataireBundle:Reponses:etapeFour }
+
+Prestataire_propositions_envoyer_demande:
+    path:   /mes-propositions/{id}/envoyer
+    defaults: { _controller: FlairPrestataireBundle:Reponses:envoyer }
+
+Prestataire_propositions_debuter:
+    path: /mes-propositions/{id}/debuter
+    defaults: { _controller: FlairPrestataireBundle:Reponses:debuter }
+
+Prestataire_propositions_terminer:
+    path: /mes-propositions/{id}/terminer
+    defaults: { _controller: FlairPrestataireBundle:Reponses:terminer }
+
+Prestataire_proposition_annuler:
+    path: /mes-propositions/{id}/annuler
+    defaults: { _controller: FlairPrestataireBundle:Reponses:annuler }

@@ -1,0 +1,107 @@
+{% extends '::base.html.twig' %}
+
+{% form_theme form _self %}
+
+{% block  _inscription_organisme_form_cgu_row %}
+    {{ form_errors(form) }}
+    <div class="control-group">
+        <label class="control-label" for="inscription_organisme_form_cgu">
+            J'accepte les <a href="{{ asset('CGU.pdf')}}" target="_blank">CGU</a>
+        </label>
+        <div class="controls">
+            {{ form_widget(form) }}
+        </div>
+    </div>
+{% endblock %}
+
+{% block body %}
+    <div class="inner">
+         <div class="title title-table">
+            <h2 class="left-bar">
+                Création d'un compte
+            </h2>
+
+            <div class="btn-bar right">
+                <div class="corner"></div>
+            </div>
+        </div>
+        <form class="form-horizontal registration-form" {{ form_enctype(form) }} method="POST">
+            <div class="account-information">
+                {{ form_row(form.email) }}
+                {{ form_row(form.motdepasse) }}
+            </div>
+
+            <div class="organism-information">
+                <h2>Informations sur l'organisme</h2>
+
+                {{ form_row(form.nom) }}
+                {{ form_row(form.siren) }}
+                {{ include("FlairUserBundle:Categories:organisme.html.twig", { form: form, url: url('Categories_inscription_organisme') }, with_context = false) }}
+                {{ form_row(form.autreCategorie) }}
+                <div class="hide" id="rna">
+                    {{ form_row(form.rna) }}
+                </div>
+                <div class="control-group">
+                    <div class="controls">
+                        <div class="btn orange toggleShow">
+                            Suite
+                        </div>
+                    </div>
+                </div>
+                <div class="moreFields hide">
+                    {{ form_row(form.siret) }}
+                    {{ form_row(form.ape) }}
+                    {{ form_row(form.prenomContact) }}
+                    {{ form_row(form.nomContact) }}
+                    {{ form_row(form.adresse) }}
+                    {{ form_row(form.complementAdresse) }}
+                    {{ form_row(form.codePostal) }}
+                    {{ form_row(form.ville) }}
+                    {{ form_row(form.telephone) }}
+                    {{ form_row(form.mobile) }}
+                    {{ form_row(form.emailPartenaire) }}
+                    {{ form_row(form.cgu) }}
+                    <div class="control-group bt_form_row">
+                        <label>&nbsp;</label>
+                        <div class="controls">
+                            <input type="submit" class="btn orange" value="Enregistrer" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {{ form_rest(form) }}
+
+            <div class="control-group">
+                <div class="controls file-input">
+                    <i><span class="required-flag">*</span> Champs obligatoires</i>
+                </div>
+            </div>
+        </form>
+    </div>
+
+{% endblock %}
+
+{% block inlineScript %}
+    {{ parent() }}
+    <script type="text/javascript">
+        $(function() {
+            $('.toggleShow').mousedown(toggleShow);
+
+            function toggleShow() {
+                $('.moreFields').toggle(1000);
+                $(this).find('.ui-icon').toggleClass('ui-icon-circle-arrow-s ui-icon-circle-arrow-n');
+                $(this).find('.information').text("Suite");
+                if ($(this).find('.ui-icon-circle-arrow-s').length === 0) {
+                    $(this).find('.btn').text("Voir moins");
+
+                    return false;
+                }
+
+            }
+
+            $('#inscription_organisme_form_autreCategorie').parent().parent().addClass('hide');
+            $('#inscription_service_organisme_form_autreCategorie').parent().parent().addClass('hide');
+        });
+    </script>
+{% endblock %}

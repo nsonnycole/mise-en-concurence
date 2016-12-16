@@ -1,0 +1,154 @@
+{% extends 'FlairPrestataireBundle::propositions.html.twig' %}
+
+{% set WAITING = constant('Flair\\CoreBundle\\Entity\\Reponse::WAITING') %}
+{% set DECLINE = constant('Flair\\CoreBundle\\Entity\\Reponse::DECLINE') %}
+{% set ANSWERED = constant('Flair\\CoreBundle\\Entity\\Reponse::ANSWERED') %}
+
+{% block body %}
+<div class="inner">
+
+    <div class="title title-table">
+        <h2 class="left-bar">
+            Mes propositions
+        </h2>
+
+        <div class="btn-bar right">
+            <div class="corner"></div>
+        </div>
+    </div>
+
+    <form action="" method="POST" class="prestataires-filter" style="height: 80px;">
+        <div class="left-filters">
+            <div class="filter filter-chozen">
+                <span>{{ form_label(filtre.organisme) }}</span>
+                <span>{{ form_widget(filtre.organisme) }}</span>
+            </div>
+
+            <div class="filter filter-chozen">
+                <span>{{ form_label(filtre.statut) }}</span>
+                <span>{{ form_widget(filtre.statut) }}</span>
+            </div>
+        </div>
+        <div class="right-filters inline-block">
+            <div class="filter filter-chozen" style="width:551px">
+                <span>Clôture entre</span>
+                {{ form_widget(filtre.dateDebut) }}
+                <span class="and">et</span>
+                {{ form_label(filtre.dateFin) }}
+                {{ form_widget(filtre.dateFin) }}
+            </div>
+
+            <div class="filter filter-chozen" style="width:551px">
+                <span>Prix entre</span>
+                {{ form_widget(filtre.montantMin) }}
+                <span class="and">et</span>
+                {{ form_label(filtre.montantMax) }}
+                {{ form_widget(filtre.montantMax) }}
+            </div>
+        </div>
+    </form>
+
+    <table class="table datatable">
+        <thead>
+            <tr>
+                <th width="25%">Consultation</th>
+                <th width="15%">Organisme</th>
+                <th>Secteur d'activité</th>
+                <th width="10%">Date limite</th>
+                <th width="10%">Montant</th>
+                <th width="10%">Statut</th>
+                <th width="15%">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for reponse in reponses %}
+                <tr>
+                    <td>
+                        {{ reponse.consultation.titre }}
+                        {% if reponse.statut == WAITING and reponse.consultation.dateLimite | after_now %}
+                            <span class="ui-icon ui-icon-star" title="Nouvelle proposition"></span>
+                        {% endif %}
+                    </td>
+                    <td>{{ reponse.consultation.organisme.nom }}</td>
+                    <td>{{ reponse.consultation.categorie | categorie }}</td>
+                    <td>
+                        {% if reponse.consultation.dateLimite | before_now %}
+                            <span class="error">{{ reponse.consultation.dateLimite | date('d/m/Y') }}</span>
+                        {% else %}
+                            {{ reponse.consultation.dateLimite | date('d/m/Y') }}
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if reponse.montantTtc  == 0 %}
+                            {{ reponse.montantTtc | euros }}
+                        {% else %}
+                            {{ reponse.montantTtc | euros }}
+                        {% endif %}
+                    </td>
+                    <td>{{ reponse | reponse_statut }}</td>
+                    <td class="center">
+                        {% if reponse.consultation.dateLimite | after_now and reponse.statut != DECLINE and reponse.statut != ANSWERED %}
+                            <a class="btn-reflate" href="{{ url('Prestataire_propositions_etape_one', {'id' : reponse.id }) }}">Répondre</a>
+                        {% else %}
+                            <a class="btn-reflate" href="{{ url('Prestataire_propositions_etape_four', {'id' : reponse.id }) }}">Voir</a>
+                        {% endif %}
+                        {% if reponse.statut == WAITING and reponse.consultation.dateLimite | after_now %}
+                            <a href="{{ url('Prestataire_proposition_annuler', { 'id' : reponse.id }) }}" class="btn-delete js_confirm" data-confirm="Etes vous sûr de vouloir décliner la proposition? L'organisme sera prévenu et il sera impossible de revenir en arrière">décliner</a>
+                        {% endif %}
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="7">Vous n'avez aucune proposition pour l'instant...</td>
+                </tr>
+            {% endfor%}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
+
+{% block inlineScript %}
+<script>
+    $(function() {
+        if ($("table.datatable tbody td").length != 1) {
+            $("table.datatable").dataTable({
+                "sDom": '<"top">t<"bottom"lp><"clear">',
+                "bPaginate" : false,
+                "aoColumns": [
+                    { "bSortable": true },
+                    { "bSortable": true },
+                    { "bSortable": true },
+                    { "bSortable": true },
+                    { "bSortable": true },
+                    { "bSortable": true },
+                    { "bSortable": false }
+                ],
+                "aaSorting": []
+            });
+        }
+
+        var checkNumber = function(val, context) {
+            if (parseInt(val) < 0 || val === NaN) {
+                val = 0;
+
+                $(context).val(val);
+            }
+        };
+
+        $('.prices').change(function() {
+            checkNumber($(this).val(), $(this));
+        });
+
+        // Suomission automatique du formulaire
+        $("form.prestataires-filter").delegate("select", "change", function() {
+            $("form.prestataires-filter").submit();
+        });
+
+        $("form.prestataires-filter").delegate("input", "change", function() {
+            $("form.prestataires-filter").submit();
+        });
+
+        $( document ).tooltip();
+    });
+</script>
+{% endblock %}

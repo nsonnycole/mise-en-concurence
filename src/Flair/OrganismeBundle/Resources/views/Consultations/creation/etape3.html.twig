@@ -1,0 +1,84 @@
+{% extends 'FlairOrganismeBundle::consultations.html.twig' %}
+
+{% block body %}
+    <div class="inner">
+        <div class="title title-table">
+            <h2 class="left-bar">
+                {{ consultation.titre }}
+            </h2>
+
+            <div class="btn-bar right">
+                <a href="{{ url('Organisme_consultations') }}" class="btn orange no-radius">
+                <i class="fa fa-undo"></i>
+
+                    Retour à la liste
+                </a>
+                <div class="corner"></div>
+            </div>
+        </div>
+
+        {% set vars = { 'consultation' : consultation, 'step' : 1 } %}
+
+        {% include 'FlairOrganismeBundle:Consultations:creation/menuCreation.html.twig' with vars %}
+
+        <div class="consultation-content">
+            {% if consultation is defined %}
+                {% set vars = { 'consultation' : consultation, 'step' : 3 } %}
+            {% else %}
+                {% set vars = { 'step' : 3 } %}
+            {% endif %}
+
+            {% include 'FlairOrganismeBundle:Consultations:creation/subMenuCreation.html.twig' with vars %}
+
+            <p class="info-line">Vous pouvez joindre ici votre cahier des charges, des plans, des photos, etc.</p>
+
+            <table class="table orange consultation-documents">
+                <thead>
+                    <tr>
+                        <th>Nom du document</th>
+                        <th width="20%" class="center">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for document in consultation.documents %}
+                        <tr>
+                            <td data-filename="{{ document.filename }}">
+                                <a target="_blank" href="{{ vich_uploader_asset(document, 'document') }}">{{ document.titre }}</a>
+                            </td>
+                            <td class="center">
+                                <a href="{{ url('Organisme_suppression_document_etape3', {'idConsultation' : consultation.id, 'idDocument' : document.id }) }}" data-confirm="Etes-vous sûr de vouloir supprimer de document?" class="btn-delete js_confirm">Supprimer</a>
+                            </td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="2">Aucun document pour l'instant...</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+            <form action="{{ url('Organisme_creation_consultation_etape3', {'id' : consultation.id } ) }}" method="post" enctype="multipart/form-data" class="form-horizontal form-step3">
+                <h2 class="add-document">Ajouter un document</h2>
+
+                {{ form_rest(form) }}
+
+                <input type="submit" value="Uploader le document" class="btn upload"/>
+
+
+                <div class="actions">
+                    <input class="btn js_draft" name="brouillon" type="submit" value="Enregistrer en brouillon"/>
+                    <a href="{{ url('Organisme_consultation_publier', {'id' : consultation.id } ) }}" class="next btn orange">Publier</a>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}
+
+{% block inlineScript %}
+        {{ parent() }}
+    <script>
+        $(function() {
+            $('.required-flag').html('');
+        });
+    </script>
+{% endblock %}

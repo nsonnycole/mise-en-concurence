@@ -1,0 +1,46 @@
+<div class="js_categories" data-url="{{ url }}">
+
+    <div class="control-group">
+        {{ form_label(form.categorieLevelOne) }}
+        <div class="controls">
+            {% if hideErrors is not defined %}
+                {{ form_errors(form.categorieLevelOne) }}
+            {% endif %}
+
+            {{ form_widget(form.categorieLevelOne) }}
+            {% if category is defined and category == 'Prestataire' and inscription is not defined %}
+                <div class="categories">{{ nbCategoriesOne }}</div>
+            {% endif %}
+    </div>
+    </div>
+
+    {% if form.categorieLevelTwo is defined %}
+        <div class="control-group">
+            {{ form_label(form.categorieLevelTwo) }}
+            <div class="controls">
+                {% if hideErrors is not defined %}
+                    {{ form_errors(form.categorieLevelTwo) }}
+                {% endif %}
+                {{ form_widget(form.categorieLevelTwo) }}
+                {% if category is defined and category == 'Prestataire' and inscription is not defined %}
+                    <div class="categories">{{ nbCategoriesTwo }}</div>
+                {% endif %}
+            </div>
+        </div>
+
+        {% if form.categorieLevelThree is defined and form.categorieLevelThree.vars.choices is not empty%}
+            <div class="control-group">
+                {{ form_label(form.categorieLevelThree) }}
+                <div class="controls">
+                    {% if hideErrors is not defined %}
+                        {{ form_errors(form.categorieLevelThree) }}
+                    {% endif %}
+                    {{ form_widget(form.categorieLevelThree) }}
+                </div>
+                {% if category is defined and category == 'Prestataire' and inscription is not defined %}
+                    <div class="categories">{{ nbCategoriesThree }}</div>
+                {% endif %}
+            </div>
+        {% endif %}
+    {% endif %}
+</div>

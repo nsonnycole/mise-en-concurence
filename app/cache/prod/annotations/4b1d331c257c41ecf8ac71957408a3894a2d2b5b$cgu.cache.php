@@ -1,0 +1,1 @@
+<?php return unserialize('a:1:{i:0;O:44:"Symfony\\Component\\Validator\\Constraints\\True":2:{s:7:"message";s:27:"Vous devez accepter les CGU";s:6:"groups";a:1:{i:0;s:7:"Default";}}}');

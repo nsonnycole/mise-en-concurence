@@ -1,0 +1,58 @@
+{% extends 'FlairOrganismeBundle::consultations.html.twig' %}
+
+{% block body %}
+    <div class="inner">
+        <div class="title title-table">
+            <h2 class="left-bar">
+                Consultation : {{ reponse.consultation.titre }}
+            </h2>
+
+            <div class="btn-bar right">
+                <a href="{{ url('Prestataire_propositions') }}" class="btn orange no-radius">
+                <i class="fa fa-undo"></i>
+                    Retour à la liste
+                </a>
+                <div class="corner"></div>
+            </div>
+        </div>
+
+        {% set vars = { 'consultation' : reponse.consultation, 'step' : 3 } %}
+
+        <div class="block-reponse" style="border:none">
+
+            <div class="consultation-content follow">
+                <div class="menu-tab">
+                    <a class="item questions active">
+                        Propositions
+                    </a>
+
+                    <span class="date">
+                        CLÔTURE : {{ reponse.consultation.dateLimite | date('d M Y') }}, dans
+                        {{ reponse.consultation.dateLimite | date('d M Y') - "now" | date('d M Y') }} jours
+                    </span>
+                </div>
+
+                {% include 'FlairOrganismeBundle:Reponses:partials/details.html.twig' with {'reponse' : reponse } %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block inlineScript %}
+<script>
+    $(function() {
+        $('.questions, .answers').bind('mousedown', function() {
+            if (!$(this).hasClass('active')) {
+                $('.menu-tab .item').removeClass('active');
+                $(this).addClass('active');
+            }
+        });
+
+        $('.item').click(function() {
+            if ($(this).attr('data-url')) {
+                window.location.href = $(this).attr('data-url');
+            }
+        });
+    });
+</script>
+{% endblock %}

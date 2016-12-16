@@ -1,0 +1,123 @@
+Assurance:
+    - "Décennale"
+    - "Responsabilité civile"
+    - "Responsabilité professionnelle"
+    - "Autres"
+
+Conseil:
+    - "AMO"
+    - "Architecte"
+    - "Communication"
+    - "Comptabilité"
+    - "Economiste de la construction"
+    - "Etude technique"
+    - "Géomètre"
+    - "Gestion"
+    - "Ingénierie"
+    - "Juridique"
+    - "Maitrise d'œuvre"
+    - "Autres"
+
+Construction:
+    "Démolition, terrassement, Forage":
+        - Démolition
+        - Forage
+        - Sondage
+        - Terrassement
+        - "Autres"
+
+    "Entretien d'équipement":
+        - "Ascenseur"
+        - "Climatisation"
+        - "SSI"
+        - "TAR"
+        - "Autres"
+
+    Gros œuvre:
+        - "Charpente"
+        - "Couverture"
+        - "Etanchéité"
+        - "Maçonnerie"
+        - "Montage structure"
+        - "Ravalement"
+        - "Autres"
+
+    Second œuvre:
+        - "Alarme intrusion"
+        - "Assainissement"
+        - "Carrelage"
+        - "Chauffage"
+        - "Dégorgement"
+        - "Diagnostique réglementaire"
+        - "Diagnostique technique"
+        - "Electricité"
+        - "Extincteur"
+        - "Isolation"
+        - "Menuiserie"
+        - "Métallerie"
+        - "Peinture"
+        - "Plâtrerie"
+        - "Plomberie"
+        - "Revêtement"
+        - "Serrurerie"
+        - "Vitrerie"
+        - "Autres"
+
+Emploi:
+    - "Agence de placement"
+    - "Interim"
+    - "Autres"
+
+Hébergement:
+    - "Autres hébergements"
+    - "Hôtel"
+    - "Autres"
+
+Immobilier:
+    - "Agent immobilier"
+    - "Commercialisateur"
+    - "Promoteur"
+    - "Autres"
+
+Informatique:
+    - "Conseil"
+    - "Gestion d'installation"
+    - "Logiciel"
+    - "Programmation"
+    - "Site internet"
+    - "Autres"
+
+Publicité:
+    - "Agence de publicité"
+    - "Etude de marché et sondage"
+    - "Autres"
+
+Restauration:
+    - "Restaurant"
+    - "Traiteur"
+    - "Autres"
+
+Service relatifs aux bâtiments:
+    - "Dératisation"
+    - "Désinfection"
+    - "Désinsectisation"
+    - "Nettoyage"
+    - "Autres"
+
+Traduction:
+
+Transport:
+    - "Déménagement"
+    - "Fret de proximité"
+    - "Fret interurbains"
+    - "Location camion"
+    - "Routier fret"
+    - "Autres"
+
+Véhicule auto:
+    - "Contrôle technique"
+    - "Location"
+    - "Réparation"
+    - "Autres"
+
+Voyagiste:

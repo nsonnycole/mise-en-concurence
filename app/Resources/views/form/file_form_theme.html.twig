@@ -1,0 +1,49 @@
+{% block form_row %}
+    <div class="form_row clearfix">
+
+        <div {{ block('widget_attributes') }}>
+
+            {# On affiche la label normalement #}
+            {% if form.vars.label != "" %}
+                <div class="grid_3 alpha form_label {% if errors|length > 0 %}has_errors{% endif %}">
+                    {{ form_label(form) }}
+                </div>
+            {% endif %}
+
+            {{ form_errors(form) }}
+
+            {{ form.vars.value }}
+            {% if form.vars.value is not null %}
+                <div class="grid_5 omega">
+                    {#<span class="fileupload" data-filename="{{ form.vars.value.filename }}">#}
+                        {#<a target="_blank" href="{{ vich_uploader_asset(form.vars.value, 'document') }}">Visualiser</a>#}
+                    {#</span>#}
+                </div>
+
+                <div class="grid_5 push_3 alpha omega form_input {% if errors|length > 0 %}has_errors{% endif %}" style="margin-top: 10px;">
+                    {{ form_widget(form.document) }}
+                </div>
+            {% else %}
+                <div class="grid_5 omega form_input {% if errors|length > 0 %}has_errors alpha push_3{% endif %}">
+                    {{ form_widget(form.document) }}
+                </div>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}
+
+
+{# Affiche des errreurs #}
+{% block form_errors %}
+    {% spaceless %}
+        {% if errors|length > 0 %}
+            <div class="grid_5 omega form_errors">
+                <ul>
+                    {% for error in errors %}
+                        <li>{{ error.message }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
+    {% endspaceless %}
+{% endblock form_errors %}

@@ -1,0 +1,120 @@
+{% extends 'FlairPrestataireBundle::propositions.html.twig' %}
+
+{% set ANSWERED = constant('Flair\\CoreBundle\\Entity\\Reponse::ANSWERED') %}
+{% set CANCELED = constant("Flair\\CoreBundle\\Entity\\Consultation::CANCELLED") %}
+
+{% block body %}
+    <div class="inner">
+        <div class="title title-table">
+            <h2 class="left-bar">
+                Consultation : {{ reponse.consultation.titre }}
+            </h2>
+
+            <div class="btn-bar right">
+                <a href="{{ url('Prestataire_propositions') }}" class="btn orange no-radius">
+                    Retour à la liste
+                </a>
+                <div class="corner"></div>
+            </div>
+        </div>
+
+        {% include 'FlairPrestataireBundle::menuPrestataire.html.twig' with { 'reponse' : reponse} %}
+
+        <div class="block-reponse">
+
+            {% include 'FlairPrestataireBundle::menuStep.html.twig' with
+                {
+                    'step'    : 4,
+                    'reponse' : reponse
+                }
+            %}
+
+            <div class="consultation-content">
+                <div class="titre">
+                    Votre proposition
+                </div>
+
+                <p class="info-line" style="margin-top: 20px;"><i>Consultation "{{ reponse.consultation.titre }}" commanditée par l'organisme {{ reponse.consultation.organisme.nom }}</i></p>
+
+                <div class="show-estimate-response inner clearfix" style="padding-left: 30px;">
+
+                    <div class="line-show clearfix">
+                        <span class="title">Votre réponse</span>
+                        <span class="debordement">{{ reponse.reponse }}</span>
+                    </div>
+
+                    {% if reponse.periodeDebut is not null %}
+                        <div class="line-show clearfix">
+                            <span class="title">Date de démarrage</span>
+                                <span>{{ reponse.periodeDebut }}
+                                    {% if reponse.dateDebut is not null %}
+                                        {{ reponse.dateDebut | localizeddate('full', 'none') }}
+                                    {% endif %}
+                                </span>
+                        </div>
+                    {% endif %}
+
+                   {% if reponse.periodeLivraison is not null %}
+                        <div class="line-show clearfix">
+                            <span class="title">Date de livraison</span>
+                                <span>{{ reponse.periodeLivraison }}
+                                    {% if reponse.dateLivraison is not null %}
+                                        {{ reponse.dateLivraison | localizeddate('full', 'none') }}
+                                    {% endif %}
+                                </span>
+                        </div>
+                    {% endif %}
+
+                    {% if reponse.devisDocument is not null or reponse.lignesDevis | length > 0 %}
+                        <div class="line-show clearfix">
+                            <span class="title">Devis</span>
+                            <span>
+                               {% if reponse.devisDocument is not null %}
+                                   <span data-filename="{{ reponse.devisDocument.filename }}">
+                                    <a target="_blank" href="{{ vich_uploader_asset(reponse.devisDocument, 'document') }}">Visualiser</a>
+                                    </span><br/><br/>
+                                {% else %}
+                                <span>
+                                    {% if reponse.lignesDevis | length > 0 %}
+                                    <a id="devis_toggle" href="#">Afficher/masquer les details du devis</a>
+                                    {% include 'FlairPrestataireBundle:Devis:afficher.html.twig' with { 'lignesDevis' : reponse.lignesDevis, 'reponse' : reponse} %}
+                                    {% endif %}
+                                </span>
+                                {% endif %}
+                            </span>
+                        </div>
+                    {% endif %}
+
+                    {% if reponse.documents | length %}
+                        <div class="line-show clearfix">
+                            <span class="title">Documents</span>
+                            {% for document in reponse.documents %}
+                                <span data-filename="{{ document.filename }}">
+                                <a target="_blank" href="{{ vich_uploader_asset(document, 'document') }}">Visualiser</a>
+                            </span>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+
+                    {% if reponse.consultation.certificationRequise == true and reponse.consultation.certifications is not null %}
+                        <div class="line-show clearfix">
+                            <span class="title">Certification</span>
+                            <span class="debordement">
+                                {% if reponse.certification is not null %}
+                                    {{ reponse.certification }}
+                                {% endif %}
+                            </span>
+                        </div>
+                    {% endif %}
+                </div>
+
+
+                <div class="actions">
+                    {% if reponse.statut != ANSWERED and reponse.consultation.statut != CANCELED and reponse.consultation.dateLimite | after_now %}
+                        <a href="{{ url('Prestataire_propositions_envoyer_demande', { 'id': reponse.id })}}" class="btn orange diffuse js_submit js_confirm" data-confirm="Attention ! une fois la proposition envoyée aucune modification ne sera possible, souhaitez-vous continuer ? ">Envoyer votre proposition</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,11 @@
+{% block form_row %}
+	<td>{{ form_widget(form) }}</td>
+{% endblock %}
+
+{% block form_errors %}
+{% spaceless %}
+    {% for error in errors %}
+        {{ error.message }}
+    {% endfor %}
+{% endspaceless %}
+{% endblock form_errors %}

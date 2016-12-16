@@ -1,0 +1,26 @@
+<div class="js_categories" data-url="{{ url }}">
+
+    <div class="control-group">
+        {{ form_label(form.categorieLevelOne) }}
+        <div class="controls">
+            {% if hideErrors is not defined %}
+                {{ form_errors(form.categorieLevelOne) }}
+            {% endif %}
+
+            {{ form_widget(form.categorieLevelOne) }}
+        </div>
+    </div>
+
+    {% if form.categorieLevelTwo is defined %}
+        <div class="control-group">
+            {{ form_label(form.categorieLevelTwo) }}
+            <div class="controls">
+                {% if hideErrors is not defined %}
+                    {{ form_errors(form.categorieLevelTwo) }}
+                {% endif %}
+
+                {{ form_widget(form.categorieLevelTwo) }}
+            </div>
+        </div>
+    {% endif %}
+</div>

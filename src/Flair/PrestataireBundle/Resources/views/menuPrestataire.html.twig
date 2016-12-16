@@ -1,0 +1,21 @@
+<div class="menu-prestataires">
+	<div><a style="color: black; text-decoration: none" href="#">Consultation</a></div>
+	<div class="active">Votre proposition</div>
+	<span class="date">
+        {% if reponse.consultation.reponseSelectionne %}
+            CETTE CONSULTATION N'EST PLUS DISPONIBLE
+        {% else  %}
+            CLÔTURE : {{ reponse.consultation.dateLimite | localizeddate('full', 'none') }}, 
+            {% set limite = reponse.consultation.dateLimite %}
+            {% set diff = date(reponse.consultation.dateLimite).diff(date("now")) %}
+            {% if date('now') < limite %}
+            	dans {{ diff.days }} jours
+            {% elseif "now"|date("d/m/y") == limite | date('d/m/y') %}
+            	aujourd'hui
+            {% else %}
+                passée
+            {% endif %}
+        {% endif %}
+    </span>
+	<div><a style="color: black; text-decoration: none" href="{{ url("Prestataire_propositions_questions_lister", {id: reponse.id}) }}">Questions</a></div>
+</div>

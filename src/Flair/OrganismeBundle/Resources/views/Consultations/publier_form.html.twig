@@ -1,0 +1,56 @@
+<form action="{{ url('Organisme_consultation_publier_post', {'id' : consultation.id}) }}" method="post" class="no-margin publish" id="publishForm">
+    <table class="table consultation-publication datatable">
+        <thead>
+            <tr>
+                <th width="15%" class="js-select-all">
+                     <input type="checkbox" class="js_select_all" /> Selection
+                </th>
+                <th width="15%">Société</th>
+                <th width="15%">Secteur</th>
+                <th width="30%">Contact</th>
+                <th width="15%">Adresse</th>
+                <th width="15%" class="center">Périmètre d'intervention</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for prestataire in form.prestataires %}
+                {% set entite = prestataire.vars.value | prestataire %}
+                <tr>
+                    <td>{{ form_widget(prestataire) }}</td>
+                    <td>
+                        <a href="{{ url('Organisme_prestataire', {'id' : entite.id } ) }}">{{ prestataire.vars.label }}</a>
+                    </td>
+                    <td>
+                        {% for cat in entite.categorie %}
+                            {{ cat.nom }}
+                        {% endfor %}</td>
+                    <td>
+                        TEL: {{ entite.telephone}}<br/>
+                        MOBILE: {{ entite.mobile }}<br/>
+                        EMAIL: {{ entite.email}}
+                    </td>
+                    <td>{{ entite.adresse }} {{ entite.complementAdresse }} {{ entite.codePostal }} {{ entite.ville }}</td>
+                    <td>{{ entite.perimetreIntervention }}</td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="6" class="center">Aucun prestataire ne correspond à votre recherche</td>
+                </tr>
+            {% endfor %}
+        </tbody> 
+    </table>
+
+    {{ form_rest(form) }}
+
+    <div class="actions">
+        {% if consultation.dateLimite | after_now %}
+            <input type="submit" class="btn orange diffuse js_submit" value="Diffuser la consultation" />
+        {% endif %}
+        
+        {% if consultation is defined %}
+            <a href="{{ url('Organisme_consultation_annuler', {'id' : consultation.id } ) }}" class="cancel btn js_confirm" data-confirm="Etes-vous sûr de vouloir supprimer cette mise en concurrence?">Supprimer</a>
+        {% else %}
+            <a href="{{ url('Organisme_consultations') }}" class="cancel btn js_confirm" data-confirm="Etes-vous sûr de vouloir supprimer cette mise en concurrence?">Supprimer</a>         
+        {% endif %}
+    </div>
+</form>

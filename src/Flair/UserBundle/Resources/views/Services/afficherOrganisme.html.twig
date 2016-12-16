@@ -1,0 +1,132 @@
+    {% extends 'FlairOrganismeBundle::services.html.twig' %}
+
+{% block body %}
+<div class="inner">
+    <div class="modify-account">
+        <div class="title title-table">
+            <h2 class="left-bar">
+                Organisme {{ organisme.nom }}
+            </h2>
+
+            <div class="btn-bar right">
+                <a href="{{ url('flair_user_service_edit', {id: organisme.id}) }}" class="btn orange no-radius"><i class="fa fa-pencil"></i> Modifier</a>
+                <a onClick="window.history.go(-1);" class="btn orange no-radius">
+                    Annuler
+                </a>
+                <div class="corner"></div>
+            </div>
+        </div>
+
+        <div class="account-infos">
+            <div class="left-infos">
+                <div class="line-show clearfix">
+                    <span class="title">Nom</span>
+                    <span>{{ organisme.nom }}</span>
+                </div>
+
+                <div class="line-show clearfix">
+                    <span class="title">Adresse email</span>
+                    <span>{{ organisme.email }}</span>
+                </div>
+
+                <div class="line-show clearfix">
+                    <span class="title">Contact</span>
+                    <span>{{ organisme.nomComplet }}</span>
+                </div>
+
+                <div class="line-show clearfix">
+                    <span class="title">Adresse</span>
+                    <span>
+                        {{ organisme.adresse }}<br>
+                        {{ organisme.codePostal }} {{ organisme.ville }}
+                    </span>
+                </div>
+
+                <div class="line-show clearfix">
+                    <span class="title">Téléphone</span>
+                    <span>{{ organisme.telephone }}</span>
+                </div>
+
+                <div class="line-show clearfix">
+                    <span class="title">Mobile</span>
+                    <span>{{ organisme.mobile }}</span>
+                </div>
+            </div>
+
+            <div class="right-infos">
+
+                <div class="line-show clearfix">
+                    <span class="title">Catégorie</span>
+                    <span>{{ organisme.categorie | categorie }}</span>
+                </div>
+
+                <div class="line-show clearfix">
+                    <span class="title">SIRET</span>
+                    <span>{{ organisme.siret }}</span>
+                </div>
+
+                <div class="line-show clearfix">
+                    <span class="title">SIREN</span>
+                    <span>{{ organisme.siren }}</span>
+                </div>
+
+                <div class="line-show clearfix">
+                    <span class="title">APE</span>
+                    <span>{{ organisme.ape }}</span>
+                </div>
+
+                <div class="line-show clearfix">
+                    <span class="title">RNA</span>
+                    <span>{{ organisme.rna }}</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="stats">
+            <div class="line-show clearfix">
+                <span class="title">Statistiques</span>
+            </div>
+
+            <ul>
+                <li>Nombre de consultations : {{ nbConsult }} </li>
+                <li>Nombre de prestataires enregistrés: {{ nbPresta }}</li>
+                <li>Prestataires consultés en moyenne : {{ prestaMoyen }}</li>
+                <li>Nombre de réponses moyenne : {{ reponses }}</li>
+                <li>Budget moyen : {{ budget }}€</li>
+            </ul>
+
+            <div id="chart_div" style="width:400px; height: 200px;"></div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block javascripts %}
+   <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+
+    {% if nbConsult > 0%}
+        <script type="text/javascript">
+            google.load("visualization", "1", {packages:["corechart"]});
+            google.setOnLoadCallback(drawChart);
+
+            function drawChart() {
+              var data = google.visualization.arrayToDataTable([
+                ["Secteur d'activité", '', { role : 'style'}],
+                {% for categorie in statsConsultation %}
+                    ["{{ categorie.nom }}", {{ categorie.nbCat }}, "rgb(102, 102, 102)"],
+                {% endfor %}
+              ]);
+
+              var options = {
+                title: "Nombre de consultations par secteur d'activité",
+                legend: { position: "none" }
+              };
+
+              var chart = new google.visualization.ColumnChart(document.getElementById('chart_div'));
+
+              chart.draw(data, options);
+
+            }
+        </script>
+    {% endif %}
+{% endblock %}

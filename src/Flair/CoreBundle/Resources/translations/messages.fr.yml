@@ -1,0 +1,6 @@
+core:
+    form:
+        type:
+            choice_list:
+                yes: Oui
+                no: Non

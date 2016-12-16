@@ -1,0 +1,15 @@
+<div class="btn-bar right">
+    <a href="{{ url('Organisme_consultation_modifier', { 'id' : consultation.id } ) }}" class="btn pink">Modifier</a>
+    <!-- Rajouter la classe js_confirm pour re-activer le message -->
+    <a href="{{ url('Organisme_consultation_publier', {'id' : consultation.id } ) }}" class="btn" data-confirm="Merci de confirmer votre souhait de diffuser cette consultation. Une fois diffusée vous aurez la possibilité d'annuler techniquement cette consultation jusqu'à sa date de cloture">Diffuser</a>
+    <a href="{{ url('Organisme_consultation_annuler', {'id' : consultation.id } ) }}" class="btn" id="confirm_annulation">Supprimer</a>
+</div>
+
+<div id="annulation-modal" class="modal">
+    <p>
+        <span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span>
+        Etes-vous sûr de vouloir annuler cette mise en concurrence?
+    </p>
+</div>
+
+

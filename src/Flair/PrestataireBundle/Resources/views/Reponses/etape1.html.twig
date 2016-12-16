@@ -1,0 +1,148 @@
+{% extends 'FlairPrestataireBundle::propositions.html.twig' %}
+
+{% block body %}
+    <div class="inner">
+
+        <div class="title title-table">
+            <h2 class="left-bar">
+                Consultation : {{ reponse.consultation.titre }}
+            </h2>
+
+            <div class="btn-bar right">
+                <a href="{{ url('Prestataire_propositions') }}" class="btn orange no-radius">
+                    Retour à la liste
+                </a>
+                <div class="corner"></div>
+            </div>
+        </div>
+
+        {% include 'FlairPrestataireBundle::menuPrestataire.html.twig' with { 'reponse' : reponse} %}
+
+        <div class="block-reponse">
+
+            {% include 'FlairPrestataireBundle::menuStep.html.twig' with
+                {
+                    'step'    : 1,
+                    'reponse' : reponse
+                }
+            %}
+
+            <div class="consultation-content">
+                <form action="{{ url('Prestataire_propositions_etape_one', {'id' : reponse.id } ) }}" method="post" class="no-margin form-horizontal">
+
+                    {# Si aucun critère n'a été rempli dans la consultation. #}
+                    {% if reponse.consultation.periodeDebut is null and reponse.consultation.periodeLivraison is null and reponse.consultation.certificationRequise == 0 %}
+                        <p class="info-date"><b>L’organisme {{ reponse.consultation.organisme.nom }} n'a pas imposé de contraintes particulières, vous pouvez passer directement à l'étape 2.</b></p>
+                    {% endif %}
+
+                    <div class="control-group" style="margin-top:20px">
+                         {{ form_label(form.reponse) }}
+                        <div class="controls">
+                            {{ form_widget(form.reponse) }}
+                        </div>
+                    </div>
+
+                    {% if reponse.consultation.periodeDebut is null %}
+                        <div class="control-group hide">
+                    {% else %}
+                        <div class="control-group required">
+                            <p class="info-date">Date de démarrage souhaitée: {{reponse.consultation.periodeDebut }}
+                                {% if reponse.consultation.dateDebut is not null %}
+                                    {{ reponse.consultation.dateDebut | localizeddate('long', 'none', app.request.locale) }}
+                                {% endif %}
+                            </p>
+                    {% endif %}
+                         {{ form_label(form.periodeDebut) }}
+                        <div class="controls">
+                            {{ form_widget(form.periodeDebut) }}
+                        </div>
+                    </div>
+
+                    {% if reponse.consultation.dateDebut is null %}
+                        <div class="control-group hide">
+                    {% else %}
+                        <div class="control-group required">
+                    {% endif %}
+                        {{ form_label(form.dateDebut) }}
+                        <div class="controls">
+                            {{ form_widget(form.dateDebut) }}
+                            <div>{{ form_errors(form.dateDebut) }}</div>
+                        </div>
+                    </div>
+
+                    {% if reponse.consultation.periodeLivraison is null %}
+                        <div class="control-group hide">
+                    {% else %}
+                        <div class="control-group required">
+                            <p class="info-date">Date de livraison souhaitée: {{ reponse.consultation.periodeLivraison }}
+                                {% if reponse.consultation.dateLivraison is not null %}
+                                    {{ reponse.consultation.dateLivraison | localizeddate('long', 'none', app.request.locale) }}
+                                {% endif %}
+                                </p>
+                    {% endif %}
+                         {{ form_label(form.periodeLivraison) }}
+                        <div class="controls">
+                            {{ form_widget(form.periodeLivraison) }}
+                        </div>
+                    </div>
+
+                    {% if reponse.consultation.dateLivraison is null %}
+                        <div class="control-group hide">
+                    {% else %}
+                        <div class="control-group required">
+                    {% endif %}
+                        {{ form_label(form.dateLivraison) }}
+                        <div class="controls">
+                            {{ form_widget(form.dateLivraison) }}
+                            <div>{{ form_errors(form.dateLivraison) }}</div>
+                        </div>
+                    </div>
+
+                    {% if reponse.consultation.certificationRequise == 0 %}
+                        <div class="control-group hide">
+                    {% else %}
+                        <div class="control-group required">
+                            <p class="info-date">Qualififaction ou certification requise: {{ reponse.consultation.certifications }}</p>
+                    {% endif %}
+                        </div>
+
+                    {% if reponse.consultation.certificationRequise == 0 %}
+                        <div class="control-group hide">
+                    {% else %}
+                        <div class="control-group required">
+                    {% endif %}
+                            {{ form_label(form.certifications )}}
+                        <div class="controls">
+                            {{ form_widget(form.certifications )}}
+                        </div>
+                    </div>
+
+                    {{ form_rest(form)}}
+
+
+                    <div class="actions">
+                        <input class="btn js_draft" name="brouillon" type="submit" value="Enregistrer en brouillon"/>
+                        <input type="submit" value="Suivant" class="next btn orange"/>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script>
+        $(function() {
+            $('.control-group.required input, .control-group.required select').attr('required', 'required');
+            $('.control-group.required .control-label').append("<span class='required-flag'>*</span>");
+        });
+    </script>
+
+    {% javascripts filter="coffeescript"
+        '@FlairCoreBundle/Resources/assets/coffee/input-toggle.coffee'
+    %}
+    <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+{% endblock %}

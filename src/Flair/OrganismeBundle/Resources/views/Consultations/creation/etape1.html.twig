@@ -1,0 +1,101 @@
+{% extends 'FlairOrganismeBundle::consultations.html.twig' %}
+
+{% form_theme form _self %}
+
+{% block _consultation_form_type_prixMinimum_row %}
+    <div class="control-group bt_form_row">
+        {{ form_label(form) }}
+        <div class="controls">
+            {% if form_errors(form) | length > 0 %}
+                <ul class="error-list">
+                    {{ form_errors(form) }}
+                </ul>
+            {% endif %}
+            {{ form_widget(form) }} <span class="help-inline">à titre indicatif</span>
+        </div>
+    </div>
+{% endblock %}
+
+{% block body %}
+<div class="inner">
+    <div class="title title-table">
+        <h2 class="left-bar">
+            {% if consultation is defined %}
+                Consultation : {{ consultation.titre }}
+            {% else %}
+                Nouvelle consultation
+            {% endif %}
+        </h2>
+
+        <div class="btn-bar right">
+            <a href="{{ url('Organisme_consultations') }}" class="btn orange no-radius">
+            <i class="fa fa-undo"></i>
+
+                Retour à la liste
+            </a>
+            <div class="corner"></div>
+        </div>
+    </div>
+
+    {% if consultation is defined %}
+        {% set vars = { 'consultation' : consultation, 'step' : 1 } %}
+    {% else %}
+        {% set vars = { 'step' : 1 } %}
+    {% endif %}
+
+    {% include 'FlairOrganismeBundle:Consultations:creation/menuCreation.html.twig' with vars %}
+
+    <div class="consultation-content">
+
+        {% if consultation is defined %}
+            {% set vars = { 'consultation' : consultation, 'step' : 1 } %}
+        {% else %}
+            {% set vars = { 'step' : 1 } %}
+        {% endif %}
+
+        {% include 'FlairOrganismeBundle:Consultations:creation/subMenuCreation.html.twig' with vars %}
+
+        {% if consultation is defined %}
+            <form action="{{ url('Organisme_creation_consultation_etape1_modifier', { 'id' : consultation.id}) }}" method="post" class="form-horizontal">
+        {% else %}
+            <form action="{{ url('Organisme_creation_consultation_etape1') }}" method="post" class="form-horizontal">
+        {% endif %}
+            {{ form_row(form.titre) }}
+
+            <div class="control-group">
+                {{ form_label(form.description) }}
+                <div class="controls ckedit">
+                    {% if form_errors(form.description) | length > 0 %}
+                        <ul class="error-list">
+                            {{ form_errors(form.description) }}
+                        </ul>
+                    {% endif %}
+                    {{ form_widget(form.description) }}
+
+                    <span class="ckeditor-help-inline">Si besoin, vous aurez la possiblité d'uploader des documents plus complets par la suite.</span>
+                </div>
+            </div>
+
+            {{ include("FlairUserBundle:Categories:prestataire.html.twig", { form: form, 'url' : url('Categories_creation_consultation') }, with_context = false) }}
+            {{ form_row(form.dateLimite) }}
+            {{ form_widget(form._token) }}
+
+
+            <div class="actions">
+                <input class="btn js_draft" name="brouillon" type="submit" value="Enregistrer en brouillon"/>
+                <input class="btn orange next" name="publier" type="submit" value="Suivant" />
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    {% javascripts filter="coffeescript" output="javascripts/inscription.js"
+
+    %}
+    <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+{% endblock %}

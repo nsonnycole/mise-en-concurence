@@ -1,0 +1,25 @@
+flair_admin:
+    resource: "@FlairAdminBundle/Resources/config/routing.yml"
+
+flair_user:
+    resource: "@FlairUserBundle/Resources/config/routing.yml"
+    prefix:   /
+
+flair_prestataire:
+    resource: "@FlairPrestataireBundle/Resources/config/routing.yml"
+    prefix:   /
+
+flair_organisme:
+    resource: "@FlairOrganismeBundle/Resources/config/routing.yml"
+    prefix:   /
+
+flair_core:
+    resource: "@FlairCoreBundle/Resources/config/routing.yml"
+    prefix:   /
+
+fos_js_routing:
+    resource: "@FOSJsRoutingBundle/Resources/config/routing/routing.xml"
+
+admin_area:
+    resource: "@SonataAdminBundle/Resources/config/routing/sonata_admin.xml"
+    prefix: /admin

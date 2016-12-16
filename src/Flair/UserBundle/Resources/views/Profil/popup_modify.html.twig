@@ -1,0 +1,17 @@
+<div class="popup_modify">
+	<div class="popup">
+		<div class="relativePopupContainer">
+			<img src="{{ asset('images/header-logo.png') }}">
+			<div class="bandeau">
+				Votre profil est incomplet
+			</div>
+			<div class="conseils">
+				{{ utilisateur.nom }}, pour optimiser votre référencement et mise en relation de qualité, veuillez compléter votre profil dans la partie « mon compte ».
+			</div>
+			<a style="width: 150px;" class="btn orange next" id="noShow">Ne plus m'avertir</a>
+			<a style="width: 150px;" class="btn orange next" href="{{ url('flair_user_profil_edit') }}">Je complète mon profil</a>
+			<div class="progression"></div>
+			<div class="close">x</div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,10 @@
+default:
+    extensions:
+        Behat\Symfony2Extension\Extension:
+            mink_driver: true
+            bundle: FlairCoreBundle
+        Behat\MinkExtension\Extension:
+            base_url: "http://mise-en-concurrence.me/app_test.php"
+            goutte: ~
+            selenium2: ~
+

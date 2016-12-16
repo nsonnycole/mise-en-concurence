@@ -1,0 +1,154 @@
+    {% extends 'FlairOrganismeBundle::profil.html.twig' %}
+
+{% block body %}
+<div class="inner">
+    <div class="modify-account">
+        <div class="title title-table">
+            <h2 class="left-bar">
+                Mon compte
+            </h2>
+
+            <div class="btn-bar right">
+                <a href="{{ url('flair_user_profil_edit') }}" class="btn orange no-radius"><i class="fa fa-pencil"></i>
+ Modifier</a>
+                <a href="{{ url('flair_user_profil_password') }}" class="btn orange no-radius"><i class="fa fa-lock"></i>
+ Changer mon mot de passe</a>
+                <a href="{{ url('flair_user_invitation_list') }}" class="btn orange no-radius"><i class="fa fa-user-plus"></i> Invitations</a>
+                <div class="corner"></div>
+            </div>
+        </div>
+
+        <div class="account-infos">
+            <div class="left-infos">
+                <div class="line-show clearfix">
+                    <span class="title">Nom</span>
+                    <span>{{ utilisateur.nom }}</span>
+                </div>
+
+                <div class="line-show clearfix">
+                    <span class="title">Adresse email</span>
+                    <span>{{ utilisateur.email }}</span>
+                </div>
+
+                <div class="line-show clearfix">
+                    <span class="title">Contact</span>
+                    <span>{{ utilisateur.nomComplet }}</span>
+                </div>
+
+                <div class="line-show clearfix">
+                    <span class="title">Adresse</span>
+                    <span>
+                        {{ utilisateur.adresse }}<br>
+                        {{ utilisateur.codePostal }} {{ utilisateur.ville }}
+                    </span>
+                </div>
+
+                <div class="line-show clearfix">
+                    <span class="title">Téléphone</span>
+                    <span>{{ utilisateur.telephone }}</span>
+                </div>
+
+                <div class="line-show clearfix">
+                    <span class="title">Mobile</span>
+                    <span>{{ utilisateur.mobile }}</span>
+                </div>
+            </div>
+
+            <div class="right-infos">
+
+                <div class="line-show clearfix">
+                    <span class="title">Catégorie</span>
+                    <span>{{ utilisateur.categorie | categorie }}</span>
+                </div>
+
+                <div class="line-show clearfix">
+                    <span class="title">SIRET</span>
+                    <span>{{ utilisateur.siret }}</span>
+                </div>
+
+                <div class="line-show clearfix">
+                    <span class="title">SIREN</span>
+                    <span>{{ utilisateur.siren }}</span>
+                </div>
+
+                <div class="line-show clearfix">
+                    <span class="title">APE</span>
+                    <span>{{ utilisateur.ape }}</span>
+                </div>
+
+                <div class="line-show clearfix">
+                    <span class="title">RNA</span>
+                    <span>{{ utilisateur.rna }}</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="stats">
+            <div class="line-show clearfix">
+                <span class="title">Statistiques</span>
+            </div>
+
+            <ul>
+                <li>Nombre de consultations : {{ nbConsult }} </li>
+                <li>Nombre de prestataires enregistrés: {{ nbPresta }}</li>
+                <li>Prestataires consultés en moyenne : {{ prestaMoyen }}</li>
+                <li>Nombre de réponses moyenne : {{ reponses }}</li>
+                <li>Budget moyen : {{ budget }}€</li>
+            </ul>
+
+            <div id="chart_div" style="width:400px; height: 200px;"></div>
+        </div>
+    </div>
+</div>
+    {% if completion != 100 and not app.request.cookies.has("noShow") %}
+        {{ include("FlairUserBundle:Profil:popup_modify.html.twig") }}
+    {% endif %}
+{% endblock %}
+
+{% block javascripts %}
+
+   <script>
+       $(function() {
+            $('.popup_modify .close').mousedown(closePopup);
+            $('.progression').progressbar({ value: {{ completion }} });
+            $('.ui-progressbar-value').text({{ completion }} + "%").css({
+                "text-align"  : "center",
+                "line-height" : "24px"
+            });
+            function closePopup() {
+                $('.popup_modify').fadeOut(1000);
+            };
+
+           $("#noShow").click(function() {
+               $.cookie("noShow", true, { expires : 30 });
+               closePopup();
+           })
+        });
+   </script>
+    {% if nbConsult > 0%}
+        <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+        <script type="text/javascript">
+            google.load("visualization", "1", {packages:["corechart"]});
+            google.setOnLoadCallback(drawChart);
+
+            function drawChart() {
+              var data = google.visualization.arrayToDataTable([
+                ["Secteur d'activité", '', { role : 'style'}],
+                {% for categorie in statsConsultation %}
+                    ["{{ categorie.nom }}", {{ categorie.nbCat }}, "rgb(102, 102, 102)"],
+                {% endfor %}
+              ]);
+
+              var options = {
+                title: "Nombre de consultations par secteur d'activité",
+                legend: { position: "none" }
+              };
+
+              var chart = new google.visualization.ColumnChart(document.getElementById('chart_div'));
+
+              chart.draw(data, options);
+
+            }
+        </script>
+    {% endif %}
+{% endblock %}

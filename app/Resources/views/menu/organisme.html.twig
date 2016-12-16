@@ -1,0 +1,19 @@
+<div class="menu_container clearfix">
+    <ul>
+        <li class="first {% if active == constant('Flair\\OrganismeBundle\\FlairOrganismeBundle::CONSULTATIONS') %}current{% endif %}">
+            <a href="{{ url('Organisme_consultations') }}">Mes consultations</a>
+        </li>
+
+        <li class="{% if active == constant('Flair\\OrganismeBundle\\FlairOrganismeBundle::PRESTATAIRES') %}current{% endif %}">
+            <a href="{{ url('Organisme_prestataires') }}">Mes prestataires</a>
+        </li>
+
+        <li class="{% if active == constant('Flair\\OrganismeBundle\\FlairOrganismeBundle::SERVICES') %}current{% endif %}">
+            <a href="{{ url('flair_user_service_list') }}">Mes services</a>
+        </li>
+
+        <li class="last {% if active == constant('Flair\\OrganismeBundle\\FlairOrganismeBundle::MON_COMPTE') %}current{% endif %}">
+            <a href="{{ url('flair_user_profil_see') }}">Mon compte</a>
+        </li>
+    </ul>
+</div>

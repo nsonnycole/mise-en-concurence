@@ -1,0 +1,135 @@
+imports:
+    - { resource: parameters.yml }
+    - { resource: security.yml }
+
+framework:
+    secret:          %secret%
+    router:
+        resource: "%kernel.root_dir%/config/routing.yml"
+        strict_requirements: ~
+    form:            ~
+    csrf_protection: ~
+    validation:      { enable_annotations: true }
+    templating:
+        engines: ['twig']
+    default_locale:  "%locale%"
+    translator: { fallback: fr }
+    trusted_proxies: ~
+    session:         ~
+    fragments:       ~
+    http_method_override: true
+
+# Twig Configuration
+twig:
+    debug:            %kernel.debug%
+    strict_variables: %kernel.debug%
+    form:
+        resources:
+            - ::form/default_form_theme.html.twig
+
+# Assetic Configuration
+assetic:
+    debug:          %kernel.debug%
+    use_controller: false
+    bundles:
+        - FlairCoreBundle
+        - FlairOrganismeBundle
+        - FlairPrestataireBundle
+    filters:
+        cssrewrite: ~
+        lessphp:
+            file: %kernel.root_dir%/../vendor/leafo/lessphp/lessc.inc.php
+            apply_to: "\.less$"
+
+# Doctrine Configuration
+doctrine:
+    dbal:
+        driver:   %database_driver%
+        host:     %database_host%
+        port:     %database_port%
+        dbname:   %database_name%
+        user:     %database_user%
+        password: %database_password%
+        charset:  UTF8
+    orm:
+        auto_generate_proxy_classes: %kernel.debug%
+        auto_mapping: true
+
+# Swiftmailer Configuration
+swiftmailer:
+    auth_mode: login
+    transport:          %mailer_transport%
+    host:               %mailer_host%
+    port:               %mailer_port%
+    username:           %mailer_user%
+    password:           %mailer_password%
+    #delivery_address:   %mailer_delivery_address%
+
+services:
+    twig.extension.text:
+        class: Twig_Extensions_Extension_Text
+        tags:
+            - { name: twig.extension }
+
+    twig.extension.intl:
+       class: Twig_Extensions_Extension_Intl
+       tags:
+           - { name: twig.extension }
+
+vich_uploader:
+    db_driver: orm
+    gaufrette: true
+    storage: vich_uploader.storage.gaufrette
+    mappings:
+        document:
+            namer: vich_uploader.namer_uniqid
+            uri_prefix: /documents
+            upload_destination: documents_fs
+            inject_on_load: true
+
+knp_gaufrette:
+    adapters:
+        documents_adapter:
+            local:
+                directory: %kernel.root_dir%/../web/documents
+
+    filesystems:
+        documents_fs:
+            adapter: documents_adapter
+
+ivory_ck_editor:
+    default_config: miseenconcurrence
+    configs:
+        miseenconcurrence:
+            removePlugins: "elementspath"
+            toolbar:  [ ['Bold', 'Italic', 'Underline'], ['JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock'], ['FontSize', 'TextColor'], ['NumberedList', 'BulletedList', '-', 'Link', 'Unlink']]
+
+sonata_block:
+    default_contexts: [cms]
+    blocks:
+        sonata.admin.block.admin_list:
+            contexts: [admin]
+       #sonata.admin_doctrine_orm.block.audit:
+        #    contexts:   [admin]
+        sonata.block.service.text: ~
+        sonata.block.service.action: ~
+        sonata.block.service.rss: ~
+        sonata.block.service.souscategorie: ~
+
+sonata_admin:
+    title:      Mise-en-concurrence
+    title_logo: images/arbre.png
+    dashboard:
+        blocks:
+            # display a dashboard block
+            - { position: left, type: sonata.admin.block.admin_list }
+
+dizda_cloud_backup:
+    processor:
+        type: zip
+    # cloud_storages:
+    #     local:
+    #         path: %backup_directory%
+    databases:
+        mysql:
+            # When no parameters is specified under mysql, the bundle taking those from parameters.yml

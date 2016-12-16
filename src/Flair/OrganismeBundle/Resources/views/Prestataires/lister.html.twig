@@ -1,0 +1,134 @@
+{% extends 'FlairOrganismeBundle::prestataires.html.twig' %}
+
+{% block body %}
+<div class="inner">
+
+    <div class="title title-table">
+        <h2 class="left-bar">
+            Mes prestataires
+        </h2>
+
+        <div class="btn-bar right">
+
+            <a href="{{ url('flair_user_invitation_send') }}" class="btn orange no-radius">
+            <i class="fa fa-user-plus"></i>
+
+                Inviter un prestataire
+            </a>
+
+            <div class="corner"></div>
+        </div>
+    </div>
+
+    <div class="listing-prestataires">
+        <form action="" method="POST" class="prestataires-filter">
+            <div class="filter filter-chozen">
+                {{ form_label(form.categorie) }}
+                {{ form_widget(form.categorie) }}
+            </div>
+        </form>
+
+        <table class="table datatable">
+            <thead>
+                <th>Société</th>
+                <th>Secteur</th>
+                <th>Référent</th>
+                <th>Contact</th>
+                <th class="center title-doc">
+                    <span class="doc">Documents</span>
+                    <span class="sub-menu">URSSAF</span>
+                    <span class="sub-menu">IMPÔTS</span>
+                    <span class="sub-menu">KBIS</span>
+                </th>
+                <th width="5%">Status</th>
+                <th width="10%">Action</th>
+            </thead>
+
+            <tbody class="large">
+                {% for prestataire in prestataires %}
+                    <tr data-url="{{ url('Organisme_prestataire', {'id' : prestataire.id } ) }}">
+                        <td>
+                            {{ prestataire.nom }}
+                        </td>
+                        <td>
+                            {{ prestataire.categorie }}
+                        </td>
+                        <td class="center">{{ prestataire.nomComplet }}</td>
+                        <td class="td_left">
+                            TEL: {{ prestataire.telephone}}<br/>
+                            MOBILE: {{ prestataire.mobile }}<br/>
+                            EMAIL: {{ prestataire.email}}
+                        </td>
+                        <td class="documents center">
+                            <span>
+                                {% if prestataire.urssaf is not null %}
+                                    <img src="{{ asset('images/icon_ok.png') }}" class="icon" alt="oui" title="Attestation URSSAF" />
+                                {% else %}
+                                    <img src="{{ asset('images/icon_remove.png') }}" class="icon" alt="non" title="Attestation URSSAF" />
+                                {% endif %}
+                            </span>
+                            <span>
+                                {% if prestataire.impots is not null %}
+                                    <img src="{{ asset('images/icon_ok.png') }}" class="icon" alt="oui" title="Attestation impôts" />
+                                {% else %}
+                                    <img src="{{ asset('images/icon_remove.png') }}" class="icon" alt="non" title="Attestation impôts">
+                                {% endif %}
+                            </span>
+                            <span>
+                                {% if prestataire.kbis is not null %}
+                                    <img src="{{ asset('images/icon_ok.png') }}" class="icon" alt="oui" title="Extrait KBIS" />
+                                {% else %}
+                                    <img src="{{ asset('images/icon_remove.png') }}" class="icon" alt="non" title="Extrait KBIS" />
+                                {% endif %}
+                            </span>
+                        </td>
+                        <td class="center">Confirmé</td>
+                        <td class="invit">
+                            <a href="{{ url('Organisme_prestataires_supprimer', {'id' : prestataire.id } ) }}" class="js_confirm btn-delete" data-confirm="Etes vous sûr de vouloir supprimer ce prestataire?">Supprimer</a>
+                        </td>
+                    </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="7" class="center">
+                                Vous n'avez pas encore de prestataire...
+                            </td>
+                        </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}
+
+{% block inlineScript %}
+    <script>
+        $(function() {
+            if ($("table.datatable tbody td").length != 1) {
+                $("table.datatable").dataTable({
+                    "sDom": '<"top">t<"bottom"lp><"clear">',
+                    "bPaginate" : false,
+                    "aoColumns": [
+                        { "bSortable": true },
+                        { "bSortable": true },
+                        { "bSortable": true },
+                        { "bSortable": true },
+                        { "bSortable": false },
+                        { "bSortable": true },
+                        { "bSortable": false }
+                    ]
+                });
+            }
+
+            // Au click sur une ligne, on affiche le prestataire.
+            $('body').delegate(".datatable tbody tr[rel!=invitation]", 'click', function() {
+                if ($(this).attr('data-url')) {
+                    window.location.href = $(this).attr('data-url');
+                }
+            });
+
+            $("form.prestataires-filter").delegate("select", "change", function() {
+                $("form.prestataires-filter").submit();
+            });
+        });
+    </script>
+{% endblock %}

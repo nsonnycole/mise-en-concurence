@@ -1,0 +1,123 @@
+# CONSULTATIONS
+# ~~~~~~~~~~~~~
+Organisme_consultations:
+    path: /mes-consultations
+    defaults: { _controller: FlairOrganismeBundle:Consultations:lister }
+    methods:  [GET,POST]
+
+Organisme_consultation_questions:
+    path: /demandes/{id}/questions
+    defaults: { _controller: FlairOrganismeBundle:Questions:lister}
+    methods:  [GET]
+
+Organisme_consultation_questions_afficher:
+    path: /demandes/questions/{id}
+    defaults: { _controller: FlairOrganismeBundle:Questions:afficher}
+    methods:  [GET, POST]
+
+Organisme_creation_consultation_etape1_modifier:
+    path: /creation-demande/etape-1/{id}
+    defaults: { _controller: FlairOrganismeBundle:Consultations:modifierEtape1 }
+    methods: [GET, POST]
+
+Organisme_creation_consultation_etape1:
+    path: /creation-demande/etape-1
+    defaults: { _controller: FlairOrganismeBundle:Consultations:creationEtape1 }
+    methods: [GET, POST]
+
+Organisme_creation_consultation_etape2:
+    path: /creation-demande/etape-2/{id}
+    defaults: { _controller: FlairOrganismeBundle:Consultations:creationEtape2 }
+    methods: [GET, POST]
+
+Organisme_creation_consultation_etape3:
+    path: /creation-demande/etape-3/{id}
+    defaults: { _controller: FlairOrganismeBundle:Consultations:creationEtape3 }
+    methods: [GET, POST]
+
+Organisme_suppression_document_etape3:
+    path: /creation-demande/documents/supprimer/{idConsultation}/{idDocument}
+    defaults: { _controller: FlairOrganismeBundle:Consultations:supprimerDocument }
+
+Organisme_consultation_publier:
+    path: /demandes/publier/{id}
+    defaults: { _controller: FlairOrganismeBundle:Consultations:publier }
+    methods: [GET]
+
+Organisme_consultation_publier_post:
+    path: /demandes/publier/{id}
+    defaults: { _controller: FlairOrganismeBundle:Consultations:postPublier }
+    methods: [POST]
+
+Organisme_consultation_publier_filtrer:
+    path: /demandes/publier/{id}/filtrer
+    defaults: { _controller: FlairOrganismeBundle:Consultations:publierFiltrer }
+    methods: [GET, POST]
+    options:
+        expose: true
+
+Organisme_consultation_annuler:
+    path: /demandes/annuler/{id}
+    defaults: { _controller: FlairOrganismeBundle:Consultations:annuler }
+
+Organisme_consultation_selectionner:
+    path: /demandes/reponses/{id}/selectionner
+    defaults: { _controller: FlairOrganismeBundle:Consultations:selectionner }
+    methods: [GET]
+
+# REPONSES
+# ~~~~~~~~
+Organisme_consultation_reponses:
+    path: /demandes/{id}/reponses
+    defaults: { _controller: FlairOrganismeBundle:Reponses:lister }
+
+Organisme_consultation_reponse:
+    path: /demandes/reponse/{id}
+    defaults: { _controller: FlairOrganismeBundle:Reponses:afficher }
+
+Organisme_consultation_reponse_selectionner_post:
+    path: /demandes/reponses/{id}/selectionnerPost
+    defaults: { _controller: FlairOrganismeBundle:Reponses:selectionnerPost }
+
+# PRESTATAIRES
+# ~~~~~~~~~~~~
+Organisme_prestataire:
+    path: /mes-prestataires/{id}
+    defaults: { _controller: FlairOrganismeBundle:Prestataires:afficher }
+    methods: [GET]
+    requirements:
+        id:  \d+
+
+Organisme_prestataires:
+    path: /mes-prestataires
+    defaults: { _controller: FlairOrganismeBundle:Prestataires:lister }
+    methods: [GET, POST]
+
+#Organisme_invitations_inviter:
+#    path: /mes-prestataires/inviter
+#    defaults: { _controller: FlairOrganismeBundle:Invitations:inviter }
+#    methods: [GET, POST]
+
+#Organisme_invitations_relancer:
+#    path: /mes-prestataires/relancer/{id}
+#    defaults: { _controller: FlairOrganismeBundle:Invitations:relancer }
+
+#Organisme_invitations_supprimer:
+#    path: /mes-prestataires/supprimer/{id}
+#    defaults: { _controller: FlairOrganismeBundle:Invitations:supprimer}
+#
+Organisme_prestataires_supprimer:
+    path: /mes-prestataires/supprimerPrestataire/{id}
+    defaults: { _controller: FlairOrganismeBundle:Prestataires:supprimerPrestataire}
+
+#Organisme_service_inscription:
+#    pattern:  /invitation/service/{token}
+#    defaults: { _controller: FlairOrganismeBundle:Inscription:inscription }
+#    methods: [GET,POST]
+#    options:
+#        expose: true
+
+#Organisme_invitations_service_inviter:
+#    path: /mes-services/inviter
+#    defaults: { _controller: FlairOrganismeBundle:Invitations:inviterService }
+#    methods: [GET, POST]

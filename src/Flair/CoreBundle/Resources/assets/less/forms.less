@@ -1,0 +1,177 @@
+.form-cpt{
+    display: table-cell;
+}
+
+.sub {
+    margin: 4% 0 0 45%;
+
+    a{
+        font-size: 1.4em;
+    }
+
+    input{
+        margin-left: 10%;
+        font-size: 1.4em;!important
+    }
+}
+
+.form-horizontal {
+    float: left;
+
+    .control-group {
+        margin-bottom: 18px;
+        position: relative;
+
+        &.toggleShow {
+          padding-left: 200px;
+          width: 250px;
+          text-align: center;
+          cursor: pointer;
+
+          .ui-icon {
+              text-align: center;
+              margin-left: 116px;
+              margin-top: 5px;
+          }
+        }
+
+        .clearfix();
+
+        .categories {
+              float: left;
+              margin-top: 13px;
+              margin-left: 10px;
+              font-style: italic;
+        }
+    }
+
+    .control-label {
+        text-align: right;
+        width: 190px;
+    }
+
+    .controls {
+        margin-left: 200px;
+
+        .toggleShow {
+            width: 73px;
+            text-align: center;
+        }
+
+        .ckeditor-help-inline {
+            display: block;
+            padding-left: 0px;
+            margin-top: 10px;
+            font-style: italic;
+        }
+
+        .help-inline {
+            padding-left: 10px;
+            font-style: italic;
+        }
+
+        &.file-input {
+            line-height: 18px;
+            padding: 8px;
+            height: 18px;
+        }
+    }
+
+    .cke_bottom {
+        display: none;
+    }
+
+    textarea,
+    input[type="text"],
+    input[type="password"],
+    input[type="datetime"],
+    input[type="datetime-local"],
+    input[type="date"],
+    input[type="month"],
+    input[type="time"],
+    input[type="week"],
+    input[type="number"],
+    input[type="email"],
+    input[type="url"],
+    input[type="search"],
+    input[type="tel"],
+    input[type="color"],
+    .chzn-single {
+        font-size: 13px;
+        line-height: 18px;
+        border: 1px solid #565555;
+        padding: 8px;
+        height: 17px;
+        width: 230px;
+        vertical-align: middle;
+        display: inline-block;
+
+        &.large {
+            width: 500px;
+        }
+
+        &.bigInput {
+            height: 90px;
+            width: 380px;
+        }
+    }
+
+    input[type=checkbox] {
+        margin-top: 15px;
+    }
+
+    input[type=checkbox],
+    input[type=radio] {
+        display: inline-block;
+        margin-right: 5px;
+    }
+
+    input[type=submit],
+    button, {
+        border: 0;
+        padding: 8px 15px;
+        display: inline-block;
+    }
+
+    select {
+        margin-top: 5px;
+        float: left;
+        height: 30px;
+        border-radius: 0;
+        width: 100%;
+        font-size: 13px;
+    }
+
+    label {
+        font-size: 13px;
+        padding-top: 13px;
+        float: left;
+        display: block;
+        color: black;
+
+        &.radio {
+            cursor: pointer;
+            margin-right: 20px;
+        }
+    }
+
+    .form-error {
+        font-weight: bold;
+        font-style: italic;
+        color: @colorRed;
+    }
+
+    .error-list {
+        font-size: 13px;
+        font-weight: bold;
+        font-style: italic;
+        color: @colorRed;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+}
+
+.required-flag {
+    color: red;
+}

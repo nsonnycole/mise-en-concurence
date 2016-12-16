@@ -1,0 +1,11 @@
+<div class="menu_container clearfix">
+    <ul>
+        <li class="first {% if active == constant('Flair\\PrestataireBundle\\FlairPrestataireBundle::PROPOSITIONS') %}current{% endif %}">
+            <a href="{{ url('Prestataire_propositions') }}">Mes propositions</a>
+        </li>
+
+        <li class="left-border last {% if active == constant('Flair\\PrestataireBundle\\FlairPrestataireBundle::MON_COMPTE') %}current{% endif %}">
+            <a href="{{ url('flair_user_profil_see') }}">Mon compte</a>
+        </li>
+    </ul>
+</div>

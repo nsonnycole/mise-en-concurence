@@ -1,0 +1,161 @@
+{% extends 'FlairOrganismeBundle::prestataires.html.twig' %}
+
+{% block body %}
+<div class="inner">
+
+    <div class="title title-table">
+        <h2 class="left-bar">
+            {{ prestataire.nom }}
+        </h2>
+
+        <div class="btn-bar right">
+            <a onClick="window.history.go(-1);" class="btn orange no-radius">
+            <i class="fa fa-undo"></i>
+ Retour</a>
+            <div class="corner"></div>
+        </div>
+    </div>
+
+        <div class="account-infos">
+        <div class="left-infos">
+            <div class="line-show clearfix">
+                <span class="title">Adresse email</span>
+                <span>{{ prestataire.email }}</span>
+            </div>
+
+            <div class="line-show clearfix">
+                <span class="title">Contact</span>
+                <span>{{ prestataire.nomComplet }}</span>
+            </div>
+
+            <div class="line-show clearfix">
+                <span class="title">Nom</span>
+                <span>{{ prestataire.nom }}</span>
+            </div>
+
+            <div class="line-show clearfix">
+                <span class="title">Catégorie</span>
+                <span>{{ prestataire.categorie | categorie }}</span>
+            </div>
+
+            <div class="line-show clearfix">
+                <span class="title">Adresse</span>
+                <span>
+                    {{ prestataire.adresse }}<br>
+                    {{ prestataire.complementAdresse }}<br/>
+                    {{ prestataire.codePostal }} {{ prestataire.ville }}
+                </span>
+            </div>
+
+            <div class="line-show clearfix">
+                <span class="title">Complément d'adrese</span>
+                <span>
+                    {{ prestataire.complementAdresse }}<br>
+                    {{ prestataire.codePostal }} {{ prestataire.ville }}
+                </span>
+            </div>
+
+            <div class="line-show clearfix">
+                <span class="title">Périmètre d'intervention</span>
+                <span>{{ prestataire.perimetreIntervention | capitalize }}</span>
+            </div>
+
+            <div class="line-show clearfix">
+                <span class="title">Date de création</span>
+                <span>{{ prestataire.dateCreation | date('d-m-Y') }}</span>
+            </div>
+
+            <div class="line-show clearfix">
+                <span class="title">Téléphone</span>
+                <span>{{ prestataire.telephone }}</span>
+            </div>
+
+            <div class="line-show clearfix">
+                <span class="title">Mobile</span>
+                <span>{{ prestataire.mobile }}</span>
+            </div>
+
+            <div class="line-show clearfix">
+                <span class="title">Mots clés</span>
+                <span>
+                    {% for tag in prestataire.tags %}
+                        {{ tag.name }}{% if not loop.last %},{% endif %}
+                    {% endfor %}
+                </span>
+            </div>
+        </div>
+
+        <div class="right-infos">
+            <div class="line-show clearfix">
+                <span class="title">SIRET</span>
+                <span>{{ prestataire.siret }}</span>
+            </div>
+
+
+            <div class="line-show clearfix">
+                <span class="title">SIREN</span>
+                <span>{{ prestataire.siren }}</span>
+            </div>
+
+            <div class="line-show clearfix">
+                <span class="title">APE</span>
+                <span>{{ prestataire.ape }}</span>
+            </div>
+
+            <div class="line-show clearfix">
+                <span class="title">Références</span>
+                <span>{{ prestataire.refs }}</span>
+            </div>
+
+            <div class="line-show clearfix">
+                <span class="title">Présentation</span>
+                <span>{{ prestataire.refs }}</span>
+            </div>
+
+            <div class="line-show clearfix">
+                <span class="title">Attestation URSSAF</span>
+                {% if prestataire.urssaf is not null %}
+                    <span data-filename="{{ prestataire.urssaf.filename }}">
+                        <a target="_blank" href="{{ vich_uploader_asset(prestataire.urssaf, 'document') }}">Visualiser</a>
+                    </span>
+                {% else %}
+                    <span>Non renseigné</span>
+                {% endif %}
+            </div>
+
+            <div class="line-show clearfix">
+                <span class="title">Attestation impôts</span>
+                {% if prestataire.impots is not null %}
+                    <span data-filename="{{ prestataire.impots.filename }}">
+                        <a target="_blank" href="{{ vich_uploader_asset(prestataire.impots, 'document') }}">Visualiser</a>
+                    </span>
+                {% else %}
+                    <span>Non renseigné</span>
+                {% endif %}
+            </div>
+
+            <div class="line-show clearfix">
+                <span class="title">Extrait KBIS</span>
+                {% if prestataire.kbis is not null %}
+                    <span data-filename="{{ prestataire.kbis.filename }}">
+                        <a target="_blank" href="{{ vich_uploader_asset(prestataire.kbis, 'document') }}">Visualiser</a>
+                    </span>
+                {% else %}
+                    <span>Non renseigné</span>
+                {% endif %}
+            </div>
+
+            <div class="line-show clearfix">
+                <span class="title">Présentation de l'entreprise</span>
+                {% if prestataire.presentationDoc is not null %}
+                    <span data-filename="{{ prestataire.presentationDoc.filename }}">
+                        <a target="_blank" href="{{ vich_uploader_asset(prestataire.presentationDoc, 'document') }}">Visualiser</a>
+                    </span>
+                {% else %}
+                    <span>Non renseigné</span>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

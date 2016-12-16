@@ -1,0 +1,90 @@
+<div class="estimate-summary clearfix">
+
+    <div class="request-summary">
+        <div class="line-show clearfix">
+            <span class="title">Description de la consultation :</span>
+            <span class="ckeditorView collapsable">{{ consultation.description | raw }}</span>
+        </div>
+        <div class="line-show clearfix">
+            <span class="title">&nbsp;</span>
+            <span><a href="#" class="readMore">lire la suite</a></span>
+        </div>
+
+        <div class="line-show clearfix">
+            <span class="title">Secteur d'activité :</span>
+            <span>{{ consultation.categorie | categorie }}</span>
+        </div>
+
+        {% if consultation.prixMinimum is not null and consultation.prixMaximum is not null %}
+            <div class="line-show clearfix">
+                <span class="title">Fourchette de prix estimée :</span>
+                <span>Entre {{ consultation.prixMinimum | euros }} et {{ consultation.prixMaximum | euros }}</span>
+            </div>
+        {% endif %}
+
+        {% if consultation.certificationRequise is defined and consultation.certificationRequise %}
+            <div class="line-show clearfix">
+                <span class="title">Certification :</span>
+                <span>
+                    Oui {{ consultation.certifications }}
+                </span>
+            </div>
+        {% endif %}
+
+        {% if consultation.dateLimite is not empty %}
+            <div class="line-show clearfix">
+                <span class="title">Date de cloture de la consultation :</span>
+                <span>
+                    {{ consultation.dateLimite | localizeddate('long', 'none', app.request.locale) }}
+                </span>
+            </div>
+        {% endif %}
+
+        {% if consultation.periodeDebut is not null %}
+            <div class="line-show clearfix">
+                <span class="title">La prestation doit commencer :</span>
+                <span>
+                    {% if consultation.periodeDebut is constant('Flair\\OrganismeBundle\\Form\\ChoiceList\\DisponibiliteChoiceList::ASAP')  %}
+                        {{ constant('Flair\\OrganismeBundle\\Form\\ChoiceList\\DisponibiliteChoiceList::ASAP') }}
+                    {% else %}
+                        {{ consultation.periodeDebut }} {{ consultation.dateDebut | localizeddate('long', 'none', app.request.locale) }}
+                    {% endif %}
+                </span>
+            </div>
+        {% endif %}
+
+        {% if consultation.periodeLivraison is not null  %}
+            <div class="line-show clearfix">
+                <span class="title">La livraison doit avoir lieu :</span>
+                <span>
+                    {% if consultation.periodeLivraison is constant('Flair\\OrganismeBundle\\Form\\ChoiceList\\DisponibiliteChoiceList::ASAP')  %}
+                        {{ constant('Flair\\OrganismeBundle\\Form\\ChoiceList\\DisponibiliteChoiceList::ASAP') }}
+                    {% else %}
+                        {{ consultation.periodeLivraison }} {{ consultation.dateLivraison | localizeddate('long', 'none', app.request.locale) }}
+                    {% endif %}
+                </span>
+            </div>
+        {% endif %}
+
+        {% if consultation.experienceRequise %}
+            <div class="line-show clearfix">
+                <span class="title">Experience requise :</span>
+                <span>{{ consultation.experienceRequise }}</span>
+            </div>
+        {% endif %}
+
+        {% if consultation.documents is not empty %}
+            <div class="line-show clearfix">
+                <span class="title">Fichiers joints :</span>
+
+                <span class="file-list">
+                    <ul>
+                        {% for document in consultation.documents %}
+                            <li data-filename="{{ document.filename }}"><a target="_blank" href="{{ vich_uploader_asset(document, 'document') }}">{{ document.titre }}</a></li>
+                        {% endfor %}
+                    </ul>
+                </span>
+            </div>
+        {% endif %}
+    </div>
+</div>

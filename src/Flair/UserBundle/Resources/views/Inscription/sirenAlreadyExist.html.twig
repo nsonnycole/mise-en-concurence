@@ -1,0 +1,11 @@
+{% extends '::base.html.twig' %}
+
+{% block body %}
+    <div class="inner">
+        <div class="prefix_1">
+            <p>
+                Ce numéro de SIREN est déjà utilisé, merci de contacter {{ gestionnaire.nom }} - {{ gestionnaire.email }} pour vous inscrire.
+            </p>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <parameters>
+        <parameter key="flair.twig.consultation_statut.extension.class">Flair\CoreBundle\Twig\ConsultationExtension</parameter>
+        <parameter key="flair.twig.reponse_statut.extension.class">Flair\CoreBundle\Twig\ReponseExtension</parameter>
+        <parameter key="flair.twig.categories.extension.class">Flair\CoreBundle\Twig\CategorieExtension</parameter>
+        <parameter key="flair.twig.prestataire.extension.class">Flair\CoreBundle\Twig\PrestataireExtension</parameter>
+        <parameter key="flair.twig.currency.extension.class">Flair\CoreBundle\Twig\CurrencyExtension</parameter>
+        <parameter key="flair.twig.datetime.extension.class">Flair\CoreBundle\Twig\DateTimeExtension</parameter>
+        <parameter key="flair.twig.invitation.extension.class">Flair\CoreBundle\Twig\InvitationExtension</parameter>
+    </parameters>
+
+    <services>
+        <service id="flair.twig.consultation_statut.extension" class="%flair.twig.consultation_statut.extension.class%">
+            <tag name="twig.extension" />
+        </service>
+
+        <service id="flair.twig.reponse_statut.extension" class="%flair.twig.reponse_statut.extension.class%">
+            <tag name="twig.extension" />
+        </service>
+
+        <service id="flair.twig.categories.extension" class="%flair.twig.categories.extension.class%">
+            <tag name="twig.extension" />
+        </service>
+
+        <service id="flair.twig.prestataire.extension" class="%flair.twig.prestataire.extension.class%">
+            <tag name="twig.extension" />
+            <call method="setEm">
+                <argument id="doctrine.orm.entity_manager" type="service" />
+            </call>
+        </service>
+
+        <service id="flair.twig.currency.extension" class="%flair.twig.currency.extension.class%">
+            <tag name="twig.extension" />
+        </service>
+
+        <service id="flair.twig.datetime.extension" class="%flair.twig.datetime.extension.class%">
+            <tag name="twig.extension" />
+        </service>
+
+        <service id="flair.twig.invitation.extension" class="%flair.twig.invitation.extension.class%">
+            <tag name="twig.extension" />
+            <call method="setEm">
+                <argument id="doctrine.orm.entity_manager" type="service" />
+            </call>
+        </service>
+    </services>
+</container>

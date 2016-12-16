@@ -1,0 +1,22 @@
+{% extends 'FlairPrestataireBundle::propositions.html.twig' %}
+
+{% block body %}
+<div class="inner">
+
+    <div class="btn-bar right">
+        <a href="{{ url('Prestataire_propositions_afficher', {'id' : reponse.id } ) }}" class="btn">retour</a>
+    </div>
+
+    {% include 'FlairOrganismeBundle:Consultations:partials/summary.html.twig' with {'consultation' : reponse.consultation } %}
+    <h2 class="title grey">Poser une question</h2>
+
+    <form action="{{ url('Prestataire_propositions_questions_poser', {'id' : reponse.id } ) }}" method="post" class="form-horizontal">
+        {{ form_rest(form) }}
+
+        <div class="controls">
+            <input type="submit" value="Envoyer" class="btn orange"/>
+            <a href="{{ url('Prestataire_propositions_afficher', {'id' : reponse.id } ) }}" class="btn">retour</a>
+        </div>
+    </form>
+</div>
+{% endblock %}

@@ -1,0 +1,32 @@
+{% extends 'FlairPrestataireBundle::propositions.html.twig' %}
+
+{% block body %}
+    <div class="inner">
+
+        <div class="btn-bar right">
+            <a href="{{ url('Prestataire_propositions_afficher', {'id' : question.reponse.id } ) }}" class="btn">retour à la liste</a>
+        </div>
+
+        {% include 'FlairOrganismeBundle:Consultations:partials/summary.html.twig' with {'consultation' : question.reponse.consultation } %}
+
+        <h2 class="title grey">{{ question.titre }}</h2>
+        <p>
+            {{ question.question | raw }}
+        </p>
+
+        <div class="right-align">
+            <span><i>le {{ question.dateQuestion | date('d-m-Y') }}</i></span>
+        </div>
+
+        <h2 class="title grey" style="margin-top: 40px;">Réponse</h2>
+        {% if question.reponseOrganisme == "" %}
+            <p>En attente de réponse...</p>
+        {% else %}
+            {{ question.reponseOrganisme | raw }}
+
+            <div class="right-align">
+                <span><i>le {{ question.dateQuestion | date('d-m-Y') }}</i></span>
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}

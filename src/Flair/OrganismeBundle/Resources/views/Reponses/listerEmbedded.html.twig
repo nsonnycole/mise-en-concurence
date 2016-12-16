@@ -1,0 +1,39 @@
+<h2 class="title title-table grey">Réponses</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th width="35%">Société</th>
+            <th>Montant HT de la proposition</th>
+            <th>Date de la réponse</th>
+            <th width="20%">Statut</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        {% for reponse in reponses %}
+            <tr>
+                <td>
+                    <a href="{{ url('Organisme_consultation_reponse', {'id' : reponse.id } ) }}">{{ reponse.prestataire.nom }}</a>
+                </td>
+                <td>
+                    {% if reponse.montantHt != 0 %}
+                        {{ reponse.montantHt | euros }}
+                    {% endif %}
+                </td>
+                <td>
+                    {% if reponse.dateReponse is not empty %}
+                        {{ reponse.dateReponse | date('d-m-Y') }}
+                    {% endif %}
+                </td>
+                <td>{{ reponse | reponse_statut }}</td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">Aucune réponse pour l'instant...</td>
+            </tr>
+        {% endfor %}
+
+        <tr></tr>
+    </tbody>
+</table>

@@ -1,0 +1,81 @@
+{% extends 'FlairPrestataireBundle::propositions.html.twig' %}
+
+{% block body %}
+    <div class="inner">
+        <div class="title title-table">
+            <h2 class="left-bar">
+                Consultation : {{ reponse.consultation.titre }}
+            </h2>
+
+            <div class="btn-bar right">
+                <a href="{{ url('Prestataire_propositions') }}" class="btn orange no-radius">
+                    Retour à la liste
+                </a>
+                <div class="corner"></div>
+            </div>
+        </div>
+
+        {% include 'FlairPrestataireBundle::menuPrestataire.html.twig' with { 'reponse' : reponse} %}
+
+        <div class="block-reponse">
+
+            {% include 'FlairPrestataireBundle::menuStep.html.twig' with
+                {
+                    'step'    : 2,
+                    'reponse' : reponse
+                }
+            %}
+
+            <div class="consultation-content">
+                <div class="titre">
+                    Votre devis
+                    <span class="budget">
+                        Budget client :
+                        {% if reponse.consultation.prixMinimum is null and reponse.consultation.prixMaximum is null %}
+                            non renseigné
+                        {% else %}
+                            {{ reponse.consultation.prixMinimum | euros }} - {{ reponse.consultation.prixMaximum | euros}}
+                        {% endif %}
+
+                    </span>
+                </div>
+
+                <div class="controls menu-upload">
+                    <a href="{{ url('Prestataire_propositions_etape_two_saisie', { 'id': reponse.id })}}" class="btn diffuse black">Saisir votre devis en ligne</a>
+                    <a class="add btn orange diffuse black">Télécharger votre devis</a>
+                </div>
+
+                <form action="" method="post" enctype="multipart/form-data" class="form-horizontal" novalidate="" style="margin-top: 100px;">
+                    {{ form_row(form.montantHt) }}
+                    {{ form_row(form.montantTtc) }}
+
+                    <div class="control-group">
+                        {{ form_label(form.devisDocument) }}
+                        <div class="controls file-input">
+                            {{ form_errors(form.devisDocument) }}
+                            {{ form_errors(form.devisDocument.document) }}
+
+                            {% if form.vars.value.devisDocument is not null and form.vars.value.devisDocument.filename != "" %}
+                                <span data-filename="{{ form.vars.value.devisDocument.filename }}">
+                                    <a target="_blank" href="{{ vich_uploader_asset(form.vars.value.devisDocument, 'document') }}">Visualiser</a>
+                                </span>
+                            {% else %}
+                                <span>Non renseigné</span>
+                            {% endif %}
+
+                            {{ form_widget(form.devisDocument.document) }}
+                        </div>
+                    </div>
+
+                    {{ form_widget(form._token) }}
+
+                
+                    <div class="actions">
+                        <input class="btn js_draft" name="brouillon" type="submit" value="Enregistrer en brouillon"/>
+                        <input type="submit" value="Suivant" class="next btn orange"/>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

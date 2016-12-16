@@ -1,0 +1,153 @@
+{% extends 'FlairPrestataireBundle::profil.html.twig' %}
+
+{% block body %}
+<div class="inner">
+
+    <div class="title title-table">
+        <h2 class="left-bar">
+            Modifier mon compte
+        </h2>
+        <div class="btn-bar right">
+            <a href="{{ url('flair_user_profil_see') }}" class="btn orange no-radius">Retour</a>
+            <div class="corner"></div>
+        </div>
+    </div>
+
+    <div class="prefix_1">
+        <form method="POST" class="form-horizontal" {{ form_enctype(form) }} id="profil">
+            {{ form_row(form.email) }}
+            {{ form_row(form.nom) }}
+            {{ form_row(form.dateCreation) }}
+            {{ form_row(form.siren) }}
+            <div class="control-group">
+                {{ form_label(form.categories) }}
+                <div class="controls">
+                    {% if hideErrors is not defined %}
+                        {{ form_errors(form.categories) }}
+                    {% endif %}
+
+                    {{ form_widget(form.categories) }}
+                </div>
+            </div>
+            {{ form_row(form.perimetreIntervention) }}
+            {{ form_row(form.adresse) }}
+            {{ form_row(form.complementAdresse) }}
+            {{ form_row(form.presentation) }}
+            {{ form_row(form.refs) }}
+            {{ form_row(form.tags, { 'attr': {'class': 'tag-select hide', 'multiple': 'multiple'}}) }}
+            <div class="controls" style="margin-bottom: 20px;">
+                <i style="display:block; text-align:justify;width:250px;">Cette liste de mots clés servira à vous référencer sur le moteur de recherche de la plateforme, soyez précis.</i>
+            </div>
+            {{ form_row(form.siret) }}
+            {{ form_row(form.ape) }}
+            {{ form_row(form.tvaIntracommunautaire) }}
+            {{ form_row(form.prenomContact) }}
+            {{ form_row(form.nomContact) }}
+            {{ form_row(form.ville) }}
+            {{ form_row(form.codePostal) }}
+            {{ form_row(form.telephone) }}
+            {{ form_row(form.mobile) }}
+  
+            <div class="control-group">
+                {{ form_label(form.urssaf) }}
+                <div class="controls file-input">
+                    {{ form_errors(form.urssaf.document) }}
+                    {{ form_widget(form.urssaf.document) }}
+                </div>
+            </div>
+
+            <div class="control-group">
+                {{ form_label(form.impots) }}
+                <div class="controls file-input">
+                    {{ form_errors(form.impots.document) }}
+                    {{ form_widget(form.impots.document) }}
+                </div>
+            </div>
+
+            <div class="control-group">
+                {{ form_label(form.kbis) }}
+                <div class="controls file-input">
+                    {{ form_errors(form.kbis.document) }}
+                    {{ form_widget(form.kbis.document) }}
+                </div>
+            </div>
+
+            <div class="control-group">
+                {{ form_label(form.presentationDoc) }}
+                <div class="controls file-input">
+                    {{ form_errors(form.presentationDoc.document) }}
+                    {{ form_widget(form.presentationDoc.document) }}
+                </div>
+            </div>
+
+            {{ form_widget(form._token) }}
+
+                <div class="controls">
+                    <a href="{{ url('flair_user_profil_see') }}" class="btn">Annuler</a>
+                    <input type="submit" id="submitForm" class="btn orange" value="Enregistrer" />
+                </div>
+
+            <div class="tagList hide">
+                {% for tag in utilisateur.tags %}
+                    <span>{{ tag.name }}</span>
+                {% endfor %}
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
+{% block inlineScript %}
+    {{ parent() }}
+    <script type="text/javascript">
+        $(function() {
+            $(".tag-select").select2({
+                tags: true,
+                placeholder: "Filtrez par mot clé"
+            });
+
+            initTags();
+
+            function initTags() {
+                var tags = [];
+
+                $('.tagList span').each(function(index, key) {
+                    tags.push($(key).text());
+                });
+
+                for (var i = 0; i < tags.length; i ++) {
+                    $('.select2-selection__rendered').prepend("<li class='select2-selection__choice'><span class='select2-selection__choice__remove'>x</span>"+tags[i]+"</li>")
+                }
+
+                $('.select2-selection__choice__remove').mousedown(removeTag);
+
+                function removeTag() {
+                    $(this).parent().remove();
+                }
+            }
+
+            $(".tag-select").removeClass("hide");
+            $("#submitForm").mousedown(function() {
+                var listTags = "";
+                $('#profil_prestataire_form_type_tags').attr('name', 'tags');
+                $('.select2-selection__choice span').remove();
+                $('.select2-selection__choice').each(function(index, key) {
+                    if (($('.select2-selection__choice').length -1) == index) {
+                        listTags += $(key).text();
+                    } else {
+                        listTags += $(key).text() + ",";
+                    }
+                });
+                $("#profil").append($(document.createElement('input')).attr('name', 'tagList').addClass('hide').val(listTags));
+                var formData = new FormData(document.getElementById("profil"));
+
+                $.ajax({
+                    url: Routing.generate('Mon_profil_modifier'),
+                    type: "POST",
+                    data: formData,
+                    processData: false,
+                    cache: false
+                });
+            });
+        });
+    </script>
+{% endblock %}

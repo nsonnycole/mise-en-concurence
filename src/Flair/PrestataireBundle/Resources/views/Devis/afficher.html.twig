@@ -1,0 +1,46 @@
+<div id="devis">
+    <table class="table consultation-documents">
+        <thead>
+            <tr>
+                <th>Code</th>
+                <th>Libelle</th>
+                <th>Quantite</th>
+                <th>Prix unitaire</th>
+                <th>TVA</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for ligne in lignesDevis %}
+                <tr>
+                    <td>{{ ligne.code }}</td>
+                    <td>{{ ligne.libelle }}</td>
+                    <td>{{ ligne.quantite }}</td>
+                    <td>{{ ligne.prixUnitaire }}</td>
+                    <td>
+                        {% if ligne.tva == 0 %}0{% else %}{{ ligne.tva * 100 - 100 }} %{% endif %}
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    {% if reponse is defined %}
+        <table class="results res table">
+            <thead>
+                <tr>
+                    <th>Total HT</th>
+                    <th>Total TVA</th>
+                    <th>Total TTC</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="totalHT">{{ reponse.montantHt }}</td>
+                    <td class="totalTVA">{{ reponse.montantTtc - reponse.montantHt }}</td>
+                    <td class="totalTTC">{{ reponse.montantTtc }}</td>
+                </tr>
+            </tbody>
+         </table>
+    {% endif %}
+</div>

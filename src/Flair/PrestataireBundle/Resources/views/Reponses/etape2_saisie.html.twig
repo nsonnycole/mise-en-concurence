@@ -1,0 +1,222 @@
+{% extends 'FlairPrestataireBundle::propositions.html.twig' %}
+
+{% form_theme form ':form:table_form_theme.html.twig' %}
+
+{% block body %}
+    <div class="inner">
+
+        <div class="title title-table">
+            <h2 class="left-bar">
+                Consultation : {{ reponse.consultation.titre }}
+            </h2>
+
+            <div class="btn-bar right">
+                <a href="{{ url('Prestataire_propositions') }}" class="btn orange no-radius">
+                    Retour à la liste
+                </a>
+                <div class="corner"></div>
+            </div>
+        </div>
+
+        {% include 'FlairPrestataireBundle::menuPrestataire.html.twig' with { 'reponse' : reponse} %}
+
+        <div class="block-reponse">
+
+            {% include 'FlairPrestataireBundle::menuStep.html.twig' with
+                {
+                    'step'    : 2,
+                    'reponse' : reponse
+                }
+            %}
+
+            <div class="consultation-content">
+                <div class="titre">
+                    Votre devis
+                    <span class="budget">
+                        Budget client :
+                        {% if reponse.consultation.prixMinimum is null and reponse.consultation.prixMaximum is null %}
+                            non renseigné
+                        {% else %}
+                            {{ reponse.consultation.prixMinimum | euros}} - {{ reponse.consultation.prixMaximum | euros}}
+                        {% endif %}
+
+                    </span>
+                </div>
+
+                <div class="controls menu">
+                    <a class="add btn orange diffuse black">Saisir votre devis en ligne</a>
+                    <a href="{{ url('Prestataire_propositions_etape_two_documents', { 'id': reponse.id })}}"class="add btn orange diffuse black">Télécharger votre devis</a>
+                </div>
+
+                <form action="" class="form-table no-margin" method="post" novalidate="">
+                    <table class="table datatable" id="lignesDevis" data-prototype="{{ form_widget(form.lignesDevis.vars.prototype) | e }}">
+                        <thead>
+                            <th width="10%">Code</th>
+                            <th width="30%">Libellé</th>
+                            <th width="15%">Quantité</th>
+                            <th width="15%">Prix unitaire</th>
+                            <th width="15%">Taux TVA</th>
+                            <th width="15%">Action</th>
+                        </thead>
+
+                        <tbody>
+                            {% for f in form.lignesDevis %}
+                                <tr>
+                                    <td class="center{% if f.code.vars.errors | length %} errors{% endif %}">
+                                        {{ form_widget(f.code) }}
+                                    </td>
+                                    <td class="center{% if f.libelle.vars.errors | length %} errors{% endif %}">{{ form_widget(f.libelle) }}</td>
+                                    <td class="center{% if f.quantite.vars.errors | length %} errors{% endif %}">{{ form_widget(f.quantite) }}</td>
+                                    <td class="center{% if f.prixUnitaire.vars.errors | length %} errors{% endif %}">{{ form_widget(f.prixUnitaire) }}</td>
+                                    <td class="center{% if f.tva.vars.errors | length %} errors{% endif %}">{{ form_widget(f.tva) }}</td>
+                                    <td class="center">
+                                        <a href="#" class="delete btn btn-delete">supprimer</a>
+                                    </td>
+                                </tr>
+                            {% else %}
+
+                                <tr>
+                                    <td colspan="6" class="center dataTables_empty">Aucune ligne dans le devis</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+
+                    {{ form_widget(form._token) }}
+
+                    <div class="controls">
+                        <a href="#" class="add btn orange diffuse black">
+                            <span class="plus">+</span>
+                            Ajouter une ligne
+                        </a>
+                    </div>
+
+                    <table class="results table">
+                        <thead>
+                            <tr>
+                                <th>Total HT</th>
+                                <th>Total TVA</th>
+                                <th>Total TTC</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="totalHT">#</td>
+                                <td class="totalTVA">#</td>
+                                <td class="totalTTC">#</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div class="actions">
+                        <input class="btn js_draft" name="brouillon" type="submit" value="Enregistrer en brouillon"/>
+                        {% if reponse.devisDocument is null %}
+                            <input type="submit" value="Suivant" class="next btn orange"/>
+                        {% else %}
+                            <a href="{{ url('Prestataire_propositions_etape_three', { 'id' : reponse.id }) }}" class="next btn orange">Suivant</a>
+                        {% endif %}
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block inlineScript %}
+    {{ parent() }}
+    <script>
+        $(function() {
+
+            var updateResult = function() {
+                var totalHT = 0;
+                var totalTTC = 0;
+                var totalTVA = 0;
+
+                $('.datatable tbody tr').each(function(key, value) {
+                    var quantite = parseFloat($(value).find('.quantite').val());
+                    var prixUnitaire = parseFloat($(value).find('.prixUnitaire').val());
+                    var tva = parseFloat($(value).find('.tva').find(':selected').val());
+                    totalHT += Number((quantite * prixUnitaire).toFixed());
+                    totalTTC += Number((quantite * prixUnitaire * tva).toFixed());
+                    totalTVA = Number((totalTTC - totalHT).toFixed());
+                });
+
+                $('.totalHT').html(totalHT);
+                $('.totalTTC').html(totalTTC);
+                $('.totalTVA').html(totalTVA);
+            };
+
+            updateResult();
+
+            $('input').keyup(updateResult);
+            $('select').change(updateResult);
+
+            if ($("table.datatable tbody td").length != 1) {
+                $("table.datatable").dataTable({
+                    "sDom": '<"top">t<"bottom"lp><"clear">',
+                    "bPaginate" : false,
+                    "aoColumns": [
+                        { "bSortable": false },
+                        { "bSortable": false },
+                        { "bSortable": false },
+                        { "bSortable": false },
+                        { "bSortable": false },
+                        { "bSortable": false }
+                    ]
+                });
+            }
+            // Ajout d'une nouvelle ligne,
+            $("form").delegate(".add", "click", function(event) {
+                event.preventDefault();
+                event.stopPropagation();
+
+                var nombre = $("#lignesDevis tbody tr").length;
+                var prototype = $("#lignesDevis").data('prototype').replace(/__name__/g, nombre);
+                $('#lignesDevis .dataTables_empty').parent().remove();
+                $("#lignesDevis tbody").append(
+                    "<tr>" +
+                        prototype +
+                        "<td class=\"center\"><a href=\"#\" class=\"delete btn btn-delete\">supprimer</a></td>" +
+                    "</tr>"
+                );
+                $('tbody tr').addClass('center');
+
+                $('input').keyup(updateResult);
+                $('select').change(updateResult);
+                $('.prixUnitaire, .quantite').change(function(e) {
+                    checkNumber($(this).val(), $(this));
+                });
+                $('.prixUnitaire').keyup(function(e) {
+                    $(this).val($(this).val().replace(',', '.'));
+                });
+            });
+
+            // Suppression d'une ligne
+            $("form").delegate(".delete", "click", function(event) {
+                event.preventDefault();
+                event.stopPropagation();
+
+                $(this).parent().parent().remove();
+
+                updateResult();
+            });
+
+            var checkNumber = function(val, context) {
+                if (parseInt(val) < 0 || val === NaN) {
+                    val = 0;
+
+                    $(context).val(val);
+                }
+            };
+
+            $('.prixUnitaire').unbind('keyup');
+            $('.prixUnitaire').keyup(function(e) {
+                $(this).val($(this).val().replace(',', '.'));
+            });
+
+            $('.prixUnitaire, .quantite').change(function(e) {
+                checkNumber($(this).val(), $(this));
+            });
+        });
+    </script>
+{% endblock %}

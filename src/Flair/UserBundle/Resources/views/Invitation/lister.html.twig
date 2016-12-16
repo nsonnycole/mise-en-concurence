@@ -1,0 +1,63 @@
+{% extends '::base.html.twig' %}
+
+{% block body %}
+<div class="inner">
+
+    <div class="title title-table">
+        <h2 class="left-bar">
+		    Liste des invitations
+        </h2>
+
+        <div class="btn-bar right">
+            <a href="{{ url('flair_user_invitation_send') }}" class="btn orange no-radius"><i class="fa fa-user-plus"></i> Inviter</a>
+            <a onClick="window.history.go(-1);" class="btn orange no-radius">
+            <i class="fa fa-undo"></i>
+                Annuler
+            </a>
+            <div class="corner"></div>
+        </div>
+    </div>
+
+    <table class="table datatable">
+        <thead>
+            <th>Nom</th>
+            <th>Email</th>
+            <th>Dates d'envoi</th>
+            <th>Type d'invitation</th>
+            <th>Statut</th>
+            <th>Action</th>
+        </thead>
+
+        <tbody>
+            {% for invitation in invitations %}
+                <tr>
+                    <td> {{ invitation.nom }} </td>
+                    <td> {{ invitation.email }} </td>
+                    <td> {{ invitation.dateInvitation | localizeddate('long', 'none', app.request.locale) }} </td>
+                    <td>
+                        {% if invitation.typeInvitation == 0 %}
+                            Prestataire
+                        {% else %}
+                            Service
+                        {% endif %}
+                    </td>
+                    <td>{{ invitation.stringStatus }}</td>
+                    <td class="invit">
+                        {% if invitation.status == 0 %}
+                        <a href="{{ url('flair_user_invitation_renew', {'token' : invitation.token } ) }}" class="js_confirm btn-delete" data-confirm="Etes vous sûr de vouloir relancer ce prestataire?">Relancer</a>
+                        {% endif %}
+                        <a href="{{ url('flair_user_invitation_remove', {'token' : invitation.token } ) }}" class="js_confirm btn-delete" data-confirm="Etes vous sûr de vouloir supprimer ce prestataire?">Supprimer</a>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="7" class="center">
+                        Vous n'avez pas envoyé d'invitation pour l'instant...
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+</div>
+{% endblock %}

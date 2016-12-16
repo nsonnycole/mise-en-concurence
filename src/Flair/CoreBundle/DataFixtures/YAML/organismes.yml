@@ -1,0 +1,23 @@
+-
+    email: organism@example.com
+    nom: WWF
+    siret: 12312312312312
+    adresse: Rue de la paix
+    ville: Paris
+    codePostal: 75000
+    telephone: 0121444546
+    mobile: 0612345678
+    prenomContact: Prince Bernhard
+    nomContact:  Lippe-Biesterfeld
+
+-
+    email: organism2@example.com
+    nom: Prefecture
+    siret: 987654321
+    adresse: Rue de la prefecture
+    ville: Marseille
+    codePostal: 13000
+    telephone: 0000111122
+    mobile: 0712345678
+    prenomContact: Bernard
+    nomContact: Tapie

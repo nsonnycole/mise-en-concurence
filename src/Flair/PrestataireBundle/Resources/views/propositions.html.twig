@@ -1,0 +1,25 @@
+{% extends '::base.html.twig' %}
+
+{% set active = constant('Flair\\PrestataireBundle\\FlairPrestataireBundle::PROPOSITIONS') %}
+{% set DECLINE = constant('Flair\\CoreBundle\\Entity\\Reponse::DECLINE') %}
+
+{% block javascripts %}
+    {{ parent() }}
+{% endblock %}
+
+{% block inlineScript %}
+<script type="text/javascript">
+    $(function() {
+        $('.item').click(function() {
+            if ($(this).attr('data-url') && $(this).attr('data-url') !== window.location.href) {
+                var confirm = window.confirm('Toutes vos modifications seront annulées si vous quittez cette étape, pensez à enregistrer en brouillon.');
+                if (confirm) {
+                    window.location.href = $(this).attr('data-url');
+                } else {
+                    return false;
+                }
+            }
+        });
+    });
+</script>
+{% endblock %}

@@ -1,0 +1,18 @@
+# This file is auto-generated during the composer install
+parameters:
+    database_driver: pdo_mysql
+    database_host: 127.0.0.1
+    database_port: null
+    database_name: mise-en-concurrence
+    database_user: root
+    database_password: root
+
+    mailer_transport: smtp
+    mailer_host: in-v3.mailjet.com
+    mailer_port: 587
+    mailer_user: 639e7bdbd6dc417a77ca3bb82c653a79
+    mailer_password: 77a02eb505e5b6056c4ab07f44a5c423
+    mailer_delivery_address: null
+
+    locale: fr
+    secret: YYO8lKQIhx28OCOI0JMIbZCOgmQoD5D5xhXvmA5mbTwYm9CgWImnXuU8Q91qMsVq

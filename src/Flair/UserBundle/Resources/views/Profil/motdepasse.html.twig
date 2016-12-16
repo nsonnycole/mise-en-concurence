@@ -1,0 +1,32 @@
+{% extends '::base.html.twig' %}
+
+{% if is_granted('ROLE_ORGANISME') %}
+    {% set active = constant('Flair\\OrganismeBundle\\FlairOrganismeBundle::MON_COMPTE') %}
+{% else %}
+    {% set active = constant('Flair\\PrestataireBundle\\FlairPrestataireBundle::MON_COMPTE') %}
+{% endif %}
+
+
+{% block body %}
+<div class="inner">
+
+    <div class="title title-table">
+        <h2 class="left-bar">
+            Changer le mot de passe
+        </h2>
+        <div class="btn-bar right">
+            <a href="{{ url('flair_user_profil_see') }}" class="btn orange no-radius"><i class="fa fa-undo"></i> Retour</a>
+            <div class="corner"></div>
+        </div>
+    </div>
+
+    <form action="{{ url('flair_user_profil_password') }}" method="post" class="form-horizontal">
+        {{ form_rest(form) }}
+
+        <div class="controls">
+            <a href="{{ url('flair_user_profil_see') }}" class="btn">Annuler</a>
+            <input class="btn orange" name="publier" type="submit" value="Enregistrer" />
+        </div>
+    </form>
+</div>
+{% endblock %}

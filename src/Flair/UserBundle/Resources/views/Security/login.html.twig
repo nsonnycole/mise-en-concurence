@@ -1,0 +1,53 @@
+{% extends '::base.html.twig' %}
+
+{% block body %}
+<div class="inner">
+    <div class="prefix_1">
+        <div class="title title-table">
+            <h2 class="left-bar">
+                Connexion
+            </h2>
+
+            <div class="btn-bar right">
+                <a href="{{ url('Homepage') }}" class="btn orange no-radius"><i class="fa fa-undo"></i> Retour</a>
+                <div class="corner"></div>
+            </div>
+        </div>
+
+        <form class="form-horizontal" id="login-form" action="{{ url('login_check') }}" method="post">
+
+            {% if error is defined and error is not null %}
+                <div class="error">
+                    <p>Le nom d'utilisateur et le mot de passe ne correspondent pas</p>
+                </div>
+            {% endif %}
+
+            <div class="control-group">
+                <label class="control-label required" for="username">Email :</label>
+                <div class="controls">
+                    <input type="text" id="username" name="_username" value="{{ last_username }}" required="required">
+                </div>
+            </div>
+
+            <div class="control-group">
+                <label class="control-label required" for="password">Mot de passe :</label>
+                <div class="controls">
+                    <input type="password" id="password" name="_password" required="required">
+                </div>
+            </div>
+
+            <div class="control-group">
+                <label class="control-label" for="remember_me">Se souvenir de moi</label>
+                <div class="controls">
+                    <input type="checkbox" id="remember_me" name="_remember_me" value="on">
+                </div>
+            </div>
+
+            <div class="controls">
+                <input type="submit" id="_submit" class="btn orange" name="_submit" value="Connexion">
+                <a class="btn" href="{{ url('flair_user_password_forget') }}">Mot de passe oublié ?</a>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,147 @@
+{% extends 'FlairOrganismeBundle::consultations.html.twig' %}
+
+{% block body %}
+<div class="inner">
+
+    {% include 'FlairCoreBundle:Partials:flash.html.twig' %}
+
+    <div class="title title-table">
+        <h2 class="left-bar">
+            Mes consultations
+        </h2>
+
+        <div class="btn-bar right">
+            <a href="{{ url('Organisme_creation_consultation_etape1') }}" class="btn orange no-radius">
+                <i class="fa fa-plus-circle"></i>
+                Créer une consultation
+            </a>
+            <div class="corner"></div>
+        </div>
+    </div>
+
+    <div class="listing-consultations">
+        <form action="" method="POST" class="prestataires-filter">
+            <div class="left-filters">
+                <div class="filter filter-chozen">
+                    <span>Catégorie</span>
+                    {{ form_widget(filtreForm.categorie) }}
+                </div>
+
+                <div class="filter filter-chozen inline-block">
+                    <span>Status</span>
+                    {{ form_widget(filtreForm.statut) }}
+                </div>
+            </div>
+            <div class="filter filter-chozen inline-block right-filters">
+                <div>
+                    <span>Date de clôture entre</span>
+                    {{ form_label(filtreForm.dateDebut) }}
+                    {{ form_widget(filtreForm.dateDebut) }}
+                </div>
+                <div class="end-date">
+                    <span class="align-right">et</span>
+                    {{ form_label(filtreForm.dateFin) }}
+                    {{ form_widget(filtreForm.dateFin) }}
+                </div>
+            </div>
+        </form>
+
+        <table class="table datatable">
+            <thead>
+                <th>Titre</th>
+                <th>Status</th>
+                <th>Dates de clôture</th>
+                <th>Prix souhaité</th>
+                <th>Catégorie</th>
+                <th>Date de création</th>
+                <th>Action</th>
+            </thead>
+
+            <tbody>
+                {% for consultation in consultations %}
+                    {% if consultation.hasUnansweredQuestions %}
+                        <tr data-url="{{ url('Organisme_consultation_questions', { 'id' : consultation.id } ) }}">
+                    {% elseif consultation.statut == PUBLISHED %}
+                        <tr data-url="{{ url('Organisme_consultation_reponses', { 'id' : consultation.id } ) }}">
+                    {% else %}
+                        <tr data-url="{{ url('Organisme_creation_consultation_etape1_modifier', { 'id' : consultation.id } ) }}">
+                    {% endif %}
+                        <td>
+                            {% if consultation.hasUnansweredQuestions %}
+                                <a href="{{ url('Organisme_consultation_questions', { 'id' : consultation.id } ) }}">{{ consultation.titre | truncate(40) }}</a>
+                                <img style="float:right; padding-right: 10px;" src="{{ asset('images/icon_question.png') }}" alt="" data-title="Cette consultation a des questions en attente" title="">
+                            {% elseif consultation.statut == PUBLISHED %}
+                                <a href="{{ url('Organisme_consultation_reponses', { 'id' : consultation.id } ) }}">{{ consultation.titre | truncate(40) }}</a>
+                            {% else %}
+                                <a href="{{ url('Organisme_creation_consultation_etape1_modifier', { 'id' : consultation.id } ) }}">{{ consultation.titre | truncate(40) }}</a>
+                            {% endif %}
+                        </td>
+                        <td>{{ consultation.statut | consultation_statut }}</td>
+                        <td>{{ consultation.dateLimite | localizeddate('long', 'none', app.request.locale) }}</td>
+                        <td>
+                            {% if consultation.prixMinimum is not null %}
+                                {{ consultation.prixMinimum | euros }} - {{ consultation.prixMaximum | euros }}
+                            {% else %}
+                                non renseigné
+                            {% endif %}
+                        </td>
+                        <td>{{ consultation.categorie.nom | truncate(20) }}</td>
+                        <td>{{ consultation.dateCreation | localizeddate('long', 'none', app.request.locale) }}</td>
+                        <td class="invit">
+                            <a href="{{ url('Organisme_consultation_annuler', {'id' : consultation.id }) }}" data-confirm="Etes-vous sûr de vouloir supprimer cette consultation?" class="btn-delete js_confirm">Supprimer</a>
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="7" class="center">
+                            Vous n'avez pas de consultation pour l'instant...
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    {% if nbPrestataires == 0 %}
+        <div class="flash notice center">Vous ne pourrez diffuser vos consultations qu'après avoir pré-inscrit des prestataires</div>
+    {% endif %}
+</div>
+{% endblock %}
+
+{% block inlineScript %}
+<script>
+    $(function() {
+        if ($("table.datatable tbody td").length != 1) {
+            $("table.datatable").dataTable({
+                "sDom": '<"top">t<"bottom"lp><"clear">',
+                "bPaginate" : false,
+                "aoColumns": [
+                    { "bSortable": true },
+                    { "bSortable": true },
+                    { "bSortable": true },
+                    { "bSortable": true },
+                    { "bSortable": true },
+                    { "bSortable": true },
+                    { "bSortable": false }
+                ]
+            });
+        }
+
+        // Au clic sur une row, on affiche la consultation.
+        $('body').delegate(".datatable tbody tr", 'click', function() {
+            if ($(this).attr('data-url')) {
+                window.location.href = $(this).attr('data-url');
+            }
+        });
+
+        // Soumission automatique du formulaire
+        $("form.prestataires-filter").delegate("select", "change", function() {
+            $("form.prestataires-filter").submit();
+        });
+
+        $("form.prestataires-filter").delegate("input", "change", function() {
+            $("form.prestataires-filter").submit();
+        });
+    });
+</script>
+{% endblock %}

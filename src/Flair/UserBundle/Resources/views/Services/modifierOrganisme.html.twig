@@ -1,0 +1,60 @@
+{% extends 'FlairOrganismeBundle::services.html.twig' %}
+
+{% block body %}
+<div class="inner">
+
+    <div class="title title-table">
+        <h2 class="left-bar">
+            Modifier service {{ organisme.nom }}
+        </h2>
+        <div class="btn-bar right">
+            <a onClick="window.history.go(-1);" class="btn orange no-radius">
+            <i class="fa fa-undo"></i>
+                Annuler
+            </a>
+            <div class="corner"></div>
+        </div>
+    </div>
+
+    <div class="prefix_1">
+        <form action="#" method="post" class="form-horizontal">
+                {{ form_row(form.email) }}
+                {{ form_row(form.nom) }}
+                {{ form_row(form.siren) }}
+                {{ include("FlairCoreBundle:Categories:organisme.html.twig", { form: form, url: url('Categories_profil_organisme') }, with_context = false) }}
+                {{ form_row(form.autreCategorie) }}
+                {{ form_row(form.siret) }}
+                <div class="hide" id="rna">
+                    {{ form_row(form.rna) }}
+                </div>
+                {{ form_row(form.ape) }}
+                {{ form_row(form.prenomContact) }}
+                {{ form_row(form.nomContact) }}
+                {{ form_row(form.adresse) }}
+                {{ form_row(form.complementAdresse) }}
+                {{ form_row(form.codePostal) }}
+                {{ form_row(form.ville) }}
+                {{ form_row(form.telephone) }}
+                {{ form_row(form.mobile) }}
+
+            {{ form_rest(form) }}
+
+            <div class="control-group bt_form_row">
+                <div class="controls">
+                    <input type="submit" class="btn orange" value="Enregistrer" />
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock%}
+
+
+{% block inlineScript %}
+    {{ parent() }}
+    <script type="text/javascript">
+        $(function() {
+            $('#profil_organisme_form_type_autreCategorie').parent().parent().addClass('hide');
+        });
+    </script>
+{% endblock %}

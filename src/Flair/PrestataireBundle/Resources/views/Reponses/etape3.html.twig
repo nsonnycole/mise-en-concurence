@@ -1,0 +1,82 @@
+{% extends 'FlairPrestataireBundle::propositions.html.twig' %}
+
+{% block body %}
+    <div class="inner">
+        <div class="title title-table">
+            <h2 class="left-bar">
+                Consultation : {{ reponse.consultation.titre }}
+            </h2>
+
+            <div class="btn-bar right">
+                <a href="{{ url('Prestataire_propositions') }}" class="btn orange no-radius">
+                    Retour à la liste
+                </a>
+                <div class="corner"></div>
+            </div>
+        </div>
+
+        {% include 'FlairPrestataireBundle::menuPrestataire.html.twig' with { 'reponse' : reponse} %}
+
+        <div class="block-reponse">
+
+            {% include 'FlairPrestataireBundle::menuStep.html.twig' with
+                {
+                    'step'    : 3,
+                    'reponse' : reponse
+                }
+            %}
+
+            <div class="consultation-content">
+
+                <p class="info-line" style="margin-top: 20px;">Vous pouvez joindre ici votre cahier des charges, des plans, des photos, etc.</p>
+                <table class="table orange consultation-documents">
+                    <thead>
+                    <tr>
+                        <th>Nom du document</th>
+                        <th width="15%">Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for document in reponse.documents %}
+                        <tr>
+                            <td data-filename="{{ document.filename }}">
+                                <a target="_blank" href="{{ vich_uploader_asset(document, 'document') }}">{{ document.titre }}</a>
+                            </td>
+                            <td class="center">
+                                <a href="{{ url('Prestataire_propositions_etape_three_supprimer_document', {'idReponse' : reponse.id, 'idDocument' : document.id }) }}" data-confirm="Etes-vous sûr de vouloir supprimer de document?" class="btn-delete js_confirm">Supprimer</a>
+                            </td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="2">Aucun document pour l'instant...</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+
+                <form action="{{ url('Prestataire_propositions_etape_three', {'id' : reponse.id } ) }}" method="post" class="form-horizontal form-step3" enctype="multipart/form-data" novalidate>
+                    <h2 class="add-document">Ajouter un document</h2>
+
+                    {{ form_rest(form) }}
+
+                    <input type="submit" value="Uploader le document" class="btn upload"/>
+
+
+                    <div class="actions">
+                        <input class="btn js_draft" name="brouillon" type="submit" value="Enregistrer en brouillon"/>
+                        <a href="{{ url('Prestataire_propositions_etape_four', { 'id' : reponse.id }) }}" class="next btn orange">Suivant</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block inlineScript %}
+        {{ parent() }}
+    <script>
+        $(function() {
+            $('.required-flag').html('');
+        });
+    </script>
+{% endblock %}

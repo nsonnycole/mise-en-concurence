@@ -1,0 +1,105 @@
+{% extends 'FlairOrganismeBundle::consultations.html.twig' %}
+
+{% block body %}
+    <div class="inner">
+
+        <div class="title title-table">
+            <h2 class="left-bar">
+                Consultation : {{ consultation.titre }}
+            </h2>
+
+            <div class="btn-bar right">
+                <a href="{{ url('Organisme_consultations') }}" class="btn orange no-radius">
+                <i class="fa fa-undo"></i>
+                    Retour à la liste
+                </a>
+                <div class="corner"></div>
+            </div>
+        </div>
+
+        {% set vars = { 'consultation' : consultation, 'step' : 3 } %}
+
+        {% include 'FlairOrganismeBundle:Consultations:creation/menuCreation.html.twig' with vars %}
+
+        <div class="consultation-content follow">
+            <div class="menu-tab">
+                <a class="item questions" href="{{ url('Organisme_consultation_reponses', { 'id' : consultation.id }) }}">
+                    Propositions
+                </a>
+                <a class="active item answers">
+                    Questions
+                </a>
+
+                <span class="date">
+                    CLÔTURE : {{ consultation.dateLimite | date('d M Y') }}, dans
+                    {{ consultation.dateLimite | date('d-M-Y') | date_diff("now" | date('d-M-Y')) }} jours
+                </span>
+            </div>
+
+            <p id="sub-title">
+                <b>{{ question.reponse.prestataire.nom }}</b> vous a posé une question <i>le {{ question.dateQuestion | date('d-m-Y') }}:</i>
+            </p>
+            <a class="orange btn back no-radius" href="{{ url('Organisme_consultation_questions', { 'id' : question.reponse.consultation.id }) }}">Retour aux questions</a>
+
+            <div class="show-estimate-response inner clearfix" style="clear:both">
+                <div class="line-show clearfix">
+                    <span class="title">Titre:</span>
+                    <span>{{ question.titre }}</span>
+                </div>
+
+                <div class="line-show clearfix">
+                    <span class="title">Question:</span>
+                    <span>{{ question.question | raw}}</span>
+                </div>
+
+                {% if question.reponseOrganisme == "" %}
+                    <form action="" method="post" class="form-horizontal">
+                        {{ form_label(form.reponseOrganisme) }}
+
+                        <div class="controls ckedit">
+                            {% if form_errors(form.reponseOrganisme) | length > 0 %}
+                                <ul class="error-list">
+                                    {{ form_errors(form.reponseOrganisme) }}
+                                </ul>
+                            {% endif %}
+
+                            {{ form_widget(form.reponseOrganisme) }}
+                        </div>
+
+                        {{ form_rest(form) }}
+
+                        <div class="controls reponse-organisme">
+                            <input type="submit" value="Répondre" class="btn orange"/>
+                            <a href="{{ url('Organisme_consultation_questions', {'id' : consultation.id } ) }}" class="btn">retour</a>
+                        </div>
+                    </form>
+                {% else %}
+                    <p id="sub-title">
+                        Voici votre réponse le <i>le {{ question.dateQuestion | date('d-m-Y') }}</i>:
+                    </p>
+                    {% if question.reponseOrganisme == "" %}
+                        <p>En attente de réponse...</p>
+                    {% else %}
+                        <div class="line-show clearfix" style="clear:both;">
+                            <span class="title">Réponse:</span>
+                            <span>{{ question.reponseOrganisme | raw }}</span>
+                        </div>
+                    {% endif %}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block inlineScript %}
+<script>
+    $(function() {
+        $('.questions, .answers').bind('mousedown', function() {
+            if (!$(this).hasClass('active')) {
+                $('.menu-tab .item').removeClass('active');
+                $(this).addClass('active');
+            }
+        });
+    });
+</script>
+{% endblock %}

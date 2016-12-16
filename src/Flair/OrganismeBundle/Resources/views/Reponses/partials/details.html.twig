@@ -1,0 +1,86 @@
+<div class="show-estimate-response inner clearfix">
+        <div class="line-show clearfix">
+            <span class="title">Emis le :</span>
+            <span>{{ reponse.dateReponse | localizeddate('short', 'none', app.request.locale) }}</span>
+        </div>
+
+        <div class="line-show clearfix">
+            <span class="title">Statut de la réponse :</span>
+            <span>{{ reponse | reponse_statut }}</span>
+        </div>
+
+        {% if reponse.periodeDebut is not null %}
+            <div class="line-show clearfix">
+                <span class="title">Date de démarrage:</span>
+                <span>
+                    {% if reponse.periodeDebut is constant('Flair\\OrganismeBundle\\Form\\ChoiceList\\DisponibiliteChoiceList::ASAP')  %}
+                        {{ constant('Flair\\OrganismeBundle\\Form\\ChoiceList\\DisponibiliteChoiceList::ASAP') }}
+                    {% else %}
+                        {{ reponse.periodeDebut }} {{ reponse.dateDebut | localizeddate('long', 'none', app.request.locale) }}
+                    {% endif %}
+                </span>
+            </div>
+        {% endif %}
+
+        {% if reponse.periodeLivraison is not null %}
+            <div class="line-show clearfix">
+                <span class="title">Date de livraison :</span>
+                <span>
+                    {% if reponse.periodeLivraison is constant('Flair\\OrganismeBundle\\Form\\ChoiceList\\DisponibiliteChoiceList::ASAP')  %}
+                        {{ constant('Flair\\OrganismeBundle\\Form\\ChoiceList\\DisponibiliteChoiceList::ASAP') }}
+                    {% else %}
+                        {{ reponse.periodeLivraison }} {{ reponse.dateLivraison | localizeddate('long', 'none', app.request.locale) }}
+                    {% endif %}
+                </span>
+            </div>
+        {% endif %}
+
+        {% if reponse.montantHt is not null %}
+            <div class="line-show clearfix">
+                <span class="title">Montant HT :</span>
+                <span>{{ reponse.montantHt | euros }}</span>
+            </div>
+        {% endif %}
+
+        {% if reponse.montantTtc is not null %}
+            <div class="line-show clearfix">
+                <span class="title">Montant TTC : </span>
+                <span>{{ reponse.montantTtc | euros }}</span>
+            </div>
+        {% endif %}
+
+        {% if reponse.hasDocuments %}
+            <div class="line-show clearfix">
+                <span class="title">Devis : </span>
+                <span data-filename="{{ reponse.devisDocument.filename }}">
+                    <a target="_blank" href="{{ vich_uploader_asset(reponse.devisDocument, 'document') }}">Visualiser</a>
+                </span>
+            </div>
+        {% else %}
+            <div class="line-show clearfix">
+                <span class="title">Devis : </span>
+                <span>
+                    <a id="devis_toggle" href="#">Afficher/masquer le devis</a>
+                    <span>
+                        {% include 'FlairPrestataireBundle:Devis:afficher.html.twig' with { 'lignesDevis' : reponse.lignesDevis } %}
+                    </span>
+                </span>
+            </div>
+        {% endif %}
+
+        {% if reponse.documents | length > 0 %}
+            <div class="line-show clearfix">
+                <span class="title">Documents : </span>
+
+                <div style="float:left;">
+                    <ul style="padding-left: 60px; margin-top: 0px; list-style: none">
+                        {% for document in reponse.documents %}
+                            <li data-filename="{{ document.filename }}">
+                                <a target="_blank" href="{{ vich_uploader_asset(document, 'document') }}">{{ document.titre }}</a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        {% endif %}
+</div>

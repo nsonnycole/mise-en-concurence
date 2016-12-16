@@ -1,0 +1,7 @@
+parameters:
+#    flair_organisme.example.class: Flair\OrganismeBundle\Example
+
+services:
+#    flair_organisme.example:
+#        class: %flair_organisme.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]

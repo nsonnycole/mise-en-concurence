@@ -4,9 +4,22 @@ web:
         - .:/var/www
     links:
         - mysql
+        - mail
     ports:
         - "8280:80"
 mysql:
     image: mysql
     environment:
         MYSQL_ROOT_PASSWORD: "root"
+mail:
+    image: tvial/docker-mailserver:latest
+    hostname: mail
+    domainname: miseenconcurrence.com
+    ports:
+      - "25:25"
+      - "143:143"
+      - "587:587"
+      - "993:993"
+    environment:
+        MAIL_USER: "admin@mise-en-concurrence"
+        MAIL_PASS: "toto"

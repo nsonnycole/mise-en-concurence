@@ -1,1 +1,3 @@
-../vendor/doctrine/migrations/bin/doctrine-migrations
+#!/usr/bin/env php
+<?php
+include('doctrine-migrations.php');

@@ -127,9 +127,9 @@ sonata_admin:
 dizda_cloud_backup:
     processor:
         type: zip
-    # cloud_storages:
-    #     local:
-    #         path: %backup_directory%
+    cloud_storages:
+        local:
+            path: %backup_directory%
     databases:
         mysql:
             # When no parameters is specified under mysql, the bundle taking those from parameters.yml

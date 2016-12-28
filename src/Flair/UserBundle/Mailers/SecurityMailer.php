@@ -2,7 +2,7 @@
 
 namespace Flair\UserBundle\Mailers;
 
-use Flair\CoreBundle\Events\Security\MotdepasseOublieEvent;
+use Flair\UserBundle\Events\Security\MotdepasseOublieEvent;
 use Flair\CoreBundle\Mailers\AbstractMailer;
 
 class SecurityMailer extends AbstractMailer

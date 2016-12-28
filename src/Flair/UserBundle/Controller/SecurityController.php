@@ -75,7 +75,7 @@ class SecurityController extends CoreController
      */
     public function motdepasseResetAction($token, Request $request)
     {
-        $utilisateur = $this->Repo('FlairUserBundle:AbstractUtilisateur')->findOneBy(
+        $utilisateur = $this->getRepo('FlairUserBundle:AbstractUtilisateur')->findOneBy(
             array('resetToken' => $token)
         );
 

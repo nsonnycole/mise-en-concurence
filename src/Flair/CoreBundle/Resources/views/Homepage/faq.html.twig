@@ -1,44 +1,107 @@
 {% extends '::base.html.twig' %}
 
 {% block body %}
-<div class="inner">
+<!-- Page Content -->
+<div class="container">
 
-    <div class="hp-faq">
-        <h2>A qui s'adresse la plateforme ?</h2>
-
-        <p>
-            A toute personne souhaitant consulter des prestataires dans le cadre d'obligations légales de mise en
-            concurrence. Exemples : collectivités locales, établissements public, SEM, syndic...
-        </p>
-
-        <h2>Quels sont les types de demandes de prestations qui peuvent être publiées ?</h2>
-
-        <p>
-            Tout type d'achats ne rentrant pas dans d'autres procédures.
-        </p>
-
-        <h2>Quels sont les prestataires référencés sur le site ?</h2>
-
-        <p>
-            Les prestataires référencés sont enregistrés par la communauté des utilisateurs de mise-en-concurrence.com.
-        </p>
-
-        <h2>Pourquoi utiliser mise-en-concurrence.com pour la gestion de mes consultations ?</h2>
-        <ul>
-            <li>
-                Vos consultations entrent dans le cadre des obligations légales de respect des procédures de mise en
-                concurrence des prestataires.
-            </li>
-            <li>Les prestataires référencés sur le site sont cooptés par les autres utilisateurs</li>
-            <li>Vous pouvez trouver des prestataires dans des domaines d'activités spécifiques</li>
-        </ul>
-
-        <h2>Je ne trouve pas les éléments dont j'ai besoin pour travailler</h2>
-
-        <p>
-            La version en ligne est actuellement un prototype qui évoluera en fonction de vos besoins et vos remarques,
-            alors n'hésitez pas à nous transmettre vos souhaits et vos observations.
-        </p>
+    <!-- Page Heading/Breadcrumbs -->
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">FAQ
+                <small>Questions / Réponses</small>
+            </h1>
+            <ol class="breadcrumb">
+                <li><a href="{{ url('Homepage') }}">Accueil</a>
+                </li>
+                <li class="active">FAQ</li>
+            </ol>
+        </div>
     </div>
+    <!-- /.row -->
+
+<!-- Content Row -->
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel-group" id="accordion">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseOne">A qui s'addresse la plateforme ?</a>
+                    </h4>
+                </div>
+                <div id="collapseOne" class="panel-collapse collapse">
+                    <div class="panel-body">
+                    A toute personne souhaitant consulter des prestataires dans le cadre d'obligations légales de mise en
+                    concurrence. Exemples : collectivités locales, établissements public, SEM, syndic...
+                    </div>
+                </div>
+            </div>
+            <!-- /.panel -->
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">Quels sont les types de demandes de prestations qui peuvent être publiées ?</a>
+                    </h4>
+                </div>
+                <div id="collapseTwo" class="panel-collapse collapse">
+                  <div class="panel-body">
+                    Tout type d'achats ne rentrant pas dans d'autres procédures.
+                </div>
+            </div>
+            <!-- /.panel -->
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseThree">Quels sont les prestataires référencés sur le site ?</a>
+                    </h4>
+                </div>
+                <div id="collapseThree" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        Les prestataires référencés sont enregistrés par la communauté des utilisateurs de mise-en-concurrence.com.
+                    </div>
+                </div>
+            </div>
+            <!-- /.panel -->
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseFour">Pourquoi utiliser mise-en-concurrence.com pour la gestion de mes consultations ?</a>
+                    </h4>
+                </div>
+                <div id="collapseFour" class="panel-collapse collapse">
+                    <div class="panel-body">
+                    <ul>
+                        <li>
+                            Vos consultations entrent dans le cadre des obligations légales de respect des procédures de mise en
+                            concurrence des prestataires.
+                        </li>
+                        <li>Les prestataires référencés sur le site sont cooptés par les autres utilisateurs</li>
+                        <li>Vous pouvez trouver des prestataires dans des domaines d'activités spécifiques</li>
+                    </ul>
+
+                    </div>
+                </div>
+            </div>
+            <!-- /.panel -->
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseFive">" Je ne trouve pas les éléments dont j'ai besoin pour travailler "</a>
+                    </h4>
+                </div>
+                <div id="collapseFive" class="panel-collapse collapse">
+                    <div class="panel-body">
+                    La version en ligne est actuellement un prototype qui évoluera en fonction de vos besoins et vos remarques,
+                    alors n'hésitez pas à nous transmettre vos souhaits et vos observations.
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <!-- /.panel-group -->
+    </div>
+    <!-- /.col-lg-12 -->
 </div>
+</div>
+<!-- /.row -->
 {% endblock %}

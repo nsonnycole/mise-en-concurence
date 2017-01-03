@@ -1,27 +1,46 @@
 {% extends '::base.html.twig' %}
 
 {% block body %}
-    <div class="inner">
+<!-- Page Content -->
+<div class="container">
 
-        <div class="hp-faq">
-            <h2>Mentions légales</h2>
+    <!-- Page Heading/Breadcrumbs -->
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">Mentions légales
 
-            <p>
-                Le présent site est la propriété de Frogmood, Société à responsabilité limitée, au capital de
-                5000 €, immatriculée au RCS de Paris sous le numéro 513 528 190, dont le siège social est
-                situé au 10 rue Versigny 75018 Paris – Numéro TVA : FR27513528190
-
-            </p>
-
-            <p>
-                Le Directeur de la publication du site est Madame Capucine SURREL, en qualité de gérante
-                de la société Frogmood.
-            </p>
-
-            <p>
-                Le prestataire assurant l'hébergement du site, ainsi que le stockage des informations, est la
-                société, OVH située au 2 rue Kellermann, 59100 Roubaix, France.
-            </p>
+            </h1>
+            <ol class="breadcrumb">
+                <li><a href="{{ url('Homepage') }}">Accueil</a>
+                </li>
+                <li class="active">Mentions légales</li>
+            </ol>
         </div>
     </div>
+    <!-- /.row -->
+
+<!-- Content Row -->
+<div class="row">
+    <div class="col-lg-12">
+    <p>
+        Le présent site est la propriété de Frogmood, Société à responsabilité limitée, au capital de
+        5000 €, immatriculée au RCS de Paris sous le numéro 513 528 190, dont le siège social est
+        situé au 10 rue Versigny 75018 Paris – Numéro TVA : FR27513528190
+
+    </p>
+
+    <p>
+        Le Directeur de la publication du site est Madame Capucine SURREL, en qualité de gérante
+        de la société Frogmood.
+    </p>
+
+    <p>
+        Le prestataire assurant l'hébergement du site, ainsi que le stockage des informations, est la
+        société, OVH située au 2 rue Kellermann, 59100 Roubaix, France.
+    </p>
+    </div>
+    <!-- /.col-lg-12 -->
+</div>
+</div>
+<!-- /.row -->
 {% endblock %}

@@ -1,25 +1,25 @@
 {% extends 'FlairOrganismeBundle::prestataires.html.twig' %}
 
 {% block body %}
-<div class="inner">
+    <div class="container">
+      <div class="row">
+          <div class="col-lg-12">
+              <h1 class="page-header">Mes prestataires</h1>
+              <ol class="breadcrumb">
+                  <li><a href="{{url('Homepage')}}">Accueil</a></li>
+                  <li>Mes prestataires</li>
 
-    <div class="title title-table">
-        <h2 class="left-bar">
-            Mes prestataires
-        </h2>
-
-        <div class="btn-bar right">
-
-            <a href="{{ url('flair_user_invitation_send') }}" class="btn orange no-radius">
-            <i class="fa fa-user-plus"></i>
-
-                Inviter un prestataire
-            </a>
-
-            <div class="corner"></div>
-        </div>
-    </div>
-
+                  <div class="btn-bar" style="float:right">
+                  <a href="{{ url('flair_user_invitation_send') }}">
+                  <i class="fa fa-user-plus"></i>
+                      Inviter un prestataire
+                  </a>
+                    <div class="corner"></div>
+                  </div>
+              </ol>
+          </div>
+      </div>
+    <div class="col-lg-12">
     <div class="listing-prestataires">
         <form action="" method="POST" class="prestataires-filter">
             <div class="filter filter-chozen">
@@ -28,14 +28,14 @@
             </div>
         </form>
 
-        <table class="table datatable">
+        <table class="table datatable table-responsive table-bordered">
             <thead>
                 <th>Société</th>
                 <th>Secteur</th>
                 <th>Référent</th>
                 <th>Contact</th>
                 <th class="center title-doc">
-                    <span class="doc">Documents</span>
+                    <span class="doc">Documents</span><br>
                     <span class="sub-menu">URSSAF</span>
                     <span class="sub-menu">IMPÔTS</span>
                     <span class="sub-menu">KBIS</span>
@@ -97,6 +97,7 @@
             </tbody>
         </table>
     </div>
+  </div>
 </div>
 {% endblock %}
 

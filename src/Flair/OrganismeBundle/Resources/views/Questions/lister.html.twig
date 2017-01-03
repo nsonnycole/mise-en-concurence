@@ -1,20 +1,27 @@
 {% extends 'FlairOrganismeBundle::consultations.html.twig' %}
 
 {% block body %}
-    <div class="inner">
-        <div class="title title-table">
-            <h2 class="left-bar">
-                Consultation : {{ consultation.titre }}
-            </h2>
+<div class="container">
+  <div class="row">
+      <div class="col-lg-12">
+          <h1 class="page-header">Mes consultations
+          </h1>
+          <ol class="breadcrumb">
+              <li><a href="{{url('Homepage')}}">Accueil</a></li>
+              <li><a href="{{url('Organisme_consultations')}}">Mes consultations</a></li>
+              <li class="active">Consultation : {{ consultation.titre }}</li>
 
-            <div class="btn-bar right">
-                <a href="{{ url('Organisme_consultations') }}" class="btn orange no-radius">
-                <i class="fa fa-undo"></i>
-                    Retour à la liste
-                </a>
-                <div class="corner"></div>
-            </div>
-        </div>
+
+              <div class="btn-bar" style="float:right">
+                  <a href="{{ url('Organisme_consultations') }}">
+                  <i class="fa fa-undo"></i>
+                      Retour à la liste
+                  </a>
+                  <div class="corner"></div>
+              </div>
+          </ol>
+      </div>
+  </div>
 
         {% set vars = { 'consultation' : consultation, 'step' : 3 } %}
 

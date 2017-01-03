@@ -1,11 +1,38 @@
-<div class="menu_container clearfix">
-    <ul>
-        <li class="first {% if active == constant('Flair\\PrestataireBundle\\FlairPrestataireBundle::PROPOSITIONS') %}current{% endif %}">
-            <a href="{{ url('Prestataire_propositions') }}">Mes propositions</a>
-        </li>
+{% block menu %}
+<!-- Navigation -->
+{% if  is_granted('ROLE_USER') %}
+<nav class="navbar navbar-inverse navbar-fixed-top menuCo" role="navigation">
 
-        <li class="left-border last {% if active == constant('Flair\\PrestataireBundle\\FlairPrestataireBundle::MON_COMPTE') %}current{% endif %}">
-            <a href="{{ url('flair_user_profil_see') }}">Mon compte</a>
-        </li>
-    </ul>
-</div>
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header menuCoNav">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand last {% if active == constant('Flair\\PrestataireBundle\\FlairPrestataireBundle::MON_COMPTE') %}current{% endif %}" href="{{ url('flair_user_profil_see') }}"><i class="fa fa-user"></i> {{ app.user.nom }}</a>
+        </div>
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav navbar-right">
+            <li class="first {% if active == constant('Flair\\PrestataireBundle\\FlairPrestataireBundle::PROPOSITIONS') %}current{% endif %}">
+                <a href="{{ url('Prestataire_propositions') }}">Mes propositions</a>
+            </li>
+            <li>
+                <a href="{{ url('flair_user_invitation_list') }}">Mes invitations</a>
+            </li>
+
+            <li>
+                <a href="{{ url('logout') }}">Déconnexion</a>
+            </li>
+
+        </ul>
+
+        </div>
+        <!-- /.navbar-collapse -->
+
+    <!-- /.container -->
+</nav>
+{% endif %}
+{% endblock%}

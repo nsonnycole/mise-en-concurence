@@ -1,12 +1,12 @@
 @import "variable.less";
-@import "header.less";
-@import "footer.less";
+/*@import "header.less";
+@import "footer.less";*/
 @import "buttons.less";
-@import "homepage.less";
+/*@import "homepage.less";
 @import "tables.less";
-@import "flashes.less";
+@import "flashes.less";*/
 @import "pagination.less";
-@import "forms.less";
+//@import "forms.less";
 @import url(http://fonts.googleapis.com/css?family=Signika);
 
 html, body {
@@ -17,9 +17,7 @@ html, body {
 }
 
 body {
-    color: @colorLightGrey;
-    font-size: 13px;
-    font-family: Arial, sans-serif;
+
     #global-container {
         margin: 0px;
         padding: 0px;
@@ -108,7 +106,7 @@ body {
             height: 380px;
             background: white;
             margin: 0 auto;
-            top: calc(~"50% - 270px");
+            top: calc(~"70% - 270px");
             left: 0;
             right: 0;
             position: absolute;
@@ -195,111 +193,18 @@ h4 {
     margin-bottom: 20px;
 }
 
-.container {
-    min-height: 400px;
-    margin-top: 20px;
-    padding-bottom: 20%;
-
-    .inner {
-        width: 1080px;
-        margin-left: auto;
-        margin-right: auto;
-        clear: both;
-    }
-}
-
-.divided {
-    width: 45%;
-    float: left;
-}
-
-.clearfix {
-    *zoom: 1;
-    &:before,
-    &:after {
-        display: table;
-        content: "";
-    }
-    &:after {
-        clear: both;
-    }
-}
-
-.no-border {
-    border: none !important;
-}
-
-// Estimate request
-.estimate-summary {
-    margin-bottom: 30px;
-
-    .request-summary {
-        width: 800px;
-        float: left;
-        margin-bottom: 20px;
-    }
-
-    .request-status {
-        float: right;
-        border-left: 4px solid @colorLightGrey;
-        padding-left: 15px;
-        padding-right: 10px;
-
-        h3 {
-            border-bottom: 1px solid @colorLightGrey;
-            margin-bottom: 5px;
-        }
-
-        ul {
-            padding-left: 20px;
-        }
-
-        li {
-            list-style: none;
-            color: black;
-            padding-top: 3px;
-            padding-bottom: 3px;
-
-            &.inactive {
-                color: lightgray;
-            }
-
-            &.active {
-                font-weight: bold;
-                color: orange;
-            }
-        }
-
-    }
-}
-
 #login-form div.error {
     color: red;
     margin-left: 200px;
 }
 
 
-// Invitation d'un partenaire : filtre
-.category-filter {
-    padding: 10px;
-    border-bottom: 1px solid @colorLightGrey;
-}
-
-.listing-consultations, .listing-prestataires {
-    width: 1080px;
-    border-top-left-radius: 3px;
-    border-top-right-radius: 3px;
-    -moz-border-top-left-radius: 3px;
-    -moz-border-top-right-radius: 3px;
-}
 
 .prestataires-filter {
     min-height: 45px;
     padding: 24px 2%;
-    background: #cccccc;
     overflow: auto;
-    width: 96%;
-    box-shadow: 10px 10px 5px rgba(136, 136, 136, 0.16);
+
 
 
     .prices {
@@ -361,10 +266,6 @@ h4 {
         }
     }
 
-    input[type=submit] {
-        margin-top: -5px;
-        float: right;
-    }
 }
 
 .left-filters {
@@ -556,27 +457,6 @@ h2.title {
     margin-bottom: 60px;
 }
 
-/* Forms */
-input[type="text"],
-input[type="email"],
-input[type="password"],
-input[type=number] {
-    border: 1px solid #565555;
-    padding: 8px;
-    margin: 0;
-}
-
-.ui-datepicker-trigger {
-    margin-left: 8px;
-}
-
-.inline-row {
-    float: left;
-
-    label {
-        display: block;
-    }
-}
 
 
 .organism-information {
@@ -720,6 +600,8 @@ input[type=number] {
       }
     }
 }
+
+
 
 /* HP organism */
 .title-table {
@@ -1054,7 +936,6 @@ input[type="text"].search {
             color: black;
             height: 56px;
             line-height: 56px;
-            background: rgb(221, 221, 221);
             cursor: pointer;
             text-decoration: none;
 

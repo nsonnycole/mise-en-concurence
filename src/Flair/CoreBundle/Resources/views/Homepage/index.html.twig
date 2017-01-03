@@ -1,26 +1,23 @@
 {% extends '::base.html.twig' %}
 
 {% block body %}
-<div class="inner hp-presentation">
-    <div class="simplify-procedures">
-        <h1>Des mises en concurrence plus efficaces dans le respect de vos obligations légales</h1>
-    </div>
 
-    <div class="discover-dedicated-tools">
-        <h3>
-            Mise-en-concurrence.com est une application de gestion et de suivi en ligne de vos consultations associée à une
-            plateforme de mise en relation entre des acheteurs publics et des prestataires. En quelques clics, vous
-            formalisez et suivez toutes vos demandes de prestations.
-        </h3>
-    </div>
-
-    {% if not is_granted('ROLE_USER') %}
-        <div class="free-registration">
-            <a href="{{ url('Inscription') }}" class="big btn bold orange">Inscription gratuite</a>
+<div class="headline">
+    <header class="header-image">
+    <div class="container">
+      <div class="headline-titre">
+        <h2 style="font-size:49px;font-weight:bold;">Des mises en concurrence plus efficaces dans le respect de vos obligations légales</h2>
+        <h3 style="color:rgba(0, 0, 0, 0.55)">Mise-en-concurrence.com est une application de gestion et de suivi en ligne de vos consultations associée à une plateforme
+          de mise en relation entre des acheteurs publics et des prestataires.
+           En quelques clics, vous formalisez et suivez toutes vos demandes de prestations.
+         </h3>
         </div>
-    {% endif %}
-
-    <div class="hp-process clearfix">
+      </header>
+      </div>
+      <br>
+      <br>
+      <center>
+      <div class="hp-process clearfix">
         <ul class="hp-list ">
             <li class="hp-first">
                 Je formule mon besoin de prestation
@@ -39,24 +36,57 @@
                 Je sélectionne la meilleure proposition
             </li>
         </ul>
+      </div>
+    </center>
+    <br>
+    <br>
     </div>
 </div>
-
-<div class="hp-infos">
-    <div class="inner">
-        <h2>Vous êtes acheteur</h2>
-        <p class="description">
-            Formalisez votre mise en concurrence pour tous vos besoins de prestations dans un cadre configuré.<br/>
-            Centralisez toutes vos demandes de prestations sur un outil unique.<br/>
-            Interrogez et élargissez votre vivier de prestataires référencés sur la plateforme dédiée. <br/>
-            Optimisez le traitement de vos demandes grâce à un outil de suivi des réponses des prestataires. <br/>
-            Archivez toutes vos consultations pour les dupliquer ou justifier vos procédures d'achat.
-        </p>
+<hr class="featurette-divider">
+<!-- Page Content -->
+<div class="container">
+    <!-- Second Featurette -->
+    <div class="featurette" id="services">
+        <img class="featurette-image img-circle img-responsive pull-left" src="http://www.espacefacility.com/files/uploads/illustration-acheteur.jpg">
+        <h2 class="featurette-heading">Vous êtes
+            <span class="text-muted">acheteur</span>
+        </h2>
+        <p><span class="fa fa-ok"></span>&nbsp;Formalisez votre mise en concurrence pour tous vos besoins de prestations dans un cadre configuré.</p>
+        <p><span class="fa fa-screenshot"></span>&nbsp;Centralisez toutes vos demandes de prestations sur un outil unique.</p>
+        <p><span class="fa fa-question-sign"></span>&nbsp;Interrogez et élargissez votre vivier de prestataires référencés sur la plateforme dédiée. </p>
+        <p><span class="fa fa-equalizer"></span>&nbsp;Optimisez le traitement de vos demandes grâce à un outil de suivi des réponses des prestataires. </p>
+        <p><span class="fa fa-saved"></span>&nbsp;Archivez toutes vos consultations pour les dupliquer ou justifier vos procédures d'achat.</p>
     </div>
-</div>
 
-<div class="hp-bottom">
-    <a href="{{ url('FAQ') }}" class="btn bold">En savoir +</a>
+    <br>
+    <br>
+    <center>
+    {% if not is_granted('ROLE_USER') %}
+      <a href="{{ url('flair_user_inscription_organisme') }}"type="button" style="line-height: 1.428571;width:400px;height: 60px;font-size: 30px;" class="btn btn-warning insc">Inscription gratuite</a>
+   {% endif %}
+   </center>
+    <hr class="featurette-divider">
+    <!-- Second Featurette -->
+    <div class="featurette" id="services" style="text-align:right">
+        <img class="featurette-image img-circle img-responsive pull-right" src="http://www.latreebu.com/content/images/2015/10/Choisir_son_prestataire_digital_latreebu.png">
+        <h2 class="featurette-heading">Vous êtes
+            <span class="text-muted">Prestataire</span>
+        </h2>
+        <p><span class="fa fa-ok"></span>&nbsp;Formalisez votre mise en concurrence pour tous vos besoins de prestations dans un cadre configuré.</p>
+        <p><span class="fa fa-screenshot"></span>&nbsp;Centralisez toutes vos demandes de prestations sur un outil unique.</p>
+        <p><span class="fa fa-question-sign"></span>&nbsp;Interrogez et élargissez votre vivier de prestataires référencés sur la plateforme dédiée. </p>
+        <p><span class="fa fa-equalizer"></span>&nbsp;Optimisez le traitement de vos demandes grâce à un outil de suivi des réponses des prestataires. </p>
+        <p><span class="fa fa-saved"></span>&nbsp;Archivez toutes vos consultations pour les dupliquer ou justifier vos procédures d'achat.</p>
+    </div>
+
+    <br>
+    <br>
+    <center>
+    {% if not is_granted('ROLE_USER') %}
+      <a href="{{ url('flair_user_inscription_organisme') }}"type="button" style="line-height: 1.428571;width:400px;height: 60px;font-size: 30px;" class="btn btn-warning insc">Inscription gratuite</a>
+   {% endif %}
+   </center>
+    <hr class="featurette-divider">
 </div>
 
 {% endblock body %}

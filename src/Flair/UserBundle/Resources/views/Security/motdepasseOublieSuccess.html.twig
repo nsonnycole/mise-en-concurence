@@ -1,14 +1,29 @@
 {% extends '::base.html.twig' %}
 
 {% block body %}
-    <div class="inner">
-        <div class="prefix_1">
-            <h2>Mot de passe oublié</h2>
-
-            <p>
-                Un email vient de vous être envoyé avec les instructions pour générer un nouveau mot de passe. <br/>
-                Veuillez consulter votre boite mail pour accéder à nouveau à votre compte.
-            </p>
+<div class="container">
+  <div class="row">
+      <div class="col-lg-12">
+          <h1 class="page-header">Mot de passe oublié
+          </h1>
+          <ol class="breadcrumb">
+              <li><a href="index.html">Accueil</a>
+              </li>
+              <li class="active">Connexion</li>
+          </ol>
+      </div>
+  </div>
+  <div id="loginbox" class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+    <div class="panel panel-info" >
+      <div class="panel-heading">
+      </div>
+          <p>
+              Un email vient de vous être envoyé avec les instructions pour générer un nouveau mot de passe. <br/>
+              Veuillez consulter votre boite mail pour accéder à nouveau à votre compte.
+          </p>
         </div>
+      </div>
     </div>
+  </div>
+</div>
 {% endblock %}

@@ -1,8 +1,24 @@
 {% extends '::base.html.twig' %}
 
 {% block body %}
-<div class="inner">
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">Mes invitations</h1>
+            <ol class="breadcrumb">
+                <li><a href="{{url('Homepage')}}">Accueil</a></li>
+                <li>Inviter un utilisateur</li>
 
+                <div class="btn-bar" style="float:right">
+                <a onClick="window.history.go(-1);" >
+                <i class="fa fa-undo"></i>
+                    Annuler
+                </a>
+                  <div class="corner"></div>
+                </div>
+            </ol>
+        </div>
+    </div>
     <div class="title title-table">
         <h2 class="left-bar">
 		    Invitation refusée
@@ -10,6 +26,7 @@
     </div>
 
     Vous avez refusé l'invitation.
-
+      </div>
+    </div>
 </div>
 {% endblock %}

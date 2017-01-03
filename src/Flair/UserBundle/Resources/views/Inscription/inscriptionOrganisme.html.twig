@@ -3,83 +3,110 @@
 {% form_theme form _self %}
 
 {% block  _inscription_organisme_form_cgu_row %}
-    {{ form_errors(form) }}
+
     <div class="control-group">
         <label class="control-label" for="inscription_organisme_form_cgu">
             J'accepte les <a href="{{ asset('CGU.pdf')}}" target="_blank">CGU</a>
         </label>
-        <div class="controls">
+
             {{ form_widget(form) }}
-        </div>
+
     </div>
 {% endblock %}
 
 {% block body %}
-    <div class="inner">
-         <div class="title title-table">
-            <h2 class="left-bar">
-                Création d'un compte
-            </h2>
-
-            <div class="btn-bar right">
-                <div class="corner"></div>
-            </div>
+<!-- Page Content -->
+<div class="container">
+  <div class="row">
+      <div class="col-lg-12">
+          <h1 class="page-header">Inscription
+          </h1>
+          <ol class="breadcrumb">
+              <li><a href="{{ url('Homepage') }}">Accueil</a>
+              </li>
+              <li class="active">Inscription</li>
+          </ol>
+      </div>
+  </div>
+  <div class="row"  id="signupbox"  class="mainbox">
+    <div class="col-lg-12">
+      <div class="tableaudebord">
+        <div class="panel panel-info">
+            <div class="panel-title">Inscription <br><span style="font-size:12px"class="required">* Champs obligatoires</div>
+            <div style="float:right; font-size: 85%; position: relative; top:-21px"><a href="{{url('login')}}">Connexion</a></div>
+          </div>
         </div>
-        <form class="form-horizontal registration-form" {{ form_enctype(form) }} method="POST">
+          <div class='container'>
+
+          <!-- <div id="signupalert" class="alert alert-danger">
+                  <p>Error:</p>
+                  <span> </span>
+                </div>-->
+                <div class='row'>
+                  <div class="col-lg-12">
+                    <div class="titleprghp">
+                      <span class="prg">Information de connexion</span>
+                    </div>
+                  </div>
+                </div>
+        <form class="form-horizontal" {{ form_enctype(form) }} method="POST">
             <div class="account-information">
                 {{ form_row(form.email) }}
                 {{ form_row(form.motdepasse) }}
             </div>
 
-            <div class="organism-information">
-                <h2>Informations sur l'organisme</h2>
-
-                {{ form_row(form.nom) }}
-                {{ form_row(form.siren) }}
-                {{ include("FlairUserBundle:Categories:organisme.html.twig", { form: form, url: url('Categories_inscription_organisme') }, with_context = false) }}
-                {{ form_row(form.autreCategorie) }}
-                <div class="hide" id="rna">
-                    {{ form_row(form.rna) }}
+            <div class='row'>
+              <div class="col-lg-12">
+                <div class="titleprghp">
+                  <span class="prg">Information sur l'organisme</span>
                 </div>
-                <div class="control-group">
-                    <div class="controls">
-                        <div class="btn orange toggleShow">
-                            Suite
-                        </div>
+              </div>
+            </div>
+                  <div class="col-lg-6">
+                    {{ form_row(form.nom) }}
+                    {{ form_row(form.siren) }}
+                    {{ include("FlairUserBundle:Categories:organisme.html.twig", { form: form, url: url('Categories_inscription_organisme') }, with_context = false) }}
+                    {{ form_row(form.autreCategorie) }}
+                    <div class="hide" id="rna">
+                        {{ form_row(form.rna) }}
                     </div>
-                </div>
-                <div class="moreFields hide">
+
                     {{ form_row(form.siret) }}
                     {{ form_row(form.ape) }}
                     {{ form_row(form.prenomContact) }}
                     {{ form_row(form.nomContact) }}
+                    </div>
+                    <div class="col-lg-6">
                     {{ form_row(form.adresse) }}
                     {{ form_row(form.complementAdresse) }}
                     {{ form_row(form.codePostal) }}
                     {{ form_row(form.ville) }}
                     {{ form_row(form.telephone) }}
                     {{ form_row(form.mobile) }}
+                  </div>
+                <div class="col-lg-12">
                     {{ form_row(form.emailPartenaire) }}
+                  </div>
+                  <div class="col-lg-12">
                     {{ form_row(form.cgu) }}
+                </div>
                     <div class="control-group bt_form_row">
                         <label>&nbsp;</label>
-                        <div class="controls">
+                        <div class="controls" style="float:right">
                             <input type="submit" class="btn orange" value="Enregistrer" />
                         </div>
                     </div>
+                    <br>
+                    <br>
                 </div>
-            </div>
+
 
             {{ form_rest(form) }}
-
-            <div class="control-group">
-                <div class="controls file-input">
-                    <i><span class="required-flag">*</span> Champs obligatoires</i>
-                </div>
+            </form>
             </div>
-        </form>
+          </div>
     </div>
-
+</div>
 {% endblock %}
 
 {% block inlineScript %}
@@ -87,19 +114,15 @@
     <script type="text/javascript">
         $(function() {
             $('.toggleShow').mousedown(toggleShow);
-
             function toggleShow() {
                 $('.moreFields').toggle(1000);
                 $(this).find('.ui-icon').toggleClass('ui-icon-circle-arrow-s ui-icon-circle-arrow-n');
                 $(this).find('.information').text("Suite");
                 if ($(this).find('.ui-icon-circle-arrow-s').length === 0) {
                     $(this).find('.btn').text("Voir moins");
-
                     return false;
                 }
-
             }
-
             $('#inscription_organisme_form_autreCategorie').parent().parent().addClass('hide');
             $('#inscription_service_organisme_form_autreCategorie').parent().parent().addClass('hide');
         });

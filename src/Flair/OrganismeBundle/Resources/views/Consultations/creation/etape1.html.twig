@@ -17,25 +17,31 @@
 {% endblock %}
 
 {% block body %}
-<div class="inner">
-    <div class="title title-table">
-        <h2 class="left-bar">
-            {% if consultation is defined %}
-                Consultation : {{ consultation.titre }}
-            {% else %}
-                Nouvelle consultation
-            {% endif %}
-        </h2>
+<div class="container">
+  <div class="row">
+      <div class="col-lg-12">
+          <h1 class="page-header">Mes consultations
+          </h1>
+          <ol class="breadcrumb">
+              <li><a href="{{url('Homepage')}}">Accueil</a></li>
+              <li><a href="{{url('Organisme_consultations')}}">Mes consultations</a></li>
+              {% if consultation is defined %}
+              <li class="active">Consultation : {{ consultation.titre }}</li>
+              {% else %}
+                <li class="active">Nouvelle consultation</li>
+              {% endif %}
 
-        <div class="btn-bar right">
-            <a href="{{ url('Organisme_consultations') }}" class="btn orange no-radius">
-            <i class="fa fa-undo"></i>
+              <div class="btn-bar" style="float:right">
+                  <a href="{{ url('Organisme_consultations') }}">
+                  <i class="fa fa-undo"></i>
 
-                Retour à la liste
-            </a>
-            <div class="corner"></div>
-        </div>
-    </div>
+                      Retour à la liste
+                  </a>
+                  <div class="corner"></div>
+              </div>
+          </ol>
+      </div>
+  </div>
 
     {% if consultation is defined %}
         {% set vars = { 'consultation' : consultation, 'step' : 1 } %}

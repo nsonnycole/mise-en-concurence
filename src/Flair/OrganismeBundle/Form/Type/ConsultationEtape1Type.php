@@ -6,6 +6,7 @@ use Doctrine\ORM\EntityRepository;
 use Flair\UserBundle\Form\EventListener\CategoriePrestataireEventSubcriber;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Ivory\CKEditorBundle\Form\Type\CKEditorType;
 
 /**
  * Formulaire d'une consultation.
@@ -19,7 +20,7 @@ class ConsultationEtape1Type extends AbstractType
     {
         $builder
             ->add('titre', 'text', array('label' => 'Titre'))
-            ->add('description', 'ckeditor', array(
+            ->add('description', CKEditorType::class, array(
                 'label' => 'Description sommaire'
             ))
             ->add('categorieLevelOne', 'entity', array(

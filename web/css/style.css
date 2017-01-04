@@ -27,8 +27,8 @@ a:hover {
   cursor: pointer;
   color: #555;
   font-weight: bold;
-  background-color: #ffcc66;
   text-decoration: none;
+  border: 1px solid #ccc;
   font-size: 14px;
   padding: auto;
 }

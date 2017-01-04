@@ -26,13 +26,22 @@
               </ol>
           </div>
       </div>
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="tableaudebord">
+            <div class="panel panel-info">
+                <div class="panel-title">Modification du mot de passe <br><span style="font-size:12px"class="required">* Champs obligatoires</div>
+
+              </div>
+            </div>
     <form action="{{ url('flair_user_profil_password') }}" method="post" class="form-horizontal">
         {{ form_rest(form) }}
 
         <div class="controls">
-            <a href="{{ url('flair_user_profil_see') }}" class="btn btn-warning">Annuler</a>
-            <input class="btn btn-success" name="publier" type="submit" value="Enregistrer" />
+            <input class="btn btn-warning" name="publier" type="submit" value="Enregistrer" />
         </div>
     </form>
+    </div>
+    </div>
 </div>
 {% endblock %}

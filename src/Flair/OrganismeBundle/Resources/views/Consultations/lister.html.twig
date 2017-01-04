@@ -26,23 +26,26 @@
             <div id="filter-panel" class="collapse filter-panel" style="margin-top: 51px;">
                 <div class="panel panel-default">
                     <div class="panel-body">
-                        <form action="" method="POST" class="prestataires-filter">
+                        <form action="" method="POST" class="prestataires-filter form-horizontal ">
                             <div class="form-group">
-                                <label class="filter-col" style="margin:10px;" for="pref-orderby">Catégorie:</label>
+                                <label class="filter-col"  for="pref-orderby">Catégorie:</label>
                                 {{ form_widget(filtreForm.categorie) }}
                             </div>
                             <div class="form-group">
-                                <label class="filter-col" style="margin:10px;" for="pref-orderby">Status:</label>
+                                <label class="filter-col" for="pref-orderby">Status:</label>
                                   {{ form_widget(filtreForm.statut) }}
                             </div>
 
                             <div class="form-group">
-                                <label style="margin-left:153px;margin-right:10px;" >Date de clôture entre :</label>
+                                <label>Date de clôture entre :
                                 {{ form_label(filtreForm.dateDebut) }}
                                 {{ form_widget(filtreForm.dateDebut) }}
-                                <label style="margin:10px;" >et :</label>
+                                </label>
+
+                                <label>et :
                                 {{ form_label(filtreForm.dateFin) }}
                                 {{ form_widget(filtreForm.dateFin) }}
+                                </label>
                             </div>
                         </form>
                     </div>
@@ -111,7 +114,7 @@
       </div>
 
       {% if nbPrestataires == 0 %}
-          <div class="flash notice center">Vous ne pourrez diffuser vos consultations qu'après avoir pré-inscrit des prestataires</div>
+          <div class="flash notice center required">Vous ne pourrez diffuser vos consultations qu'après avoir pré-inscrit des prestataires</div>
       {% endif %}
   </div>
   {% endblock %}

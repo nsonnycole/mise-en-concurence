@@ -33,6 +33,10 @@ a:hover {
   padding: auto;
 }
 
+.btn-warning {
+  background-color: #ffcc66;
+}
+
 .btn:hover {
   background-color: #ffcc66;
   color:#555;
@@ -59,13 +63,13 @@ a:hover {
   color: #E73469;
 }
 .btn.disabled {
-  background-color: gray;
-  color: lightgray;
+  background-color: #ccc;
+  color: black;
   cursor: not-allowed;
 }
 .btn.disabled:hover {
-  background-color: gray;
-  color: lightgray;
+  background-color: #ccc;
+  color: black;
 }
 .btn.no-radius {
   border-radius: 0;
@@ -76,9 +80,7 @@ a:hover {
 .btn.bold {
   font-weight: bold;
 }
-.btn.add {
-  border: 1px solid #666;
-}
+
 .btn.add span.plus {
   font-size: 20px;
 }
@@ -86,7 +88,6 @@ a:hover {
   width: 90px;
   height: 30px;
   text-align: center;
-  border: 1px solid #666;
   background: #ffcc66;
   color: #555;
   margin-bottom: 5px !important;
@@ -267,12 +268,15 @@ span .paginate_active {
 }
 
 input[type=text]{
-  width: 386px;
+  /*width: 386px;*/
 }
 
 input[type=checkbox], input[type=radio] {
     margin: 8px 7px 0;
 
+}
+.ui-progressbar .ui-progressbar-value {
+    margin: 0px;
 }
 
 .checkbox input[type=checkbox],
@@ -592,7 +596,7 @@ h2.title.grey {
   margin-left: 200px;
 }
 .account-infos {
-  width: 980px;
+  width: 100%;
   margin: 0 auto;
   padding-top: 20px;
   padding-left: 30px;

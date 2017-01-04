@@ -5,6 +5,7 @@
       <div class="row">
           <div class="col-lg-12">
               <h1 class="page-header">Mon compte
+
               </h1>
               <ol class="breadcrumb">
                   <li><a href="{{url('Homepage')}}">Accueil</a>
@@ -18,22 +19,31 @@
               </ol>
           </div>
       </div>
-    <div class="prefix_1">
-        <form action="{{ url('flair_user_profil_edit') }}" method="post" class="form-horizontal">
-          <div class="col-lg-6">
-            <div class="form-cpt">
-                {{ form_row(form.email) }}
-                {{ form_row(form.nom) }}
-                {{ form_row(form.siren) }}
-                {{ include("FlairUserBundle:Categories:organisme.html.twig", { form: form, url: url('Categories_profil_organisme') }, with_context = false) }}
-                {{ form_row(form.autreCategorie) }}
-                {{ form_row(form.siret) }}
-                <div class="hide" id="rna">
-                    {{ form_row(form.rna) }}
-                </div>
-                {{ form_row(form.ape) }}
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="tableaudebord">
+            <div class="panel panel-info">
+                <div class="panel-title">Modification du compte <br><span style="font-size:12px"class="required">* Champs obligatoires</div>
+
+              </div>
             </div>
-          </div>
+          <div class="prefix_1">
+              <form action="{{ url('flair_user_profil_edit') }}" method="post" class="form-horizontal">
+
+                <div class="col-lg-6">
+                  <div class="form-cpt">
+                      {{ form_row(form.email) }}
+                      {{ form_row(form.nom) }}
+                      {{ form_row(form.siren) }}
+                      {{ include("FlairUserBundle:Categories:organisme.html.twig", { form: form, url: url('Categories_profil_organisme') }, with_context = false) }}
+                      {{ form_row(form.autreCategorie) }}
+                      {{ form_row(form.siret) }}
+                      <div class="hide" id="rna">
+                          {{ form_row(form.rna) }}
+                      </div>
+                      {{ form_row(form.ape) }}
+                  </div>
+                </div>
           <div class="col-lg-6">
             <div class="form-cpt">
                 {{ form_row(form.prenomContact) }}
@@ -45,17 +55,19 @@
                 {{ form_row(form.telephone) }}
                 {{ form_row(form.mobile) }}
             </div>
-          </div>
+
             {{ form_rest(form) }}
 
             <div class="control-group bt_form_row">
-                <div class="sub">
-                    <a href="{{ url('flair_user_profil_see') }}" class="btn">Annuler</a>
-                    <input type="submit" class="btn orange" value="Enregistrer" />
+                <div style="float:right">
+                    <input type="submit" class="btn btn-warning" value="Enregistrer" />
                 </div>
             </div>
+                </div>
         </form>
     </div>
+</div>
+</div>
 </div>
 {% endblock%}
 

@@ -956,7 +956,7 @@ input[type="text"].search {
 }
 .menu-nav .item:last-child {
   border-bottom: none;
-  height: 42px;
+  height: 66px;
 }
 .menu-prestataires {
   padding-left: 0;
@@ -975,7 +975,7 @@ input[type="text"].search {
 .menu-prestataires div {
   display: inline-block;
   height: 46px;
-  border: 1px solid #666;
+  border: 1px solid #ccc;
   border-bottom: none;
   width: 178px;
   cursor: pointer;
@@ -995,21 +995,22 @@ input[type="text"].search {
   background: white;
 }
 .menu-prestataires div:first-child {
-  border-left: 1px solid #666;
+  border-left: 1px solid #ccc;
   border-right: none;
   margin-left: 0;
 }
 .menu-prestataires div:last-child {
-  border-right: 1px solid #666;
+  border-right: 1px solid #ccc;
   border-left: none;
   margin-left: -4px;
-  border-left: 1px solid #666;
+  border-left: 1px solid #ccc;
 }
 .block-reponse {
   float: left;
   height: 100%;
+  width: 100%;
   padding: 0 10px 20px 10px;
-  border: 1px solid #666;
+  border: 1px solid #ccc;
 }
 .block-reponse .proposition-date {
   margin-left: 180px;
@@ -1116,14 +1117,13 @@ input[type="text"].search {
   text-decoration: none;
 }
 .consultation-content .menu-tab .item.answers {
-  border: 1px solid #666;
+
+  padding: 14px;
+  margin: 12px;
   border-top: none;
 }
-.consultation-content .menu-tab .item.answers img {
-  float: none !important;
-  padding: 0;
-  margin-left: 5px;
-}
+
+
 .consultation-content .menu-tab .item.active {
   overflow: hidden;
   height: 57px;
@@ -1162,6 +1162,7 @@ input[type="text"].search {
 }
 .consultation-content .cancel {
   float: right;
+  margin-left: 8px;
   margin-right: 10px;
 }
 .consultation-content .js_draft {

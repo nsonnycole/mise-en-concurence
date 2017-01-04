@@ -30,12 +30,13 @@
         <div class="consultation-content follow">
             <div class="menu-tab">
                 <a class="item questions" href="{{ url('Organisme_consultation_reponses', { 'id' : consultation.id }) }}">
-                    Propositions
+                    <i class="fa fa-list" aria-hidden="true"></i> Propositions
                 </a>
                 <a class="active item answers">
-                    Questions
+                    <i class="fa fa-question-circle-o" aria-hidden="true"></i> Questions
 
                     {% if consultation.hasUnansweredQuestions %}
+                        <i class="fa fa-question-circle-o" aria-hidden="true"></i>
                         <img style="float:right; padding-right: 10px;" src="{{ asset('images/icon_question.png') }}" alt="" data-title="Cette consultation a des questions en attente" title="">
                     {% endif %}
                 </a>
@@ -74,7 +75,7 @@
                             {% endif %}
                         </td>
                         <td>
-                            <a href="{{ url('Organisme_consultation_questions_afficher', {'id' : question.id } ) }}" class="btn-reflate btn">Voir la question</a>
+                            <a href="{{ url('Organisme_consultation_questions_afficher', {'id' : question.id } ) }}" class="btn btn-warning">Voir la question</a>
                         </td>
                     </tr>
                 {% else %}
@@ -86,7 +87,7 @@
             </table>
 
             <div class="actions">
-                <a href="{{ url('Organisme_consultation_annuler', { 'id' : consultation.id }) }}" class="btn cancel js_confirm" data-confirm="Etes-vous sûr de vouloir supprimer cette mise en concurrence?">Supprimer la consultation</a>
+                <a style="margin-left:2px"href="{{ url('Organisme_consultation_annuler', { 'id' : consultation.id }) }}" class="btn js_confirm" data-confirm="Etes-vous sûr de vouloir supprimer cette mise en concurrence?">Supprimer la consultation</a>
             </div>
         </div>
     </div>

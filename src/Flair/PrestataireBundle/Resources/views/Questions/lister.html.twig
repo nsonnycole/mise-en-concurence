@@ -1,13 +1,33 @@
 {% extends 'FlairPrestataireBundle::propositions.html.twig' %}
 
 {% block body %}
-    <div class="inner">
+<div class="container">
+  <div class="row">
+      <div class="col-lg-12">
+          <h1 class="page-header">Mes propositions
+          </h1>
+          <ol class="breadcrumb">
+              <li><a href="{{url('Homepage')}}">Accueil</a></li>
+              <li><a href="{{url('Prestataire_propositions')}}">Mes propositions</a></li>
+              <li class="active">Consultation : {{ reponse.consultation.titre }}</li>
+
+
+              <div class="btn-bar" style="float:right">
+                  <a href="{{ url('Prestataire_propositions') }}">
+                  <i class="fa fa-undo"></i>
+                      Retour à la liste
+                  </a>
+                  <div class="corner"></div>
+              </div>
+          </ol>
+      </div>
+  </div>
 
         <div style="margin-bottom: 20px">
             <a class="btn orange" href="{{ url("Prestataire_propositions_questions_poser", {id: reponse.id}) }}">Poser une question</a>
         </div>
 
-        <table style="width: 100%">
+        <table class="table table-bordered table-striped">
             <tr style="font-size: 22px">
                 <th style="width: 80%">Titre</th>
                 <th>Action</th>

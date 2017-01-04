@@ -1,7 +1,7 @@
 {% extends 'FlairPrestataireBundle::propositions.html.twig' %}
 
 {% block body %}
-    <div class="inner">
+    <div class="container">
 
         <div class="btn-bar right">
             <a href="{{ url('Prestataire_propositions_afficher', {'id' : question.reponse.id } ) }}" class="btn">retour à la liste</a>
@@ -29,4 +29,6 @@
             </div>
         {% endif %}
     </div>
+
+    
 {% endblock %}

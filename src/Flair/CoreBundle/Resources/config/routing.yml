@@ -1,25 +1,25 @@
 # Pages publiques
 # ~~~~~~~~~~~~~~
 Homepage:
-    pattern:    /
+    path:    /
     defaults:   { _controller: FlairCoreBundle:Homepage:index }
 
 Inscription:
-    pattern:    /inscription
+    path:    /inscription
     defaults:   { _controller: FlairCoreBundle:Homepage:inscription }
 
 FAQ:
-    pattern:    /faq
+    path:    /faq
     defaults:   { _controller: FlairCoreBundle:Homepage:faq }
     methods:    [GET]
 
 Mentions_legales:
-    pattern:    /mentions-legales
+    path:    /mentions-legales
     defaults:   { _controller: FlairCoreBundle:Homepage:mentionsLegales }
     methods:    [GET]
 
 
 Inscription_prestataire:
-    pattern:    /inscription/prestataire
+    path:    /inscription/prestataire
     defaults:   { _controller: FlairCoreBundle:Homepage:inscriptionPrestataire }
     methods:    [GET]

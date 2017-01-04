@@ -25,7 +25,8 @@
                 <div class="corner"></div>
             </div>
         </div>
-        <form class="form-horizontal registration-form" {{ form_enctype(form) }} method="POST">
+        <form class="form-horizontal registration-form" method="POST">
+
             <div class="account-information">
                 {{ form_row(form.email) }}
                 {{ form_row(form.motdepasse) }}
@@ -37,7 +38,6 @@
                 {{ form_row(form.nom) }}
                 {{ form_row(form.siren) }}
                 {{ include("FlairUserBundle:Categories:organisme.html.twig", { form: form, url: url('Categories_inscription_organisme') }, with_context = false) }}
-                {{ form_row(form.autreCategorie) }}
                 <div class="hide" id="rna">
                     {{ form_row(form.rna) }}
                 </div>

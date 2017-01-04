@@ -7,7 +7,7 @@ use Flair\UserBundle\Entity\CategorieOrganisme;
 use Flair\UserBundle\Entity\Organisme;
 use Flair\UserBundle\Validator\UniqueEmail;
 use Symfony\Component\Validator\Constraints as Assert;
-use Symfony\Component\Validator\ExecutionContextInterface;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 /**
  * Modèle d'inscription.
@@ -33,7 +33,7 @@ class InscriptionOrganisme
     /**
      * @var boolean Si l'utiliasteur a accepté les CGU.
      *
-     * @Assert\True(message = "Vous devez accepter les CGU")
+     * @Assert\IsTrue(message = "Vous devez accepter les CGU")
      */
     private $cgu;
 
@@ -199,7 +199,7 @@ class InscriptionOrganisme
     /**
      * @Assert\Callback
      */
-    public function isCategorieValide(ExecutionContextInterface $context)
+    public function isCategorieValide(ExecutionContextInterface $context, $payload)
     {
         $categorie = $this->getCategorie();
         if ($categorie == null) {

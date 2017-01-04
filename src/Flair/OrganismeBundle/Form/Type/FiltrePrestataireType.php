@@ -20,8 +20,8 @@ class FiltrePrestataireType extends AbstractType
             ->add('categorie', 'entity', array(
                 'label'         => 'Secteur d\'activité',
                 'class'         => 'FlairUserBundle:CategoriePrestataire',
-                'property'      => 'fullName',
-                'empty_value'   => 'Selectionnez votre secteur d\'activité',
+                'choice_label'      => 'fullName',
+                'placeholder'   => 'Selectionnez votre secteur d\'activité',
                 'required'      => false
             ));
     }

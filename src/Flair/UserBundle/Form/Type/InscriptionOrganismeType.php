@@ -31,10 +31,6 @@ class InscriptionOrganismeType extends AbstractType
             ->add('nom', 'text', array(
                 'label' => 'Nom de l\'organisme'
             ))
-            ->add('autreCategorie', 'text', array(
-                'label' => 'Précisez',
-                'required' => false
-            ))
             ->add('siret', 'text', array(
                 'label'    => 'SIRET',
                 'required' => false
@@ -77,8 +73,8 @@ class InscriptionOrganismeType extends AbstractType
             ->add('categorieLevelOne', 'entity', array(
                 'label'         => "Secteur d'activité",
                 'class'         => 'FlairUserBundle:CategorieOrganisme',
-                'property'      => 'nom',
-                'empty_value'   => 'Entrez votre secteur d\'activité',
+                'choice_label'  => 'nom',
+                'placeholder'   => 'Entrez votre secteur d\'activité',
                 'query_builder' => function (EntityRepository $er) {
                     return $er->findCategoriesMeres();
                 }
@@ -91,9 +87,11 @@ class InscriptionOrganismeType extends AbstractType
                 'label'    => 'Nom du contact',
                 'required' => false
             ))
-            ->add('emailPartenaire', 'yes_no_choice', array(
+            ->add('emailPartenaire', 'choice', array(
                 'label'       => 'Acceptez-vous de recevoir des emails de nos partenaires ?',
-                'empty_value' => false
+                'choices' => array('Oui' => true, 'Non' => false),
+                'expanded' => true,
+                'multiple' => false
             ))
             ->add('cgu', 'checkbox', array(
                 'label' => 'J\'accepte les CGU',

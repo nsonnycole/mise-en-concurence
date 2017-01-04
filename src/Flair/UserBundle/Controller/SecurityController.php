@@ -11,7 +11,7 @@ use Flair\UserBundle\Model\MotdepasseOublie;
 use Flair\OrganismeBundle\Form\Type\MotdepasseType;
 
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Security\Core\SecurityContextInterface;
+use Symfony\Component\Security\Core\Security;
 
 /**
  * Gestion de la sécurité : inscription, login, logout.
@@ -24,15 +24,15 @@ class SecurityController extends CoreController
     public function loginAction(Request $request)
     {
         // get the login error if there is one
-        if ($request->attributes->has(SecurityContextInterface::AUTHENTICATION_ERROR)) {
-            $error = $request->attributes->get(SecurityContextInterface::AUTHENTICATION_ERROR);
+        if ($request->attributes->has(Security::AUTHENTICATION_ERROR)) {
+            $error = $request->attributes->get(Security::AUTHENTICATION_ERROR);
         } else {
-            $error = $request->getSession()->get(SecurityContextInterface::AUTHENTICATION_ERROR);
-            $request->getSession()->remove(SecurityContextInterface::AUTHENTICATION_ERROR);
+            $error = $request->getSession()->get(Security::AUTHENTICATION_ERROR);
+            $request->getSession()->remove(Security::AUTHENTICATION_ERROR);
         }
 
         return $this->render('FlairUserBundle:Security:login.html.twig', array(
-            'last_username' => $request->getSession()->get(SecurityContextInterface::LAST_USERNAME),
+            'last_username' => $request->getSession()->get(Security::LAST_USERNAME),
             'error'         => $error
         ));
     }

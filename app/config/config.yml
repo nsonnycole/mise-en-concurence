@@ -3,7 +3,7 @@ imports:
     - { resource: security.yml }
 
 framework:
-    secret:          %secret%
+    secret:          "%secret%"
     router:
         resource: "%kernel.root_dir%/config/routing.yml"
         strict_requirements: ~
@@ -21,15 +21,13 @@ framework:
 
 # Twig Configuration
 twig:
-    debug:            %kernel.debug%
-    strict_variables: %kernel.debug%
-    form:
-        resources:
-            - ::form/default_form_theme.html.twig
+    debug:            "%kernel.debug%"
+    strict_variables: "%kernel.debug%"
+    form_themes: ['form/default_form_theme.html.twig']
 
 # Assetic Configuration
 assetic:
-    debug:          %kernel.debug%
+    debug:          "%kernel.debug%"
     use_controller: false
     bundles:
         - FlairCoreBundle
@@ -37,32 +35,30 @@ assetic:
         - FlairPrestataireBundle
     filters:
         cssrewrite: ~
-        lessphp:
-            file: %kernel.root_dir%/../vendor/leafo/lessphp/lessc.inc.php
-            apply_to: "\.less$"
+
 
 # Doctrine Configuration
 doctrine:
     dbal:
-        driver:   %database_driver%
-        host:     %database_host%
-        port:     %database_port%
-        dbname:   %database_name%
-        user:     %database_user%
-        password: %database_password%
+        driver:   "%database_driver%"
+        host:     "%database_host%"
+        port:     "%database_port%"
+        dbname:   "%database_name%"
+        user:     "%database_user%"
+        password: "%database_password%"
         charset:  UTF8
     orm:
-        auto_generate_proxy_classes: %kernel.debug%
+        auto_generate_proxy_classes: "%kernel.debug%"
         auto_mapping: true
 
 # Swiftmailer Configuration
 swiftmailer:
     auth_mode: login
-    transport:          %mailer_transport%
-    host:               %mailer_host%
-    port:               %mailer_port%
-    username:           %mailer_user%
-    password:           %mailer_password%
+    transport:          "%mailer_transport%"
+    host:               "%mailer_host%"
+    port:               "%mailer_port%"
+    username:           "%mailer_user%"
+    password:           "%mailer_password%"
     #delivery_address:   %mailer_delivery_address%
 
 services:
@@ -78,8 +74,6 @@ services:
 
 vich_uploader:
     db_driver: orm
-    gaufrette: true
-    storage: vich_uploader.storage.gaufrette
     mappings:
         document:
             namer: vich_uploader.namer_uniqid
@@ -91,7 +85,7 @@ knp_gaufrette:
     adapters:
         documents_adapter:
             local:
-                directory: %kernel.root_dir%/../web/documents
+                directory: "%kernel.root_dir%/../web/documents"
 
     filesystems:
         documents_fs:
@@ -127,9 +121,6 @@ sonata_admin:
 dizda_cloud_backup:
     processor:
         type: zip
-    cloud_storages:
-        local:
-            path: %backup_directory%
     databases:
         mysql:
             # When no parameters is specified under mysql, the bundle taking those from parameters.yml

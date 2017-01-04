@@ -14,7 +14,8 @@ use Symfony\Component\Security\Core\User\UserInterface;
  * @ORM\DiscriminatorMap({
  *      "prestataire" = "Prestataire",
  *      "organisme"   = "Organisme",
- *      "administrateur" = "Administrateur"
+ *      "administrateur" = "Administrateur",
+ *      "abstractutilisateur" = "AbstractUtilisateur"
  * })
  */
 class AbstractUtilisateur implements AdvancedUserInterface, \Serializable

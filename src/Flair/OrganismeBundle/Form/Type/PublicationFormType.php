@@ -49,7 +49,7 @@ class PublicationFormType extends AbstractType
                 'class'         => 'FlairUserBundle:Prestataire',
                 'multiple'      => true,
                 'expanded'      => true,
-                'property'      => 'nom',
+                'choice_label'      => 'nom',
                 'query_builder' =>
                     function (EntityRepository $er) use ($prestataires, $consultation, $categories, $exclusive, $tags, $ape, $perimetreIntervention) {
                         $qb = $er->createQueryBuilder('p');

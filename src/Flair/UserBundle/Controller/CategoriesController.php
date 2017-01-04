@@ -24,8 +24,9 @@ class CategoriesController extends Controller
      */
     public function inscriptionOrganismeAction(Request $request)
     {
+        $class = (!$request->request->has("inscription_service_organisme_form")) ? InscriptionOrganismeType::class : InscriptionServiceOrganismeType::class;
         return $this->process(
-            (!$request->request->has("inscription_service_organisme_form")) ? new InscriptionOrganismeType() : new InscriptionServiceOrganismeType(),
+            $class,
             'FlairUserBundle:Categories:organisme.html.twig',
             'Categories_inscription_organisme',
             $request,
@@ -39,7 +40,7 @@ class CategoriesController extends Controller
     public function inscriptionPrestataireAction(Request $request)
     {
         return $this->process(
-            new InscriptionPrestataireType(),
+            "InscriptionPrestataireType::class",
             'FlairUserBundle:Categories:prestataire.html.twig',
             'Categories_inscription_prestataire',
             $request,
@@ -53,7 +54,7 @@ class CategoriesController extends Controller
     public function creationConsultationAction(Request $request)
     {
         return $this->process(
-            new ConsultationEtape1Type(),
+            "ConsultationEtape1Type::class",
             'FlairUserBundle:Categories:prestataire.html.twig',
             'Categories_creation_consultation',
             $request,
@@ -67,7 +68,7 @@ class CategoriesController extends Controller
     public function modificationProfilOrganismeAction(Request $request)
     {
         return $this->process(
-            new ProfilOrganismeType(),
+            "ProfilOrganismeType::class",
             'FlairUserBundle:Categories:prestataire.html.twig',
             'Categories_profil_organisme',
             $request,
@@ -81,7 +82,7 @@ class CategoriesController extends Controller
     public function modificationProfilPrestataireAction(Request $request)
     {
         return $this->process(
-            new ProfilPrestataireType(),
+            "ProfilPrestataireType::class",
             'FlairUserBundle:Categories:prestataire.html.twig',
             'Categories_profil_prestataire',
             $request,
@@ -95,7 +96,7 @@ class CategoriesController extends Controller
     public function modificationConsultationAction(Request $request)
     {
         return $this->process(
-            new ConsultationType(),
+            "ConsultationType::class",
             'FlairUserBundle:Categories:prestataire.html.twig',
             'Categories_modification_consultation',
             $request,

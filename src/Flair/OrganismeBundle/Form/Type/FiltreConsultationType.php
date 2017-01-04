@@ -21,8 +21,8 @@ class FiltreConsultationType extends AbstractType
             ->add('categorie', 'entity', array(
                 'label'       => '',
                 'class'       => 'FlairUserBundle:CategoriePrestataire',
-                'property'    => 'fullName',
-                'empty_value' => 'Sélectionnez votre catégorie',
+                'choice_label'    => 'fullName',
+                'placeholder' => 'Sélectionnez votre catégorie',
                 'required'    => false
             ))
             ->add('dateDebut', 'date', array(
@@ -47,9 +47,9 @@ class FiltreConsultationType extends AbstractType
             ))
             ->add('statut', 'choice', array(
                 'required'    => false,
-                'choice_list' => new ConsultationStatutChoiceList(),
+                'expanded' => new ConsultationStatutChoiceList(),
                 'required'    => false,
-                'empty_value' => 'Sélectionnez le statut'
+                'placeholder' => 'Sélectionnez le statut'
             ));
     }
 

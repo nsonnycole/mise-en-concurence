@@ -1,6 +1,6 @@
 services:
-    invitation_form_type:
-        class: Flair\UserBundle\Form\Type\InvitationFormType
-        arguments: ['@security.context']
-        tags:
-            - {name: form.type, alias: invitation_form_type}
+  invitation_form_type:
+      class: Flair\UserBundle\Form\Type\InvitationFormType
+      arguments: ['@security.authorization_checker']
+      tags:
+          - {name: form.type, alias: invitation_form_type}

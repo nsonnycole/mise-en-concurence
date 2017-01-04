@@ -33,7 +33,7 @@ class FiltrePrestataireDiffusionType extends AbstractType
                 'label'    => "Recherche",
                 'class'    => 'FlairCoreBundle:Tag',
                 'required' => false,
-                'property' => 'name',
+                'choice_label' => 'name',
                 'attr'     => array('multiple' => true)
             ))            
             ->add('exclusive', 'checkbox', array(
@@ -44,19 +44,19 @@ class FiltrePrestataireDiffusionType extends AbstractType
                 'label'    => "APE",
                 'class'    => 'FlairUserBundle:Prestataire',
                 'required' => false,
-                'property' => 'ape',
+                'choice_label' => 'ape',
                 'attr'     => array('multiple' => true)
             ))
             ->add('perimetreIntervention', 'choice', array(
                 'label'   => 'Périmètre d\'intervention',
                 'choices' => PerimetreIntervention::getChoices(),
-                'empty_value' => 'Choisissez une option',
+                'placeholder' => 'Choisissez une option',
                 'required' => false
             ))
             ->add('categorie', 'entity', array(
                 'label'    => "Secteur d'activité",
                 'class'    => 'FlairUserBundle:CategoriePrestataire',
-                'property' => 'nom',
+                'choice_label' => 'nom',
                 'required' => false,
                 'attr'     => array('multiple' => true),
                 'query_builder' => function (EntityRepository $er) use ($consultation) {

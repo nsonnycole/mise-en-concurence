@@ -27,7 +27,7 @@ class ProfilPrestataireType extends AbstractType
                 'label'    => "Mots clés",
                 'class'    => 'FlairCoreBundle:Tag',
                 'required' => false,
-                'property' => 'name',
+                'choice_label' => 'name',
                 'attr'     => array('multiple' => true)
             ))
             ->add('email', 'text', array(
@@ -98,9 +98,9 @@ class ProfilPrestataireType extends AbstractType
             ->add('categories', 'entity', array(
                 'label'          => "Secteur d'activité",
                 'class'          => 'FlairUserBundle:CategoriePrestataire',
-                'property'       => 'nom',
+                'choice_label'       => 'nom',
                 'multiple'       => true,
-                'empty_value'    => 'Entrez votre secteur d\'activité',
+                'placeholder'    => 'Entrez votre secteur d\'activité',
                 'query_builder'  => function (EntityRepository $er) {
                     return $er->getAll();
                 }

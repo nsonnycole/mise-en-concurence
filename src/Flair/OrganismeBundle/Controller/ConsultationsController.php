@@ -44,7 +44,7 @@ class ConsultationsController extends CoreController
     {
         $organisme = $this->getUser();
         $filtre = new FiltreConsultationModel();
-        $filtreForm = $this->createForm(new FiltreConsultationType(), $filtre);
+        $filtreForm = $this->createForm(FiltreConsultationType::class, $filtre);
         $filtreForm->handleRequest($request);
 
         $consultations = $this->getDoctrine()
@@ -71,7 +71,7 @@ class ConsultationsController extends CoreController
 
         $consultationModel = new ConsultationEtape1Model();
         $consultationModel->initialize($consultation);
-        $form = $this->createForm(new ConsultationEtape1Type(), $consultationModel);
+        $form = $this->createForm(ConsultationEtape1Type::class, $consultationModel);
         $form->handleRequest($request);
         if ($form->isValid()) {
             $consultationModel->merge($consultation);
@@ -102,7 +102,7 @@ class ConsultationsController extends CoreController
     public function creationEtape1Action(Request $request)
     {
         $consultationModel = new ConsultationEtape1Model();
-        $form = $this->createForm(new ConsultationEtape1Type(), $consultationModel);
+        $form = $this->createForm(ConsultationEtape1Type::class, $consultationModel);
         $form->handleRequest($request);
 
         if ($form->isValid()) {
@@ -141,7 +141,7 @@ class ConsultationsController extends CoreController
         $model = new ConsultationEtape2Model();
         $model->initialize($consultation);
 
-        $form = $this->createForm(new ConsultationEtape2Type(), $model);
+        $form = $this->createForm(ConsultationEtape2Type::class, $model);
         $form->handleRequest($request);
 
             // Si le formulaire est valide, alors on sauvegarde les modifications.
@@ -176,7 +176,7 @@ class ConsultationsController extends CoreController
         //$this->isGranted(VoterConsultation::EDIT, $consultation);
 
         $document = new Document();
-        $form = $this->createForm(new DocumentConsultationType(), $document);
+        $form = $this->createForm(DocumentConsultationType::class, $document);
         $form->handleRequest($request);
 
         if ($form->isValid()) {
@@ -209,7 +209,7 @@ class ConsultationsController extends CoreController
 
         $filtre = new FiltrePrestataireDiffusionModel();
         $filtre->setCategorie($consultation->getCategorie());
-        $filtreForm = $this->createForm(new FiltrePrestataireDiffusionType($consultation), $filtre);
+        $filtreForm = $this->createForm(FiltrePrestataireDiffusionType($consultation), $filtre);
 
         $publicationModel = new PublicationModel();
         $publicationModel->setConsultation($consultation);

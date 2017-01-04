@@ -72,8 +72,8 @@ class ProfilOrganismeType extends AbstractType
             ->add('categorieLevelOne', 'entity', array(
                 'label'         => "Secteur d'activité",
                 'class'         => 'FlairUserBundle:CategorieOrganisme',
-                'property'      => 'nom',
-                'empty_value'   => 'Entrez votre secteur d\'activité',
+                'choice_label'  => 'nom',
+                'placeholder'   => 'Entrez votre secteur d\'activité',
                 'attr'          => array('class' => 'profil'),
                 'query_builder' => function (EntityRepository $er) {
                     return $er->findCategoriesMeres();

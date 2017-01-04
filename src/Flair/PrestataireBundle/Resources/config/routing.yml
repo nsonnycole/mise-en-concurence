@@ -1,12 +1,12 @@
 Prestataire_inscription:
-    pattern:  /invitation/{token}
+    path:  /invitation/{token}
     defaults: { _controller: FlairPrestataireBundle:Inscription:inscription }
     methods: [GET,POST]
     options:
         expose: true
 
 Prestataire_propositions:
-    pattern: /mes-propositions
+    path: /mes-propositions
     defaults: { _controller: FlairPrestataireBundle:Reponses:lister }
     methods: [GET,POST]
 

@@ -21,8 +21,8 @@ class FiltreServiceType extends AbstractType
             ->add('statut', 'choice', array(
                 'required'    => false,
                 'label'       => 'Statut',
-                'choice_list' => new PrestataireStatutChoiceList(),
-                'empty_value' => 'Selectionnez un statut',
+                'choices' => new PrestataireStatutChoiceList(),
+                'placeholder' => 'Selectionnez un statut',
                 'required'    => false
             ));
     }

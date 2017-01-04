@@ -20,7 +20,7 @@ class PrestatairesController extends CoreController
     public function listerAction(Request $request)
     {
         $filtre = new FiltrePrestataireModel();
-        $form = $this->createForm(new FiltrePrestataireType(), $filtre);
+        $form = $this->createForm(FiltrePrestataireType::class, $filtre);
         $form->handleRequest($request);
 
         $prestataires = $this->getDoctrine()

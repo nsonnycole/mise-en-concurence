@@ -2,9 +2,9 @@
 
 namespace Flair\OrganismeBundle\Form\ChoiceList;
 
-use Symfony\Component\Form\Extension\Core\ChoiceList\SimpleChoiceList;
+use Symfony\Component\Form\ChoiceList\View\ChoiceListView;
 
-class ConsultationStatutChoiceList extends SimpleChoiceList
+class ConsultationStatutChoiceList extends ChoiceListView
 {
     /**
      * @const String La consultation est en brouillon.

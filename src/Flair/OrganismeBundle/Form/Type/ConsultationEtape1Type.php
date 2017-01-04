@@ -25,8 +25,8 @@ class ConsultationEtape1Type extends AbstractType
             ->add('categorieLevelOne', 'entity', array(
                 'label'         => 'Secteur d\'activité de la prestation',
                 'class'         => 'FlairUserBundle:CategoriePrestataire',
-                'property'      => 'nom',
-                'empty_value'   => 'Entrez votre secteur d\'activité',
+                'choice_label'      => 'nom',
+                'placeholder'   => 'Entrez votre secteur d\'activité',
                 'query_builder' => function (EntityRepository $er) {
                     return $er->findCategoriesMeres();
                 }

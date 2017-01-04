@@ -14,7 +14,7 @@
     </div>
 
     <div class="prefix_1">
-        <form method="POST" class="form-horizontal" {{ form_enctype(form) }} id="profil">
+        <form method="POST" class="form-horizontal" {{ form_start(form) }} id="profil">
             {{ form_row(form.email) }}
             {{ form_row(form.nom) }}
             {{ form_row(form.dateCreation) }}

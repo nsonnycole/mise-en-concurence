@@ -27,7 +27,7 @@ class InscriptionController extends CoreController
     public function inscriptionOrganismeAction(Request $request)
     {
         $organisme = new InscriptionOrganisme();
-        $form = $this->createForm(new InscriptionOrganismeType(), $organisme);
+        $form = $this->createForm(InscriptionOrganismeType::class, $organisme);
         $form->handleRequest($request);
 
         if ($form->isValid())
@@ -63,7 +63,7 @@ class InscriptionController extends CoreController
 
         $inscriptionPrestataire->fromInvitation($invitation);
 
-        $form = $this->createForm(new InscriptionPrestataireType(), $inscriptionPrestataire);
+        $form = $this->createForm(InscriptionPrestataireType::class, $inscriptionPrestataire);
         $form->handleRequest($request);
         $tags = $request->get('tagList');
         
@@ -136,7 +136,7 @@ class InscriptionController extends CoreController
         $organisme = new InscriptionOrganisme();
         $organisme->setSiren($invitation->getSender()->getSiren());
         $organisme->setEmail($invitation->getEmail());
-        $form = $this->createForm(new InscriptionServiceOrganismeType(), $organisme);
+        $form = $this->createForm(InscriptionServiceOrganismeType::class, $organisme);
         $form->handleRequest($request);
 
         if ($form->isValid())

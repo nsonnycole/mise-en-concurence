@@ -3,7 +3,7 @@ services:
     class: Flair\AdminBundle\Admin\BlockAdmin
     arguments:
         - sonata.block.service.souscategorie
-        - @templating
+        - "@templating"
     tags:
         - { name: sonata.block }
 

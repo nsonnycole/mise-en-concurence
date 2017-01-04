@@ -49,9 +49,9 @@ class CategoriePrestataireEventSubcriber implements EventSubscriberInterface
             $form->add($this->factory->createNamed('categorieLevelTwo', 'entity', null, array(
                 'label'         => 'Sous secteur',
                 'required'      => false,
-                'property'      => 'nom',
+                'choice_label'      => 'nom',
                 'class'         => 'FlairUserBundle:CategoriePrestataire',
-                'empty_value'   => 'Entrez un sous secteur d\'activité',
+                'empty_data'   => 'Entrez un sous secteur d\'activité',
                 'auto_initialize' => false,
                 'query_builder' => function (EntityRepository $er) use ($levelOne) {
                     return $er->findCategoriesFilles($levelOne);
@@ -68,9 +68,9 @@ class CategoriePrestataireEventSubcriber implements EventSubscriberInterface
                 $form->add($this->factory->createNamed('categorieLevelThree', 'entity', null, array(
                     'label'         => 'Sous secteur',
                     'required'      => false,
-                    'property'      => 'nom',
+                    'choice_label'      => 'nom',
                     'class'         => 'FlairUserBundle:CategoriePrestataire',
-                    'empty_value'   => 'Entrez un sous secteur d\'activité',
+                    'empty_data'   => 'Entrez un sous secteur d\'activité',
                     'auto_initialize' => false,
                     'query_builder' => function (EntityRepository $er) use ($levelTwo) {
                         return $er->findCategoriesFilles($levelTwo);

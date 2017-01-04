@@ -20,12 +20,12 @@ flair_user_profil_password:
 # Mot de passe
 # ~~~~~~~~~~~~
 flair_user_password_forget:
-    pattern :   /mot-de-passe-oublie
+    path: /mot-de-passe-oublie
     defaults:   { _controller: FlairUserBundle:Security:motdepasseOublie }
     methods:    [GET,POST]
 
 flair_user_password_reset:
-    pattern :   /mot-de-passe-oublie/{token}
+    path :   /mot-de-passe-oublie/{token}
     defaults:   { _controller: FlairUserBundle:Security:motdepasseReset }
     methods:    [GET,POST]
 
@@ -33,17 +33,17 @@ flair_user_password_reset:
 # Inscription
 # ~~~~~~~~~~~
 flair_user_inscription_organisme:
-    pattern:    /inscription/organisme
+    path:    /inscription/organisme
     defaults:   { _controller: FlairUserBundle:Inscription:inscriptionOrganisme }
     methods:    [GET,POST]
 
 #flair_user_inscription_prestataire:
-#    pattern:    /inscription/prestataire
+#    path:    /inscription/prestataire
 #    defaults:   { _controller: FlairUserBundle:Inscription:inscriptionPrestataire }
 #    methods:    [GET,POST]
 
 flair_user_confirmation_email:
-    pattern:    /inscription/validate/{token}
+    path:    /inscription/validate/{token}
     defaults:   { _controller: FlairUserBundle:Inscription:confirmationEmail }
     methods:    [GET]
 
@@ -51,34 +51,34 @@ flair_user_confirmation_email:
 # Invitation
 # ~~~~~~~~~~
 flair_user_invitation_list:
-    pattern:    /mes-invitations
+    path:    /mes-invitations
     defaults:   { _controller: FlairUserBundle:Invitation:lister }
     methods:    [GET,POST]
 
 flair_user_invitation_send:
-    pattern:    /mes-invitations/inviter
+    path:    /mes-invitations/inviter
     defaults:   { _controller: FlairUserBundle:Invitation:send }
     methods:    [GET,POST]
 
 flair_user_invitation_accept:
-    pattern:    /invitation/{token}
+    path:    /invitation/{token}
     defaults:   { _controller: FlairUserBundle:Invitation:accept }
     methods:    [GET,POST]
 
 flair_user_invitation_renew:
-    pattern:    /mes-invitations/renew/{token}
+    path:    /mes-invitations/renew/{token}
     defaults:   { _controller: FlairUserBundle:Invitation:renew }
     methods:    [GET,POST]
     options:
         expose: true
 
 flair_user_invitation_refuse:
-    pattern:    /invitation/refuse/{token}
+    path:    /invitation/refuse/{token}
     defaults:   { _controller: FlairUserBundle:Invitation:refuse }
     methods:    [GET,POST]
 
 flair_user_invitation_remove:
-    pattern:    /invitation/remove/{token}
+    path:    /invitation/remove/{token}
     defaults:   { _controller: FlairUserBundle:Invitation:remove }
     methods:    [GET,POST]
     options:
@@ -91,14 +91,14 @@ flair_user_service_list:
     defaults: { _controller: FlairUserBundle:Services:lister}
 
 flair_user_service_see:
-    pattern: /mes-services/{id}
+    path: /mes-services/{id}
     defaults: { _controller: FlairUserBundle:Services:afficher }
     methods: [GET]
     requirements:
         id:  \d+
 
 flair_user_service_edit:
-    pattern: /mes-services/{id}/modifier
+    path: /mes-services/{id}/modifier
     defaults: { _controller: FlairUserBundle:Services:modifier }
     methods: [GET,POST]
     requirements:
@@ -108,55 +108,55 @@ flair_user_service_edit:
 # Securité login
 # ~~~~~~~~~~~~~~
 login:
-    pattern:    /login
+    path:    /login
     defaults:   { _controller: FlairUserBundle:Security:login }
 
 login_check:
-    pattern:    /login_check
+    path:    /login_check
 
 logout:
-    pattern:   /logout
+    path:   /logout
 
 
 # Ajax pour les catégories.
 # ~~~~~~~~~~~~~~~~~~~~~~~~~
 Categories_inscription_organisme:
-    pattern:    /ajax/inscription/organisme/categories
+    path:    /ajax/inscription/organisme/categories
     defaults:   { _controller: FlairUserBundle:Categories:inscriptionOrganisme }
     methods: [POST]
     options:
         expose: true
 
 Categories_inscription_prestataire:
-    pattern:    /ajax/inscription/prestataire/categories
+    path:    /ajax/inscription/prestataire/categories
     defaults:   { _controller: FlairUserBundle:Categories:inscriptionPrestataire }
     methods: [POST]
     options:
         expose: true
 
 Categories_creation_consultation:
-    pattern:    /ajax/creation-demande/categories
+    path:    /ajax/creation-demande/categories
     defaults:   { _controller: FlairUserBundle:Categories:creationConsultation }
     methods: [POST]
     options:
         expose: true
 
 Categories_profil_organisme:
-    pattern:    /ajax/mon-profil/organisme/categories
+    path:    /ajax/mon-profil/organisme/categories
     defaults:   { _controller: FlairUserBundle:Categories:modificationProfilOrganisme }
     methods: [POST]
     options:
         expose: true
 
 Categories_profil_prestataire:
-    pattern:    /ajax/mon-profil/prestataire/categories
+    path:    /ajax/mon-profil/prestataire/categories
     defaults:   { _controller: FlairUserBundle:Categories:modificationProfilPrestataire }
     methods: [POST]
     options:
         expose: true
 
 Categories_modification_consultation:
-    pattern:    /ajax/modification-demande/categories
+    path:    /ajax/modification-demande/categories
     defaults:   { _controller: FlairUserBundle:Categories:modificationConsultation }
     methods: [POST]
     options:

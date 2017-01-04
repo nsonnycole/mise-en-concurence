@@ -31,8 +31,8 @@ class ConsultationEtape2Type extends AbstractType
         ->add('periodeDebut', 'choice', array(
             'required'    => false,
             'label'       => 'La prestation doit commencer',
-            'choice_list' => new DisponibiliteChoiceList(),
-            'empty_value' => 'Choisissez une option',
+            'choices' => new DisponibiliteChoiceList(),
+            'placeholder' => 'Choisissez une option',
             'required'    => false,
             'attr'        => array(
                 'class'             => 'js_input_toggle',
@@ -53,8 +53,8 @@ class ConsultationEtape2Type extends AbstractType
         ->add('periodeLivraison', 'choice', array(
             'required'    => false,
             'label'       => 'La prestation doit se terminer',
-            'choice_list' => new DisponibiliteChoiceList(),
-            'empty_value' => 'Choisissez une option',
+            'choices' => new DisponibiliteChoiceList(),
+            'placeholder' => 'Choisissez une option',
             'required'    => false,
             'attr'        => array(
                 'class'             => 'js_input_toggle',
@@ -74,14 +74,14 @@ class ConsultationEtape2Type extends AbstractType
         ->add('experienceRequise', 'choice', array(
             'required'    => false,
             'label'       => 'Date de création de la société prestataire',
-            'choice_list' => new ExperienceRequiseChoiceList(),
-            'empty_value' => 'Choisissez une option'
+            'choices' => new ExperienceRequiseChoiceList(),
+            'placeholder' => 'Choisissez une option'
         ))
         ->add('certificationRequise', 'yes_no_choice', array(
             'label'       => 'Rechercher vous une qualification ou certification précise?',
             'expanded'    => true,
             'multiple'    => false,
-            'empty_value' => false,
+            'placeholder' => false,
             'required'    => false,
             'attr'        => array(
                 'class'             => 'js_input_toggle',

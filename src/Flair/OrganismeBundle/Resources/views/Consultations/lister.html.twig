@@ -23,41 +23,11 @@
               <a id="btn-login" href="{{ url('Organisme_creation_consultation_etape1') }}" class="btn btn-warning">  <i class="fa fa-plus-circle"></i>&nbsp;Créer une consultation </a>
             </div>
           </div>
-            <div id="filter-panel" class="collapse filter-panel" style="margin-top: 51px;">
-                <div class="panel panel-default">
-                    <div class="panel-body">
-                        <form action="" method="POST" class="prestataires-filter form-horizontal ">
-                            <div class="form-group">
-                                <label class="filter-col"  for="pref-orderby">Catégorie:</label>
-                                {{ form_widget(filtreForm.categorie) }}
-                            </div>
-                            <div class="form-group">
-                                <label class="filter-col" for="pref-orderby">Status:</label>
-                                  {{ form_widget(filtreForm.statut) }}
-                            </div>
-
-                            <div class="form-group">
-                                <label>Date de clôture entre :
-                                {{ form_label(filtreForm.dateDebut) }}
-                                {{ form_widget(filtreForm.dateDebut) }}
-                                </label>
-
-                                <label>et :
-                                {{ form_label(filtreForm.dateFin) }}
-                                {{ form_widget(filtreForm.dateFin) }}
-                                </label>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-            <button style="margin-left:15px" type="button" class="btn btn-default" data-toggle="collapse" data-target="#filter-panel">
-                <i class="fa fa-cogs" aria-hidden="true"></i> Recherche avancées
-            </button>
+        
         	</div>
           <br>
 
-          <table class="table datatable table-bordered">
+          <table class="table table-bordered" id="myTable">
               <thead>
                   <th>Titre</th>
                   <th>Status</th>
@@ -65,7 +35,7 @@
                   <th>Prix souhaité</th>
                   <th>Catégorie</th>
                   <th>Date de création</th>
-                  <th>Action</th>
+                  <th data-sorter="false">Action</th>
               </thead>
 
               <tbody>
@@ -99,7 +69,7 @@
                           <td>{{ consultation.categorie.nom | truncate(20) }}</td>
                           <td>{{ consultation.dateCreation | localizeddate('long', 'none', app.request.locale) }}</td>
                           <td class="invit">
-                              <a href="{{ url('Organisme_consultation_annuler', {'id' : consultation.id }) }}" data-confirm="Etes-vous sûr de vouloir supprimer cette consultation?" class="btn-delete js_confirm">Supprimer</a>
+                              <a style="color:red;margin-left:50%;" href="{{ url('Organisme_consultation_annuler', {'id' : consultation.id }) }}" data-confirm="Etes-vous sûr de vouloir supprimer cette consultation?" class="btn-delete js_confirm"><i class="fa fa-times" aria-hidden="true"></i></a>
                           </td>
                       </tr>
                   {% else %}

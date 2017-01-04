@@ -14,14 +14,14 @@
                 <i class="fa fa-undo"></i>
                     Annuler
                 </a>
-                                | <a href="{{ url('flair_user_invitation_list') }}"><i class="fa fa-user-plus"></i>  Invitations</a>
+                                | <a href="{{ url('flair_user_invitation_send') }}"><i class="fa fa-user-plus"></i>  Inviter</a>
                   <div class="corner"></div>
                 </div>
             </ol>
         </div>
     </div>
 
-    <table class="table datatable table-reponsive table-bordered">
+    <table class="table datatable table-reponsive table-bordered" id="myTable">
         <thead>
             <th>Nom</th>
             <th>Email</th>
@@ -45,11 +45,11 @@
                         {% endif %}
                     </td>
                     <td>{{ invitation.stringStatus }}</td>
-                    <td class="invit">
+                    <td class="invit" style="margin-left:25%">
                         {% if invitation.status == 0 %}
-                        <a href="{{ url('flair_user_invitation_renew', {'token' : invitation.token } ) }}" class="js_confirm btn-delete" data-confirm="Etes vous sûr de vouloir relancer ce prestataire?">Relancer</a>
+                        <a href="{{ url('flair_user_invitation_renew', {'token' : invitation.token } ) }}" class="js_confirm btn-delete" data-confirm="Etes vous sûr de vouloir relancer ce prestataire?"><i class="fa fa-reply" aria-hidden="true"></i> Relancer</a> /
                         {% endif %}
-                        <a href="{{ url('flair_user_invitation_remove', {'token' : invitation.token } ) }}" class="js_confirm btn-delete" data-confirm="Etes vous sûr de vouloir supprimer ce prestataire?">Supprimer</a>
+                        <a href="{{ url('flair_user_invitation_remove', {'token' : invitation.token } ) }}" class="js_confirm btn-delete" data-confirm="Etes vous sûr de vouloir supprimer ce prestataire?"><i class="fa fa-times" aria-hidden="true"></i> Supprimer</a>
                     </td>
                 </tr>
             {% else %}

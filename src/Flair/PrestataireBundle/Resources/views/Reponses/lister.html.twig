@@ -11,15 +11,6 @@
             <h1 class="page-header">Mes propositions</h1>
             <ol class="breadcrumb">
                 <li><a href="{{url('Homepage')}}">Accueil</a></li>
-
-
-                <div class="btn-bar" style="float:right">
-                <a onClick="window.history.go(-1);" >
-                <i class="fa fa-undo"></i>
-                    Annuler
-                </a>
-                  <div class="corner"></div>
-                </div>
             </ol>
         </div>
     </div>
@@ -55,7 +46,7 @@
         </div>
     </form>
 
-    <table class="table datatable">
+    <table class="table table-bordered" id="myTable">
         <thead>
             <tr>
                 <th width="25%">Consultation</th>
@@ -64,7 +55,7 @@
                 <th width="10%">Date limite</th>
                 <th width="10%">Montant</th>
                 <th width="10%">Statut</th>
-                <th width="15%">Action</th>
+                <th width="15%" data-sorter="false">Action</th>
             </tr>
         </thead>
         <tbody>
@@ -106,7 +97,7 @@
                 </tr>
             {% else %}
                 <tr>
-                    <td colspan="7">Vous n'avez aucune proposition pour l'instant...</td>
+                    <td colspan="9" style="text-align:center">Vous n'avez aucune proposition pour l'instant...</td>
                 </tr>
             {% endfor%}
         </tbody>

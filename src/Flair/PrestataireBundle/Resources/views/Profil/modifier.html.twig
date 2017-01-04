@@ -18,7 +18,14 @@
           </ol>
       </div>
   </div>
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="tableaudebord">
+        <div class="panel panel-info">
+            <div class="panel-title">Modification du compte <br><span style="font-size:12px"class="required">* Champs obligatoires</div>
 
+          </div>
+        </div>
     <div class="prefix_1">
         <form method="POST" class="form-horizontal" {{ form_enctype(form) }} id="profil">
           <div class="col-lg-6">
@@ -94,9 +101,8 @@
                 <br>
                 <br>
                 <br>
-                <div class="controls">
-                    <a href="{{ url('flair_user_profil_see') }}" class="btn">Annuler</a>
-                    <input type="submit" id="submitForm" class="btn orange" value="Enregistrer" />
+                <div class="controls" style="float:right">
+                    <input type="submit" id="submitForm" class="btn btn-warning" value="Enregistrer" />
                 </div>
 
             <div class="tagList hide">
@@ -106,6 +112,8 @@
             </div>
         </form>
     </div>
+    </div>
+  </div>
 </div>
 {% endblock %}
 {% block inlineScript %}

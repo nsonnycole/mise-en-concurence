@@ -28,20 +28,17 @@
             </div>
         </form>
 
-        <table class="table datatable table-responsive table-bordered">
+        <table class="table datatable table-responsive table-bordered" id="myTable"">
             <thead>
                 <th>Société</th>
                 <th>Secteur</th>
                 <th>Référent</th>
                 <th>Contact</th>
-                <th class="center title-doc">
-                    <span class="doc">Documents</span><br>
-                    <span class="sub-menu">URSSAF</span>
-                    <span class="sub-menu">IMPÔTS</span>
-                    <span class="sub-menu">KBIS</span>
-                </th>
+                <th>URSSAF</th>
+                <th>IMPÔTS</th>
+                <th>KBIS</th>
                 <th width="5%">Status</th>
-                <th width="10%">Action</th>
+                <th width="10%" data-sorter="false">Action</th>
             </thead>
 
             <tbody class="large">
@@ -59,32 +56,32 @@
                             MOBILE: {{ prestataire.mobile }}<br/>
                             EMAIL: {{ prestataire.email}}
                         </td>
-                        <td class="documents center">
-                            <span>
+
+                            <td>
                                 {% if prestataire.urssaf is not null %}
                                     <img src="{{ asset('images/icon_ok.png') }}" class="icon" alt="oui" title="Attestation URSSAF" />
                                 {% else %}
                                     <img src="{{ asset('images/icon_remove.png') }}" class="icon" alt="non" title="Attestation URSSAF" />
                                 {% endif %}
-                            </span>
-                            <span>
+                            </td>
+                            <td>
                                 {% if prestataire.impots is not null %}
                                     <img src="{{ asset('images/icon_ok.png') }}" class="icon" alt="oui" title="Attestation impôts" />
                                 {% else %}
                                     <img src="{{ asset('images/icon_remove.png') }}" class="icon" alt="non" title="Attestation impôts">
                                 {% endif %}
-                            </span>
-                            <span>
+                            </td>
+                            <td>
                                 {% if prestataire.kbis is not null %}
                                     <img src="{{ asset('images/icon_ok.png') }}" class="icon" alt="oui" title="Extrait KBIS" />
                                 {% else %}
                                     <img src="{{ asset('images/icon_remove.png') }}" class="icon" alt="non" title="Extrait KBIS" />
                                 {% endif %}
-                            </span>
-                        </td>
+                            </td>
+
                         <td class="center">Confirmé</td>
                         <td class="invit">
-                            <a href="{{ url('Organisme_prestataires_supprimer', {'id' : prestataire.id } ) }}" class="js_confirm btn-delete" data-confirm="Etes vous sûr de vouloir supprimer ce prestataire?">Supprimer</a>
+                            <a style="color:red;margin-left: 50%;" href="{{ url('Organisme_prestataires_supprimer', {'id' : prestataire.id } ) }}" class="js_confirm btn-delete" data-confirm="Etes vous sûr de vouloir supprimer ce prestataire?"><i class="fa fa-times" aria-hidden="true"></i></a>
                         </td>
                     </tr>
                     {% else %}
@@ -104,21 +101,7 @@
 {% block inlineScript %}
     <script>
         $(function() {
-            if ($("table.datatable tbody td").length != 1) {
-                $("table.datatable").dataTable({
-                    "sDom": '<"top">t<"bottom"lp><"clear">',
-                    "bPaginate" : false,
-                    "aoColumns": [
-                        { "bSortable": true },
-                        { "bSortable": true },
-                        { "bSortable": true },
-                        { "bSortable": true },
-                        { "bSortable": false },
-                        { "bSortable": true },
-                        { "bSortable": false }
-                    ]
-                });
-            }
+
 
             // Au click sur une ligne, on affiche le prestataire.
             $('body').delegate(".datatable tbody tr[rel!=invitation]", 'click', function() {
@@ -131,5 +114,7 @@
                 $("form.prestataires-filter").submit();
             });
         });
+
+
     </script>
 {% endblock %}

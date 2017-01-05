@@ -589,7 +589,7 @@ h2.title.orange {
   background-color: #ffcc66;
 }
 h2.title.grey {
-  background-color: #666666;
+  background-color: #ccc;
 }
 .control-bar {
   margin-top: 50px;
@@ -967,6 +967,7 @@ input[type="text"].search {
   position: absolute;
   right: 5px;
   top: 1 0 px;
+  margin-top: -32px;
   font-size: 18px;
   font-weight: lighter;
 
@@ -1016,13 +1017,13 @@ input[type="text"].search {
   margin-left: 180px;
 }
 .block-reponse #devis .consultation-documents {
-  width: 600px;
+  width: 400px;
   border-left: 1px solid #666;
   margin-top: 30px;
   border-right: 1px solid #666;
 }
 .block-reponse .consultation-content {
-  width: 866px;
+  width: 84%;
   min-height: 400px;
   padding-bottom: 20px;
 }
@@ -1066,7 +1067,7 @@ input[type="text"].search {
   margin: 15px 0;
   border: 1px solid #ddd;
   padding:30px;
-  width: 950px;
+  width: 81%;
 }
 .consultation-content #lignesDevis {
   width: 98%;
@@ -1145,7 +1146,7 @@ input[type="text"].search {
 }
 .consultation-content .sub-menu .item:last-child {
   border-right: none;
-  width: 300px;
+  width: 292px;
 }
 .consultation-content form {
   margin-top: 80px;
@@ -1503,12 +1504,34 @@ footer a:hover{
     font-size: 14px;
   }
 
+  .menu-nav {
+    width: 100%;
+  }
+
+  .block-reponse .consultation-content {
+    width: 100%;
+  }
+
+  .consultation-content {
+    width: 100%;
+  }
+
+  .consultation-content .ckedit {
+      width: 71%;
+      display: inline-block;
+      margin-left: 145px;
+    }
+
+  .consultation-content .sub-menu .item {
+      width: 25%;
+
+  }
 
 
 
 }
 
-@media(max-width:991px) {
+@media(max-width:1000px) {
   .headline h1 {
     font-size: 105px;
   }
@@ -1536,7 +1559,37 @@ footer a:hover{
   .featurette-heading {
     font-size: 30px;
   }
+
+  .menu-nav {
+    width: 100%;
+  }
+
+  .menu-nav.menu-step {
+      width: 100%;
+  }
+
+  .block-reponse .consultation-content {
+    width: 100%;
+  }
+
+  .consultation-content {
+    width: 100%;
+  }
+
+  .consultation-content .ckedit {
+      width: 71%;
+      display: inline-block;
+      margin-left: 145px;
+    }
+
+  .consultation-content .sub-menu .item {
+      width: 25%;
+
+  }
+
 }
+
+
 
 @media(max-width:768px) {
   .container {
@@ -1551,6 +1604,22 @@ footer a:hover{
   .featurette-heading {
     font-size: 25px;
   }
+
+
+.consultation-content .ckedit {
+    width: 71%;
+    display: inline-block;
+    margin-left: 145px;
+  }
+
+.consultation-content .sub-menu .item {
+    width: 28%;
+
+}
+
+
+
+
 }
 
 @media(max-width:668px) {

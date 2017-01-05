@@ -88,7 +88,7 @@
                         {% if reponse.consultation.dateLimite | after_now and reponse.statut != DECLINE and reponse.statut != ANSWERED %}
                             <a class="btn-reflate" href="{{ url('Prestataire_propositions_etape_one', {'id' : reponse.id }) }}">Répondre</a>
                         {% else %}
-                            <a class="btn-reflate" href="{{ url('Prestataire_propositions_etape_four', {'id' : reponse.id }) }}">Voir</a>
+                            <a  href="{{ url('Prestataire_propositions_etape_four', {'id' : reponse.id }) }}"><i class="fa fa-eye" aria-hidden="true"></i> Voir</a>
                         {% endif %}
                         {% if reponse.statut == WAITING and reponse.consultation.dateLimite | after_now %}
                             <a href="{{ url('Prestataire_proposition_annuler', { 'id' : reponse.id }) }}" class="btn-delete js_confirm" data-confirm="Etes vous sûr de vouloir décliner la proposition? L'organisme sera prévenu et il sera impossible de revenir en arrière">décliner</a>

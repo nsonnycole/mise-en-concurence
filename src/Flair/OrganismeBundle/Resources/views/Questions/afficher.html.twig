@@ -46,7 +46,7 @@
             <p id="sub-title">
                 <b>{{ question.reponse.prestataire.nom }}</b> vous a posé une question <i>le {{ question.dateQuestion | date('d-m-Y') }}:</i>
             </p>
-            <a class="orange btn back no-radius" href="{{ url('Organisme_consultation_questions', { 'id' : question.reponse.consultation.id }) }}">Retour aux questions</a>
+            <a class="btn btn-warning back no-radius" href="{{ url('Organisme_consultation_questions', { 'id' : question.reponse.consultation.id }) }}">Retour aux questions</a>
 
             <div class="show-estimate-response inner clearfix" style="clear:both">
                 <div class="line-show clearfix">
@@ -76,13 +76,13 @@
                         {{ form_rest(form) }}
 
                         <div class="controls reponse-organisme">
-                            <input type="submit" value="Répondre" class="btn orange"/>
-                            <a href="{{ url('Organisme_consultation_questions', {'id' : consultation.id } ) }}" class="btn">retour</a>
+                            <input type="submit" value="Répondre" class="btn btn-warning"/>
+
                         </div>
                     </form>
                 {% else %}
                     <p id="sub-title">
-                        Voici votre réponse le <i>le {{ question.dateQuestion | date('d-m-Y') }}</i>:
+                        Voici votre réponse <i>le {{ question.dateQuestion | date('d-m-Y') }}</i>:
                     </p>
                     {% if question.reponseOrganisme == "" %}
                         <p>En attente de réponse...</p>

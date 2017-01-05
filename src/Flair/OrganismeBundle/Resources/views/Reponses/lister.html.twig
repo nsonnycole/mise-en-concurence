@@ -33,10 +33,10 @@
         <div class="consultation-content follow">
             <div class="menu-tab">
                 <a class="active item questions">
-                    Propositions
+                    <i class="fa fa-list" aria-hidden="true"></i>Propositions
                 </a>
                 <a class="item answers" href="{{ url('Organisme_consultation_questions' , { 'id' : consultation.id })}}">
-                    Questions
+                    <i class="fa fa-question-circle-o" aria-hidden="true"></i> Questions
 
                     {% if consultation.hasUnansweredQuestions %}
                         <img style="float:right; padding-right: 10px;" src="{{ asset('images/icon_question.png') }}" alt="" data-title="Cette consultation a des questions en attente" title="">
@@ -80,7 +80,7 @@
                         </td>
                         <td>{{ reponse | reponse_statut }}</td>
                         <td>
-                            <a href="{{ url('Organisme_consultation_reponse', { 'id' :reponse.id } ) }}" class="btn-reflate btn answer">Voir la réponse</a>
+                            <a href="{{ url('Organisme_consultation_reponse', { 'id' :reponse.id } ) }}" class="answer"><i class="fa fa-eye" aria-hidden="true"></i> Voir la réponse</a>
                         </td>
                     </tr>
                 {% else %}
@@ -93,7 +93,7 @@
 
             <div class="actions">
                 <a href="{{ url('Organisme_consultation_annuler', { 'id' : consultation.id }) }}" class="btn cancel js_confirm" data-confirm="Etes-vous sûr de vouloir supprimer cette mise en concurrence?">Supprimer la consultation</a>
-                <a style="margin-left:10px;" class="btn orange next" href="{{ url('Organisme_consultation_selectionner', { 'id': consultation.id})}}">Suivant</a>
+                <a style="margin-left:10px;" class="btn btn-warning next" href="{{ url('Organisme_consultation_selectionner', { 'id': consultation.id})}}">Suivant</a>
             </div>
         </div>
     </div>

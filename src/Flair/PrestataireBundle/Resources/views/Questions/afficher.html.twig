@@ -1,11 +1,26 @@
 {% extends 'FlairPrestataireBundle::propositions.html.twig' %}
 
 {% block body %}
-    <div class="container">
+<div class="container">
+  <div class="row">
+      <div class="col-lg-12">
+          <h1 class="page-header">Questions/Réponses
+          </h1>
+          <ol class="breadcrumb">
+              <li><a href="{{url('Homepage')}}">Accueil</a></li>
+              <li>Liste des questions</li>
 
-        <div class="btn-bar right">
-            <a href="{{ url('Prestataire_propositions_afficher', {'id' : question.reponse.id } ) }}" class="btn">retour à la liste</a>
-        </div>
+              <div class="btn-bar" style="float:right">
+                  <a onClick="window.history.go(-1);">
+                  <i class="fa fa-undo"></i>
+                      Retour
+                  </a>
+                  <div class="corner"></div>
+              </div>
+          </ol>
+      </div>
+  </div>
+
 
         {% include 'FlairOrganismeBundle:Consultations:partials/summary.html.twig' with {'consultation' : question.reponse.consultation } %}
 
@@ -30,5 +45,5 @@
         {% endif %}
     </div>
 
-    
+
 {% endblock %}

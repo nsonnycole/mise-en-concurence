@@ -4,18 +4,16 @@
 <div class="container">
   <div class="row">
       <div class="col-lg-12">
-          <h1 class="page-header">Mes propositions
+          <h1 class="page-header">Questions/Réponses
           </h1>
           <ol class="breadcrumb">
               <li><a href="{{url('Homepage')}}">Accueil</a></li>
-              <li><a href="{{url('Prestataire_propositions')}}">Mes propositions</a></li>
-              <li class="active">Consultation : {{ reponse.consultation.titre }}</li>
-
+              <li>Questions/Réponses</li>
 
               <div class="btn-bar" style="float:right">
-                  <a href="{{ url('Prestataire_propositions') }}">
+                  <a onClick="window.history.go(-1);">
                   <i class="fa fa-undo"></i>
-                      Retour à la liste
+                      Retour
                   </a>
                   <div class="corner"></div>
               </div>
@@ -23,19 +21,15 @@
       </div>
   </div>
 
-    <div class="btn-bar right">
-        <a href="{{ url('Prestataire_propositions_afficher', {'id' : reponse.id } ) }}" class="btn">retour</a>
-    </div>
 
     {% include 'FlairOrganismeBundle:Consultations:partials/summary.html.twig' with {'consultation' : reponse.consultation } %}
-    <h2 class="title grey">Poser une question</h2>
+    <h2 class="title grey">Poser une question <br><span class="required" style="font-size:9px;">* Champs obligatoires</span></h2>
 
     <form action="{{ url('Prestataire_propositions_questions_poser', {'id' : reponse.id } ) }}" method="post" class="form-horizontal">
         {{ form_rest(form) }}
 
         <div class="controls">
-            <input type="submit" value="Envoyer" class="btn orange"/>
-            <a href="{{ url('Prestataire_propositions_afficher', {'id' : reponse.id } ) }}" class="btn">retour</a>
+            <input type="submit" value="Envoyer" class="btn btn-warning"/>
         </div>
     </form>
 </div>

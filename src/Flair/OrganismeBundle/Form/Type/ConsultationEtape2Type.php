@@ -3,6 +3,7 @@
 
 namespace Flair\OrganismeBundle\Form\Type;
 
+use Flair\OrganismeBundle\Form\ChoiceList\ConsultationsCriteresChoiceList;
 use Flair\OrganismeBundle\Form\ChoiceList\DisponibiliteChoiceList;
 use Flair\OrganismeBundle\Form\ChoiceList\ExperienceRequiseChoiceList;
 use Symfony\Component\Form\AbstractType;
@@ -78,8 +79,7 @@ class ConsultationEtape2Type extends AbstractType
             'empty_value' => 'Choisissez une option'
         ))
         ->add('certificationRequise', 'yes_no_choice', array(
-            'label'       => 'Rechercher vous une qualification ou certification précise?',
-            'expanded'    => true,
+            'label'       => 'Recherchez vous une qualification ou certification précise?',
             'multiple'    => false,
             'empty_value' => false,
             'required'    => false,
@@ -92,10 +92,17 @@ class ConsultationEtape2Type extends AbstractType
             'required' => false,
             'label'    => '',
             'attr'     => array(
-                'placeholder' => 'Merci de préciser vos pré-recquis',
+                'placeholder' => 'Merci de préciser vos pré-requis',
                 'class'       => 'certificationsInput large'
             )
-        ));
+        ))
+        ->add('selectCriteres', 'choice', array(
+            'label' => 'Veuillez sélectionner les critères que vous souhaitez préciser pour votre consultation',
+            'choices' => array('prix' => 'prix', 'delai' => 'délai', 'certification' => 'certification'),
+            'expanded' => true,
+            'multiple' => true,
+            'mapped' => false
+            ));
     }
 
     /**

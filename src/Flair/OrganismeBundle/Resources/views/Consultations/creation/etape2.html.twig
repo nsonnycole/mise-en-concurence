@@ -33,6 +33,7 @@
             <form action="{{ url('Organisme_creation_consultation_etape2', {'id' : consultation.id } ) }}" method="post" class="form-horizontal">
 
                 <div class="control-group">
+                    {{ form_row(form.selectCriteres) }}
                     {{ form_label(form.prixMinimum) }}
                     <div class="controls">
                         {% if form_errors(form.prixMinimum) | length > 0 or form_errors(form.prixMaximum) | length > 0 %}

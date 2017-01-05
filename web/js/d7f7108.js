@@ -25,6 +25,7 @@
     });
   });
 
+
   selectToggle = function(trigger, input) {
     var value;
     if (trigger.is("select")) {

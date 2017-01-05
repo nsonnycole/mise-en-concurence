@@ -18,9 +18,8 @@ selectToggle = (trigger, input) ->
 
     # On verifie la valeur
     if not value || value is "" || value == "Dès que possible" || value == "no"
-        input.closest(".control-group").hide()
+        input.closest(".certificationsInput").hide()
         input.closest(".control-group input").removeAttr("required")
     else
-        input.closest(".control-group").show()
+        input.closest(".certificationsInput").show()
         input.closest(".control-group input").attr("required", "required")
-        

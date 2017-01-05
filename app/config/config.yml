@@ -25,12 +25,12 @@ twig:
     strict_variables: %kernel.debug%
     form:
         resources:
-            - ::form/default_form_theme.html.twig
+             - ::form/default_form_theme.html.twig
 
 # Assetic Configuration
 assetic:
     debug:          %kernel.debug%
-    use_controller: false
+    use_controller: true
     bundles:
         - FlairCoreBundle
         - FlairOrganismeBundle
@@ -124,12 +124,12 @@ sonata_admin:
             # display a dashboard block
             - { position: left, type: sonata.admin.block.admin_list }
 
-dizda_cloud_backup:
-    processor:
-        type: zip
-    cloud_storages:
-        local:
-            path: %backup_directory%
-    databases:
-        mysql:
+#dizda_cloud_backup:
+    #processor:
+        #type: zip
+    #cloud_storages:
+        #local:
+            #path: %backup_directory%
+    #databases:
+        #mysql:
             # When no parameters is specified under mysql, the bundle taking those from parameters.yml

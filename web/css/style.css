@@ -20,7 +20,9 @@ a:hover {
   text-decoration: none;
   color:#555;
 }
-
+b {
+  color:#e73469;
+}
 .btn {
   border: none;
   border-radius: 3px;

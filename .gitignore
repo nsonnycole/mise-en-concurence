@@ -6,6 +6,7 @@
 /web/bundles/
 /web/css/
 /web/js/
+/backups/
 # Composer
 /composer.phar
 /bin

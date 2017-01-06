@@ -40,7 +40,7 @@ class CategoriesController extends Controller
     public function inscriptionPrestataireAction(Request $request)
     {
         return $this->process(
-            "InscriptionPrestataireType::class",
+            InscriptionPrestataireType::class,
             'FlairUserBundle:Categories:prestataire.html.twig',
             'Categories_inscription_prestataire',
             $request,
@@ -54,7 +54,7 @@ class CategoriesController extends Controller
     public function creationConsultationAction(Request $request)
     {
         return $this->process(
-            "ConsultationEtape1Type::class",
+            ConsultationEtape1Type::class,
             'FlairUserBundle:Categories:prestataire.html.twig',
             'Categories_creation_consultation',
             $request,
@@ -68,7 +68,7 @@ class CategoriesController extends Controller
     public function modificationProfilOrganismeAction(Request $request)
     {
         return $this->process(
-            "ProfilOrganismeType::class",
+            ProfilOrganismeType::class,
             'FlairUserBundle:Categories:prestataire.html.twig',
             'Categories_profil_organisme',
             $request,
@@ -82,7 +82,7 @@ class CategoriesController extends Controller
     public function modificationProfilPrestataireAction(Request $request)
     {
         return $this->process(
-            "ProfilPrestataireType::class",
+            ProfilPrestataireType::class,
             'FlairUserBundle:Categories:prestataire.html.twig',
             'Categories_profil_prestataire',
             $request,
@@ -96,7 +96,7 @@ class CategoriesController extends Controller
     public function modificationConsultationAction(Request $request)
     {
         return $this->process(
-            "ConsultationType::class",
+            ConsultationType::class,
             'FlairUserBundle:Categories:prestataire.html.twig',
             'Categories_modification_consultation',
             $request,
@@ -108,9 +108,10 @@ class CategoriesController extends Controller
      * Recrée un formulaire à partir.
      *
      */
-    protected function process(AbstractType $type, $template, $url, Request $request, $category)
+    protected function process($type, $template, $url, Request $request, $category)
     {
-        $form = $this->createForm($type)->submit($request);
+        $form = $this->createForm($type);
+        $form->handleRequest($request);
         $formRequest = $request->request->get($form->getName());
 
         if (is_null($formRequest)) {
@@ -119,7 +120,7 @@ class CategoriesController extends Controller
 
         $categorieLevelOne = $this->getDoctrine()
         ->getRepository('FlairUserBundle:Categorie' . $category)
-        ->find($formRequest['categorieLevelOne']);
+        ->findOneById($formRequest['categorieLevelOne']);
 
         $categories1 = array();
         $list1 = $this->getDoctrine()

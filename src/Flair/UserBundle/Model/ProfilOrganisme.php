@@ -23,7 +23,7 @@ class ProfilOrganisme
     /**
      * @var boolean Si l'utiliasteur a accepté les CGU.
      *
-     * @Assert\True(message = "Vous devez accepter les CGU")
+     * @Assert\IsTrue(message = "Vous devez accepter les CGU")
      */
     private $cgu;
 

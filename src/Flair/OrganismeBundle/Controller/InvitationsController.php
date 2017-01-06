@@ -24,7 +24,7 @@ class InvitationsController extends Controller
         $invitation->setSender($this->getUser());
         $invitation->setTypeInvitation(Invitation::INVIT_PRESTATAIRE);
 
-        $form = $this->createForm(new InvitationFormType(), $invitation);
+        $form = $this->createForm(InvitationFormType::class, $invitation);
         $form->handleRequest($request);
 
         if ($form->isValid()) {
@@ -78,7 +78,7 @@ class InvitationsController extends Controller
         $invitation->setOrganisme($this->getUser());
         $invitation->setTypeInvitation(Invitation::INVITATION_SERVICE);
 
-        $form = $this->createForm(new InvitationFormType(), $invitation);
+        $form = $this->createForm(InvitationFormType::class, $invitation);
         $form->handleRequest($request);
 
         if ($form->isValid()) {

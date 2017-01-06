@@ -41,7 +41,7 @@ class ReponsesController extends Controller
     {
         $filtre = new FiltrePropositionModel();
         $filtre->setPrestataire($this->getUser());
-        $filtreForm = $this->createForm(new FiltrePropositionType(), $filtre);
+        $filtreForm = $this->createForm(FiltrePropositionType::class, $filtre);
         $filtreForm->handleRequest($request);
 
         $reponses = $this->getDoctrine()
@@ -84,7 +84,7 @@ class ReponsesController extends Controller
 
         $model = new ReponseEtapeOne();
         $model->initialize($reponse);
-        $form = $this->createForm(new ReponseEtapeOneType(), $model);
+        $form = $this->createForm(ReponseEtapeOneType::class, $model);
         $form->handleRequest($request);
 
         if ($form->isValid()) {
@@ -126,7 +126,7 @@ class ReponsesController extends Controller
             return $this->redirect($this->generateUrl('Prestataire_propositions'));
         }
 
-        $form = $this->createForm(new ReponseEtapeTwoSaisieType(), $reponse);
+        $form = $this->createForm(ReponseEtapeTwoSaisieType::class, $reponse);
         $form->handleRequest($request);
 
         if ($form->isValid()) {
@@ -167,7 +167,7 @@ class ReponsesController extends Controller
 
         $manager = $this->getDoctrine()->getManager();
         $model = new ReponseEtapeTwo($reponse);
-        $form = $this->createForm(new ReponseEtapeTwoDocumentsType(), $model);
+        $form = $this->createForm(ReponseEtapeTwoDocumentsType::class, $model);
         $form->handleRequest($request);
 
         if ($form->isValid()) {
@@ -209,7 +209,7 @@ class ReponsesController extends Controller
         }
 
         $document = new Document();
-        $form = $this->createForm(new DocumentReponseType(), $document);
+        $form = $this->createForm(DocumentReponseType::class, $document);
         $form->handleRequest($request);
 
         if ($form->isValid()) {
@@ -217,7 +217,7 @@ class ReponsesController extends Controller
 
             // Remise a zero du formulaire.
             $document = new Document();
-            $form = $this->createForm(new DocumentReponseType(), $document);
+            $form = $this->createForm(DocumentReponseType::class, $document);
 
             $this->getDoctrine()->getManager()->flush();
 

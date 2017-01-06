@@ -8,7 +8,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
-use Symfony\Component\Security\Core\SecurityContext;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
 
 /**
  * Formulaire d'invitation d'un utilisateur.
@@ -20,7 +20,7 @@ class InvitationFormType extends AbstractType
 
     private $securityContext;
 
-    public function __construct(SecurityContext $securityContext)
+    public function __construct(TokenStorage $securityContext)
     {
         $this->securityContext = $securityContext;
     }
@@ -50,11 +50,11 @@ class InvitationFormType extends AbstractType
         $choices = array();
 
         if ($user->hasRole("ROLE_ORGANISME")) {
-            $choices[self::INVIT_PRESTATAIRE] = "Prestataire";
+            $choices["Prestataire"] = self::INVIT_PRESTATAIRE;
         }
 
         if ($user->hasRole("ROLE_GESTIONNAIRE")) {
-            $choices[self::INVIT_SERVICE] = "Service";
+            $choices["Service"] = self::INVIT_SERVICE;
         }
 
         return $choices;

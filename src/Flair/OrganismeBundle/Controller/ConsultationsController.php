@@ -279,7 +279,7 @@ class ConsultationsController extends CoreController
         $publicationModel->setConsultation($consultation);
         $publicationModel->setFiltre(null);
 
-        $form = $this->createForm(new PublicationFormType(), $publicationModel);
+        $form = $this->createForm(PublicationFormType::class, $publicationModel);
         $form->handleRequest($request);
         $infoForm = $request->get($form->getName());
 

@@ -66,7 +66,6 @@ class InscriptionController extends CoreController
         $form = $this->createForm(InscriptionPrestataireType::class, $inscriptionPrestataire);
         $form->handleRequest($request);
         $tags = $request->get('tagList');
-        
         if ($form->isValid())
         {
             $invitation->setStatus(Invitation::ACCEPTED);
@@ -90,12 +89,11 @@ class InscriptionController extends CoreController
 
             $password = $this->encryptPassword($prestataire, $prestataire->getPassword(), $prestataire->getSalt());
             $prestataire->setPassword($password);
-
-
             // Enregistrement du prestataire
-            $this->getEm()->persist($prestataire);
-            $this->getEm()->remove($invitation);
-            $this->getEm()->flush();
+            $em = $this->getEm();
+            $em->persist($prestataire);
+            $em->remove($invitation);
+            $em->flush();
 
             if (!is_null($tags) && sizeof($tags) > 0) {
                 $tags = explode(',', $tags);
@@ -181,7 +179,7 @@ class InscriptionController extends CoreController
             $user->getRoles()
         );
 
-        $this->get("security.context")->setToken($token);
+        $this->get("security.token_storage")->setToken($token);
 
         // Fire the login event
         // Logging the user in above the way we do it doesn't do this automatically

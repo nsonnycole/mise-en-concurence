@@ -98,8 +98,8 @@ class ProfilPrestataireType extends AbstractType
             ->add('categories', 'entity', array(
                 'label'          => "Secteur d'activité",
                 'class'          => 'FlairUserBundle:CategoriePrestataire',
-                'choice_label'       => 'nom',
-                'multiple'       => true,
+                'choice_label'   => 'nom',
+                'multiple'       => false,
                 'placeholder'    => 'Entrez votre secteur d\'activité',
                 'query_builder'  => function (EntityRepository $er) {
                     return $er->getAll();
@@ -121,19 +121,19 @@ class ProfilPrestataireType extends AbstractType
                     'placeholder' => 'Maximum 255 caractères'
                 )
             ))
-            ->add('urssaf', new PdfDocumentType(), array(
+            ->add('urssaf', PdfDocumentType::class, array(
                 'label' => 'Attestation URSSAF',
                 'required' => false
             ))
-            ->add('impots', new PdfDocumentType(), array(
+            ->add('impots', PdfDocumentType::class, array(
                 'label'    => 'Attestation impôts',
                 'required' => false
             ))
-            ->add('kbis', new PdfDocumentType(), array(
+            ->add('kbis', PdfDocumentType::class, array(
                 'label' => 'Extrait KBIS',
                 'required' => false
             ))
-            ->add('presentationDoc', new PdfDocumentType(), array(
+            ->add('presentationDoc', PdfDocumentType::class, array(
                 'label' => 'Autre document',
                 'required' => false
             ));

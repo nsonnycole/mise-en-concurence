@@ -19,7 +19,7 @@ class InvitationController extends InscriptionController
 {
     private function userCheckAccess()
     {
-        $security = $this->get("security.context");
+        $security = $this->get("security.authorization_checker");
 
         // Prestataire sans le role gestionnaire ne peut pas invité
         if (!$this->isPrestataire() && !$security->isGranted("ROLE_GESTIONNAIRE")) {
@@ -44,7 +44,7 @@ class InvitationController extends InscriptionController
 
         $invitation = new InvitationModel();
 
-        $form = $this->createForm('invitation_form_type', $invitation);
+        $form = $this->createForm(InvitationFormType::class, $invitation);
         $form->handleRequest($request);
 
         if ($form->isValid())

@@ -103,8 +103,7 @@ class InscriptionPrestataireType extends AbstractType
             ->add('categorieLevelOne', 'entity', array(
                 'label'         => "Secteur d'activité de l'entreprise",
                 'class'         => 'FlairUserBundle:CategoriePrestataire',
-                'choice_label'      => 'nom',
-                'multiple'      => true,
+                'choice_label'  => 'nom',
                 'placeholder'   => 'Entrez votre secteur d\'activité',
                 'query_builder' => function (EntityRepository $er) {
                     return $er->findCategoriesMeres();
@@ -129,22 +128,22 @@ class InscriptionPrestataireType extends AbstractType
             ->add('cgu', 'checkbox', array(
                 'label' => 'J\'accepte les CGU'
             ))
-            ->add('urssaf', new PdfDocumentType(), array(
+            ->add('urssaf', PdfDocumentType::class, array(
                 'label' => 'Attestation URSSAF',
                 'error_bubbling' => true,
                 'required' => false
             ))
-            ->add('impots', new PdfDocumentType(), array(
+            ->add('impots', PdfDocumentType::class, array(
                 'label'    => 'Attestation impôts',
                 'error_bubbling' => true,
                 'required' => false
             ))
-            ->add('kbis', new PdfDocumentType(), array(
+            ->add('kbis', PdfDocumentType::class, array(
                 'label' => 'Extrait KBIS',
                 'error_bubbling' => true,
                 'required' => false
             ))
-            ->add('presentationDoc', new PdfDocumentType(), array(
+            ->add('presentationDoc', PdfDocumentType::class, array(
                 'label' => 'Autre document',
                 'error_bubbling' => true,
                 'required' => false

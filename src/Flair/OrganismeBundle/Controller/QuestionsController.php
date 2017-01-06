@@ -45,7 +45,7 @@ class QuestionsController extends CoreController
      */
     public function afficherAction(Question $question, Request $request)
     {
-        $form = $this->createForm(new ReponseQuestionType(), $question);
+        $form = $this->createForm(ReponseQuestionType::class, $question);
         $form->handleRequest($request);
 
         if ($form->isValid()) {

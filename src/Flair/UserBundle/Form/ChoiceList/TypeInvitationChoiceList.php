@@ -2,9 +2,9 @@
 
 namespace Flair\UserBundle\Form\ChoiceList;
 
-use Symfony\Component\Form\Extension\Core\ChoiceList\SimpleChoiceList;
+use Symfony\Component\Form\ChoiceList\View\ChoiceListView;
 
-class TypeInvitationChoiceList extends SimpleChoiceList
+class TypeInvitationChoiceList extends ChoiceListView
 {
     const INVIT_PRESTATAIRE = 0; // Accessible pour les organismes
     const INVIT_SERVICE = 1; // Accessible pour le role gestionnaire
@@ -18,8 +18,8 @@ class TypeInvitationChoiceList extends SimpleChoiceList
     {
         parent::__construct(
             array(
-                self::INVIT_PRESTATAIRE => 'prestataire',
-                self::INVIT_SERVICE     => 'service',
+                'prestataire' => self::INVIT_PRESTATAIRE,
+                'service' => self::INVIT_SERVICE,
             ),
             $preferredChoices
         );

@@ -49,7 +49,7 @@ class QuestionsController extends Controller
     public function poserAction(Reponse $reponse, Request $request)
     {
         $question = new Question();
-        $form = $this->createForm(new QuestionFormType(), $question);
+        $form = $this->createForm(QuestionFormType::class, $question);
         $form->handleRequest($request);
 
         if ($form->isValid()) {

@@ -50,15 +50,24 @@ class ConsultationStatutChoiceList extends ChoiceListView
     {
         parent::__construct(
             array(
-                self::DRAFT     => 'brouillon',
-                self::PUBLISHED => 'diffusée',
-                self::SELECTED  => 'sélectionnée',
-                self::STARTED   => 'démarrée',
-                self::FINISHED  => 'terminée',
-                self::CLOSED    => 'cloturé',
-                self::CANCELLED => 'annulée',
+                'brouillon' => self::DRAFT,
+                'diffusée' => self::PUBLISHED,
+                'sélectionnée' => self::SELECTED,
+                'démarrée' => self::STARTED,
+                'terminée' => self::FINISHED,
+                'cloturé' => self::CLOSED,
+                'annulée' => self::CANCELLED,
             ),
             $preferredChoices
         );
+    }
+
+    /**
+    * function
+    *
+    * Return le taleau définie dans le construct
+    **/
+    public function GetChoices(){
+        return $this->choices;
     }
 }

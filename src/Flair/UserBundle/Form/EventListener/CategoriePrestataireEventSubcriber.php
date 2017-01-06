@@ -51,7 +51,7 @@ class CategoriePrestataireEventSubcriber implements EventSubscriberInterface
                 'required'      => false,
                 'choice_label'      => 'nom',
                 'class'         => 'FlairUserBundle:CategoriePrestataire',
-                'empty_data'   => 'Entrez un sous secteur d\'activité',
+                'placeholder'   => 'Entrez un sous secteur d\'activité',
                 'auto_initialize' => false,
                 'query_builder' => function (EntityRepository $er) use ($levelOne) {
                     return $er->findCategoriesFilles($levelOne);
@@ -70,7 +70,7 @@ class CategoriePrestataireEventSubcriber implements EventSubscriberInterface
                     'required'      => false,
                     'choice_label'      => 'nom',
                     'class'         => 'FlairUserBundle:CategoriePrestataire',
-                    'empty_data'   => 'Entrez un sous secteur d\'activité',
+                    'placeholder'   => 'Entrez un sous secteur d\'activité',
                     'auto_initialize' => false,
                     'query_builder' => function (EntityRepository $er) use ($levelTwo) {
                         return $er->findCategoriesFilles($levelTwo);

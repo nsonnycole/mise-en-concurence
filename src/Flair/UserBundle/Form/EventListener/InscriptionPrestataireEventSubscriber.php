@@ -69,9 +69,9 @@ class InscriptionPrestataireEventSubscriber implements EventSubscriberInterface
                 $form->add($this->factory->createNamed('categorieLevelThree', 'entity', null, array(
                     'label'         => 'Sous secteur',
                     'required'      => false,
-                    'choice_label'      => 'nom',
+                    'choice_label'  => 'nom',
                     'class'         => 'FlairUserBundle:CategoriePrestataire',
-                    'empty_data'   => 'Entrez un sous secteur d\'activité',
+                    'empty_data'    => 'Entrez un sous secteur d\'activité',
                     'auto_initialize' => false,
                     'query_builder' => function (EntityRepository $er) use ($levelTwo) {
                         return $er->findCategoriesFilles($levelTwo);

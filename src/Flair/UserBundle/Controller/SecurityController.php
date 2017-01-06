@@ -43,7 +43,7 @@ class SecurityController extends CoreController
     public function motdepasseOublieAction(Request $request)
     {
         $demande = new MotdepasseOublie();
-        $form = $this->createForm(new MotdepasseOublieType(), $demande);
+        $form = $this->createForm(MotdepasseOublieType::class, $demande);
         $form->handleRequest($request);
 
         if ($form->isValid())
@@ -90,7 +90,7 @@ class SecurityController extends CoreController
         }
 
         $model = new Motdepasse();
-        $form = $this->createForm(new MotdepasseType(), $model);
+        $form = $this->createForm(MotdepasseType::class, $model);
         $form->handleRequest($request);
 
         if ($form->isValid())

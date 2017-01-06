@@ -109,7 +109,7 @@ class ProfilController extends CoreController
         $model = new ProfilOrganisme();
         $model->initialize($organisme);
 
-        $form = $this->createForm(new ProfilOrganismeType(), $model);
+        $form = $this->createForm(ProfilOrganismeType::class, $model);
 /*
         if (!$this->get("security.context")->isGranted("ROLE_GESTIONNAIRE")) {
             $form->add("siren", "text", array("read_only" => true, "label" => "SIREN"));
@@ -138,7 +138,7 @@ class ProfilController extends CoreController
         $model = new ProfilPrestataire();
         $model->initialize($prestataire);
 
-        $form = $this->createForm(new ProfilPrestataireType(), $model);
+        $form = $this->createForm(ProfilPrestataireType::class, $model);
         $form->handleRequest($request);
 
         if ($form->isValid()) {
@@ -188,7 +188,7 @@ class ProfilController extends CoreController
         $motdepasse = new Motdepasse();
         $utilisateur = $this->getUser();
 
-        $form = $this->createForm(new MotdepasseType(), $motdepasse);
+        $form = $this->createForm(MotdepasseType::class, $motdepasse);
         $form->handleRequest($request);
 
         if ($form->isValid())

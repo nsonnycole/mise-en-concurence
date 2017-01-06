@@ -122,7 +122,7 @@ class ServicesController extends CoreController
         $model = new ProfilOrganisme();
         $model->initialize($organisme);
 
-        $form = $this->createForm(new ProfilOrganismeType(), $model);
+        $form = $this->createForm(ProfilOrganismeType::class, $model);
 
         $form->handleRequest($request);
 
@@ -147,7 +147,7 @@ class ServicesController extends CoreController
         $model = new ProfilPrestataire();
         $model->initialize($prestataire);
 
-        $form = $this->createForm(new ProfilPrestataireType(), $model);
+        $form = $this->createForm(ProfilPrestataireType::class, $model);
         $form->handleRequest($request);
 
         if ($form->isValid()) {

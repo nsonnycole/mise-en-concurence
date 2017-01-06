@@ -17,6 +17,7 @@ class FiltreConsultationType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $choiceslist = new ConsultationStatutChoiceList();
         $builder
             ->add('categorie', 'entity', array(
                 'label'       => '',
@@ -47,7 +48,7 @@ class FiltreConsultationType extends AbstractType
             ))
             ->add('statut', 'choice', array(
                 'required'    => false,
-                'expanded' => new ConsultationStatutChoiceList(),
+                'choices' => $choiceslist->GetChoices(),
                 'required'    => false,
                 'placeholder' => 'Sélectionnez le statut'
             ));

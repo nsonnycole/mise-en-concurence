@@ -31,7 +31,7 @@ class ProfilPrestataire
      * @Assert\NotBlank(message = "Cette valeur ne doit pas être vide")
      */
     private $nom;
-
+    
     private $tags;
 
     /**

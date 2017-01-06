@@ -189,7 +189,7 @@ class Prestataire extends AbstractUtilisateur
     /**
      * @var Document La déclaration ussraf.
      *
-     * @ORM\ManyToOne(targetEntity = "Flair\CoreBundle\Entity\Document", cascade = "persist")
+     * @ORM\ManyToOne(targetEntity="Flair\CoreBundle\Entity\Document")
      * @ORM\JoinColumn(name = "id_urssaf", referencedColumnName = "id_document")
      */
     private $urssaf;
@@ -197,7 +197,7 @@ class Prestataire extends AbstractUtilisateur
     /**
      * @var Document La declaration d'impots.
      *
-     * @ORM\ManyToOne(targetEntity = "Flair\CoreBundle\Entity\Document", cascade = "persist")
+     * @ORM\ManyToOne(targetEntity = "Flair\CoreBundle\Entity\Document")
      * @ORM\JoinColumn(name = "id_impots", referencedColumnName = "id_document")
      */
     private $impots;
@@ -205,7 +205,7 @@ class Prestataire extends AbstractUtilisateur
     /**
      * @var Document Un extrait KBIS.
      *
-     * @ORM\ManyToOne(targetEntity = "Flair\CoreBundle\Entity\Document", cascade = "persist")
+     * @ORM\ManyToOne(targetEntity = "Flair\CoreBundle\Entity\Document")
      * @ORM\JoinColumn(name = "id_kbis", referencedColumnName = "id_document")
      */
     private $kbis;
@@ -213,7 +213,7 @@ class Prestataire extends AbstractUtilisateur
     /**
      * @var Document Un document présentant l'entreprise.
      *
-     * @ORM\ManyToOne(targetEntity = "Flair\CoreBundle\Entity\Document", cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity = "Flair\CoreBundle\Entity\Document")
      * @ORM\JoinColumn(name = "id_presentation_doc", referencedColumnName = "id_document")
      */
     private $presentationDoc;

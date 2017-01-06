@@ -26,7 +26,7 @@ class ReponseEtapeTwoDocumentsType extends AbstractType
                 'label' => 'Montant TTC',
                 'precision' => 0
             ))
-            ->add('devisDocument', new PdfDocumentType(), array(
+            ->add('devisDocument', PdfDocumentType::class, array(
                 'label' => 'Votre devis'
             ));
     }

@@ -11,15 +11,13 @@
   <link rel="stylesheet" type="text/css" media="screen" href="{{ asset('jquery-ui/jquery-ui.min.css') }}" />
   <link rel="stylesheet" type="text/css" href="{{ asset('font-awesome-4.5.0/css/font-awesome.min.css') }}">
 
-  <script type="text/javascript" src="{{ asset('js/jquery.js') }}"></script>
-  <script type="text/javascript" src="{{ asset('jquery/jquery.cookie.js') }}"></script>
-  <script type="text/javascript" src="{{ asset('jquery/jquery.fancybox.js') }}"></script>
+
   {% stylesheets '@FlairCoreBundle/Resources/assets/less/layout.less' output = 'css/style.css' %}
   <link rel="stylesheet" type="text/css" media="screen" href="{{ asset_url }}" />
   {% endstylesheets %}
   <link href="{{ asset('css/jquery.dataTables.min.css') }}"  rel="stylesheet">
   <link rel="stylesheet" type="text/css" href="{{ asset('css/bootstrap.min.css') }}">
-
+  <link rel="stylesheet" type="text/css" href="{{ asset('css/jquery.dataTables.min.css') }}">
   <link rel="stylesheet" type="text/css" href="{{ asset('css/style.css') }}">
 </head>
 
@@ -82,16 +80,20 @@
   </div>
 
 </footer>
+<script type="text/javascript" src="{{ asset('js/jquery.js') }}"></script>
+<!-- Bootstrap Core JavaScript -->
+<script type="text/javascript" src="{{ asset('js/bootstrap.min.js')}}"></script>
 
+<script type="text/javascript" src="{{ asset('jquery/jquery.cookie.js') }}"></script>
+<!--<script type="text/javascript" src="{{ asset('jquery/jquery.fancybox.js') }}"></script>-->
 <script type="text/javascript" src="{{ asset('javascripts/jquery-ui-1.10.3.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('javascripts/jquery-ui-datepicker.fr.js') }}"></script>
 <script type="text/javascript" src="{{ asset('javascripts/jquery-placeholder.js') }}"></script>
-<script type="text/javascript" src="{{ asset('javascripts/jquery-datatables.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('js/jquery.dataTables.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
 <script type="text/javascript" src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
 <script type="text/javascript" src="{{ asset('javascripts/select2.min.js')}}"></script>
-<!-- Bootstrap Core JavaScript -->
-<script type="text/javascript" src="{{ asset('js/bootstrap.min.js')}}"></script>
+
 
 
 {% block javascripts %}
@@ -100,7 +102,8 @@
 '@FlairCoreBundle/Resources/assets/coffee/categories.coffee'
 %}
 <script type="text/javascript" src="{{ asset_url }}"></script>
-<script type="text/javascript">
+
+<script>
 $(document).ready(function(){
   $('#myTable').DataTable({
 

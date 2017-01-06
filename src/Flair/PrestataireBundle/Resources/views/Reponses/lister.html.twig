@@ -106,47 +106,5 @@
 {% endblock %}
 
 {% block inlineScript %}
-<script>
-    $(function() {
-        if ($("table.datatable tbody td").length != 1) {
-            $("table.datatable").dataTable({
-                "sDom": '<"top">t<"bottom"lp><"clear">',
-                "bPaginate" : false,
-                "aoColumns": [
-                    { "bSortable": true },
-                    { "bSortable": true },
-                    { "bSortable": true },
-                    { "bSortable": true },
-                    { "bSortable": true },
-                    { "bSortable": true },
-                    { "bSortable": false }
-                ],
-                "aaSorting": []
-            });
-        }
 
-        var checkNumber = function(val, context) {
-            if (parseInt(val) < 0 || val === NaN) {
-                val = 0;
-
-                $(context).val(val);
-            }
-        };
-
-        $('.prices').change(function() {
-            checkNumber($(this).val(), $(this));
-        });
-
-        // Suomission automatique du formulaire
-        $("form.prestataires-filter").delegate("select", "change", function() {
-            $("form.prestataires-filter").submit();
-        });
-
-        $("form.prestataires-filter").delegate("input", "change", function() {
-            $("form.prestataires-filter").submit();
-        });
-
-        $( document ).tooltip();
-    });
-</script>
 {% endblock %}

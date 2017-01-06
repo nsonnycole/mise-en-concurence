@@ -23,7 +23,7 @@
               <a id="btn-login" href="{{ url('Organisme_creation_consultation_etape1') }}" class="btn btn-warning">  <i class="fa fa-plus-circle"></i>&nbsp;Créer une consultation </a>
             </div>
           </div>
-        
+
         	</div>
           <br>
 
@@ -92,21 +92,7 @@
   {% block inlineScript %}
   <script>
       $(function() {
-          if ($("table.datatable tbody td").length != 1) {
-              $("table.datatable").dataTable({
-                  "sDom": '<"top">t<"bottom"lp><"clear">',
-                  "bPaginate" : false,
-                  "aoColumns": [
-                      { "bSortable": true },
-                      { "bSortable": true },
-                      { "bSortable": true },
-                      { "bSortable": true },
-                      { "bSortable": true },
-                      { "bSortable": true },
-                      { "bSortable": false }
-                  ]
-              });
-          }
+    
 
           // Au clic sur une row, on affiche la consultation.
           $('body').delegate(".datatable tbody tr", 'click', function() {

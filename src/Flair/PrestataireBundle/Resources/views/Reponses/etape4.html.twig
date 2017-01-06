@@ -118,7 +118,7 @@
 
                 <div class="actions">
                     {% if reponse.statut != ANSWERED and reponse.consultation.statut != CANCELED and reponse.consultation.dateLimite | after_now %}
-                        <a href="{{ url('Prestataire_propositions_envoyer_demande', { 'id': reponse.id })}}" class="btn orange diffuse js_submit js_confirm" data-confirm="Attention ! une fois la proposition envoyée aucune modification ne sera possible, souhaitez-vous continuer ? ">Envoyer votre proposition</a>
+                        <a class="btn btn-warning"href="{{ url('Prestataire_propositions_envoyer_demande', { 'id': reponse.id })}}" class="btn orange diffuse js_submit js_confirm" data-confirm="Attention ! une fois la proposition envoyée aucune modification ne sera possible, souhaitez-vous continuer ? ">Envoyer votre proposition</a>
                     {% endif %}
                 </div>
             </div>

@@ -41,7 +41,7 @@
                         <p class="info-date"><b>L’organisme {{ reponse.consultation.organisme.nom }} n'a pas imposé de contraintes particulières, vous pouvez passer directement à l'étape 2.</b></p>
                     {% endif %}
 
-                    <div class="control-group" style="margin-top:20px">
+                    <div class="control-group" style="margin-top:20px;display:inline-block">
                          {{ form_label(form.reponse) }}
                         <div class="controls">
                             {{ form_widget(form.reponse) }}
@@ -58,10 +58,11 @@
                                 {% endif %}
                             </p>
                     {% endif %}
+
                          {{ form_label(form.periodeDebut) }}
                         <div class="controls">
                             {{ form_widget(form.periodeDebut) }}
-                        </div>
+                        </div> <br>
                     </div>
 
                     {% if reponse.consultation.dateDebut is null %}
@@ -97,6 +98,8 @@
                     {% else %}
                         <div class="control-group required">
                     {% endif %}
+                    <br>
+                    <br>
                         {{ form_label(form.dateLivraison) }}
                         <div class="controls">
                             {{ form_widget(form.dateLivraison) }}
@@ -128,7 +131,7 @@
 
                     <div class="actions">
                         <input class="btn js_draft" name="brouillon" type="submit" value="Enregistrer en brouillon"/>
-                        <input type="submit" value="Suivant" class="next btn orange"/>
+                        <input type="submit" value="Suivant" class="next btn btn-warning"/>
                     </div>
                 </form>
             </div>

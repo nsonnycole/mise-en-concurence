@@ -35,7 +35,7 @@
 
             <div class="consultation-content">
 
-                <p class="info-line" style="margin-top: 20px;">Vous pouvez joindre ici votre cahier des charges, des plans, des photos, etc.</p>
+                <p class="info-line" style="margin-top: 20px;display:inline-block">Vous pouvez joindre ici votre cahier des charges, des plans, des photos, etc.</p>
                 <table class="table orange consultation-documents">
                     <thead>
                     <tr>
@@ -71,7 +71,7 @@
 
                     <div class="actions">
                         <input class="btn js_draft" name="brouillon" type="submit" value="Enregistrer en brouillon"/>
-                        <a href="{{ url('Prestataire_propositions_etape_four', { 'id' : reponse.id }) }}" class="next btn orange">Suivant</a>
+                        <a href="{{ url('Prestataire_propositions_etape_four', { 'id' : reponse.id }) }}" class="next btn btn-warning">Suivant</a>
                     </div>
                 </form>
             </div>

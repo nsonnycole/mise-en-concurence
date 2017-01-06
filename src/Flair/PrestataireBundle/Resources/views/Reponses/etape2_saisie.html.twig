@@ -117,7 +117,7 @@
                     <div class="actions">
                         <input class="btn js_draft" name="brouillon" type="submit" value="Enregistrer en brouillon"/>
                         {% if reponse.devisDocument is null %}
-                            <input type="submit" value="Suivant" class="next btn orange"/>
+                            <input type="submit" value="Suivant" class="next btn btn-warning"/>
                         {% else %}
                             <a href="{{ url('Prestataire_propositions_etape_three', { 'id' : reponse.id }) }}" class="next btn orange">Suivant</a>
                         {% endif %}
